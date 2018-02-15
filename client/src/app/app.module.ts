@@ -1,26 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-/*
-*	Routing
-*/
-import { RouterModule, Routes} from '@angular/router';
-import { ExploreComponent } from './user/explore/explore.component';
-const app_routing: Routes = [{
-	path: 'explore',
-	component: ExploreComponent
-}];
-
 import { AppComponent } from './app.component';
+import { RoutingModule } from './routing.module';
+import { UserModule } from './user/user.module';
+import { AdminModule } from './admin/admin.module';
 
 
 @NgModule({
   declarations: [
     AppComponent
-  ], imports: [
+  ],
+  imports: [
     BrowserModule,
-    RouterModule.forRoot(app_routing)
-  ], providers: [],
+    RoutingModule,
+    UserModule,
+    AdminModule
+    
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
