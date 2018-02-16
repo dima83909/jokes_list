@@ -1,7 +1,7 @@
 {
 	"name": "wawAngular",
 	"description": "Sample project from waw framework.",
-	"icon": "/client/img/favicon.png",
+	"icon": "/client/src/favicon.ico",
 	"prefix": "initialize",
 	"license": "MIT",
 	"port": 8080,
@@ -17,5 +17,8 @@
 			"successRedirect": "/",
 			"failureRedirect": "/"
 		}
+	},
+	"angular": {
+		"localhost": 4200
 	}
 }
