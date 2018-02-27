@@ -14,13 +14,14 @@ export class MySettingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.test()
+    this.test('MySettingComponent')
   }
 
   // Test message. Remove it
-  test() {
-    const testMessage = `${this.userService.testMessage()} to MySettingComponent`
-    console.log(testMessage)
+  test(component: string) {
+    const testMessage = this.userService.testMessage(component)
+    const getMessage = this.userService.mongoTestMessage(component)
+    console.log(testMessage, getMessage)
   }
 
 }

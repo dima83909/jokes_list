@@ -10,16 +10,18 @@ import { UserService } from '../shared/user.service';
 export class ExploreComponent implements OnInit {
 
   constructor(
-   private userService: UserService
+    private userService: UserService
+    
   ) { }
 
   ngOnInit() {
-    this.test()
+    this.test('ExploreComponent')
   }
 
   // Test message. Remove it
-  test() {
-    const testMessage = `${this.userService.testMessage()} to ExploreComponent`
-    console.log(testMessage)
+  test(component: string) {
+    const testMessage = this.userService.testMessage(component)
+    const getMessage = this.userService.mongoTestMessage(component)
+    console.log(testMessage, getMessage)
   }
 }

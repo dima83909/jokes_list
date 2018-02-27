@@ -14,12 +14,13 @@ export class MyProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.test()
+    this.test('MyProfileComponent')
   }
 
   // Test message. Remove it
-  test() {
-    const testMessage = `${this.userService.testMessage()} to MyProfileComponent`
-    console.log(testMessage)
+  test(component: string) {
+    const testMessage = this.userService.testMessage(component)
+    const getMessage = this.userService.mongoTestMessage(component)
+    console.log(testMessage, getMessage)
   }
 }
