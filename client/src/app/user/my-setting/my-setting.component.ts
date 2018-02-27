@@ -5,7 +5,7 @@ import { UserService } from '../shared/user.service';
 @Component({
   selector: 'app-my-setting',
   templateUrl: './my-setting.component.html',
-  styleUrls: ['./my-setting.component.css']
+  styleUrls: ['./my-setting.component.scss']
 })
 export class MySettingComponent implements OnInit {
 
