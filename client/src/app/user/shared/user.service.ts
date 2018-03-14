@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { MongoService } from 'wacom';
+//import { MongoService } from 'wacom';
 
 @Injectable()
 export class UserService {
 
   constructor(
-    private mongo: MongoService
+    //private mongo: MongoService
   ) { }
   // Test method. Remove it
   testMessage(component: string): string {
