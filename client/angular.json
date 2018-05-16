@@ -120,6 +120,126 @@
           }
         }
       }
+    },
+    "wacom": {
+      "root": "projects/wacom",
+      "sourceRoot": "projects/wacom/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/wacom/tsconfig.lib.json",
+            "project": "projects/wacom/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/wacom/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/wacom/src/test.ts",
+            "tsConfig": "projects/wacom/tsconfig.spec.json",
+            "karmaConfig": "projects/wacom/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/wacom/tsconfig.lib.json",
+              "projects/wacom/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "wamodal": {
+      "root": "projects/wamodal",
+      "sourceRoot": "projects/wamodal/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/wamodal/tsconfig.lib.json",
+            "project": "projects/wamodal/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/wamodal/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/wamodal/src/test.ts",
+            "tsConfig": "projects/wamodal/tsconfig.spec.json",
+            "karmaConfig": "projects/wamodal/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/wamodal/tsconfig.lib.json",
+              "projects/wamodal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "wamdrag": {
+      "root": "projects/wamdrag",
+      "sourceRoot": "projects/wamdrag/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/wamdrag/tsconfig.lib.json",
+            "project": "projects/wamdrag/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/wamdrag/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/wamdrag/src/test.ts",
+            "tsConfig": "projects/wamdrag/tsconfig.spec.json",
+            "karmaConfig": "projects/wamdrag/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/wamdrag/tsconfig.lib.json",
+              "projects/wamdrag/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "client"
