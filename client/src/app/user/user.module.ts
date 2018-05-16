@@ -2,24 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExploreComponent } from './explore/explore.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
-import { MySettingComponent } from './my-setting/my-setting.component';
+import { MySettingsComponent } from './my-settings/my-settings.component';
 import { ProfileComponent } from './profile/profile.component';
-import { UserRoutingModule } from './user-routing.module';
-import { UserService } from './shared/user.service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    UserRoutingModule
+    CommonModule
   ],
-  declarations: [
-    ExploreComponent,
-    MyProfileComponent,
-    MySettingComponent,
-    ProfileComponent
-  ],
-  providers: [
-    UserService
-  ]
+  declarations: [ExploreComponent, MyProfileComponent, MySettingsComponent, ProfileComponent]
 })
 export class UserModule { }

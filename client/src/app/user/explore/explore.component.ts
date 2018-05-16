@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../shared/user.service';
-
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
@@ -9,19 +7,9 @@ import { UserService } from '../shared/user.service';
 })
 export class ExploreComponent implements OnInit {
 
-  constructor(
-    private userService: UserService
-    
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.test('ExploreComponent')
   }
 
-  // Test message. Remove it
-  test(component: string) {
-    const testMessage = this.userService.testMessage(component)
-    const getMessage = this.userService.mongoTestMessage(component)
-    console.log(testMessage, getMessage)
-  }
 }

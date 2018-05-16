@@ -1,12 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-//import { WacomModule } from 'wacom';
+
 import { AppComponent } from './app.component';
-import { RoutingModule } from './routing.module';
 import { UserModule } from './user/user.module';
-import { AdminModule } from './admin/admin.module';
-
-
+import { RoutingModule } from './routing.module';
 
 @NgModule({
   declarations: [
@@ -14,11 +11,10 @@ import { AdminModule } from './admin/admin.module';
   ],
   imports: [
     BrowserModule,
-    //WacomModule,
+    UserModule,
     RoutingModule
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
