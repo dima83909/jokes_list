@@ -53,7 +53,7 @@ module.exports = function(sd) {
 				passwordField : 'password',
 				passReqToCallback : true
 			}, function(req, username, password, done) {
-				recaptcha.verify(req, function(error) {
+				//recaptcha.verify(req, function(error) {
 					User.findOne({
 						'email': username.toLowerCase()
 					}, function(err, user) {
@@ -67,12 +67,13 @@ module.exports = function(sd) {
 							newUser.email = username.toLowerCase();
 							newUser.password = newUser.generateHash(password);
 							newUser.save(function(err) {
+								console.log(newUser);
 								if (err) throw err;
 								return done(null, newUser);
 							});
 						}
 					});
-				});
+				//});
 			}));
 		}
 	// Google
