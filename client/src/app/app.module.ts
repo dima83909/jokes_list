@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -6,6 +7,16 @@ import { SearchPipe } from './pipes/search.pipe';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PictureComponent } from './com/modal/picture/picture.component';
 import { ExploreComponent } from './pages/explore/explore.component';
+
+const routes: Routes = [{
+  path: '',
+  component: ExploreComponent
+}, {
+  path: 'Profile',
+  component: ProfileComponent
+}];
+
+
 
 @NgModule({
   declarations: [
@@ -16,6 +27,7 @@ import { ExploreComponent } from './pages/explore/explore.component';
     ExploreComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule
   ],
   providers: [],
