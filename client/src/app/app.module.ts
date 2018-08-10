@@ -7,7 +7,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { PictureComponent } from './com/modal/picture/picture.component';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-
+import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [{
   path: '',
   component: ExploreComponent
@@ -26,7 +26,8 @@ const routes: Routes = [{
   ],
   imports: [
     RouterModule.forRoot(routes),
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,7 +8,9 @@ import { UserService } from '../../services/user.service';
 })
 export class ExploreComponent implements OnInit {
 
-  constructor(public us: UserService) { }
+  constructor(public us: UserService) {
+    
+   }
 
   ngOnInit() {
   }

@@ -22,7 +22,7 @@ export class MongoService {
     })
 	};
   private data = {};
-  get(part, opts, cb){
+  get(part, opts=null, cb=null){
     if(typeof opts == 'function'){
       cb=opts;
       opts={};
