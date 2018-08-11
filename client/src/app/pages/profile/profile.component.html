@@ -1,6 +1,7 @@
-<p>
-profile works!
-</p>
+<h2>My Profile</h2>
+
+<input [(ngModel)]="us.name" (change)="us.update()">
+<div>{{us.name}}</div>
 
 
 <form class="flex_column" action="/api/user/signup" method="POST">
