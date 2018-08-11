@@ -1,7 +1,30 @@
-<h2>My Profile</h2>
+<h1>My Profile</h1>
+<div>
+	<img [src]="us.avatarUrl" width="100px">
+	<h3>Name: {{us.name}}</h3>
+	<h3>Gender: {{us.gender}}</h3>
+	<h3>Birthday: {{us.birth|date:short}}</h3>
+	<h3>Skills: {{us.skills}}</h3>	
+</div>
+<div class="edit">
+	<h3>Gender</h3>
+	<select [(ngModel)]="us.gender" (change)="us.update()">
+		 <option>male</option>
+		 <option>female</option>
+	</select>
+	<h3>Name</h3>
+	<input [(ngModel)]="us.name" (change)="us.update()">
+	<h3>Birthday</h3>
+	<input type="date" [(ngModel)]="us.birth" (change)="us.update()">
+	<h3>Skills</h3>
+	<select [(ngModel)]="us.skills" (change)="us.update()">
+		<option>cooking</option>
+		<option>fishing</option>
+		<option>painting</option>
+	</select>
+</div>
 
-<input [(ngModel)]="us.name" (change)="us.update()">
-<div>{{us.name}}</div>
+
 
 
 <form class="flex_column" action="/api/user/signup" method="POST">

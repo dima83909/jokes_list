@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class UserService {
   public users;
-  
+  public avatarUrl = "/api/user/default.png";
   update(){
     this.mongo.updateAll('user',{
       gender: this.gender,
