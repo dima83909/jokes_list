@@ -19,12 +19,11 @@ export class UserService {
   }
 
   constructor(private mongo: MongoService, http: HttpClient) {
-    var self = this;
     this.users=mongo.get('user');
     console.log(this.users); 
     http.get('/api/user/me').subscribe(resp => {
       for(var key in resp){
-        self[key]=resp[key];
+        this[key]=resp[key];
       }
     });
   

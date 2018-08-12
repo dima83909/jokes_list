@@ -1,5 +1,6 @@
 <h2>Users</h2>
-<div *ngFor="let user of us.users" >
+<input type="text" [(ngModel)]="key">
+<div *ngFor="let user of us.users|search:key:'name email'" >
     {{user._id}}
     <img [src]="user.avatarUrl" width="100px">
 </div>
