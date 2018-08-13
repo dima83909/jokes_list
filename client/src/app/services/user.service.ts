@@ -10,7 +10,7 @@ export class UserService {
 	public avatarUrl = "/api/user/default.png";
 	update() {
 		this.mongo.updateAll('user', this, {
-			fields: 'gender name birth skills data'
+			fields: 'name birth skills data'
 		});
 	}
 	constructor(private mongo: MongoService, http: HttpClient) {

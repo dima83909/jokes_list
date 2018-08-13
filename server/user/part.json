@@ -10,13 +10,13 @@
 	"crud": {
 		"get": ["admin"],
 		"updatesAll": [{
-			"keys": ["gender","name","birth","skills","data"],
+			"keys": ["name","birth","skills","data"],
 			"name": ""
 		},{
-			"keys": ["gender","name","birth","skills","data","kind"],
+			"keys": ["name","birth","skills","data","kind"],
 			"name": "admin"
 		},{
-			"keys": ["gender","name","birth","skills","data","is","kind","architect"],
+			"keys": ["name","birth","skills","data","is","kind","architect"],
 			"name": "super"
 		}],
 		"updates": [],

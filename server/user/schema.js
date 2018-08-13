@@ -25,8 +25,7 @@ var schema = mongoose.Schema({
 	followers: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 	/*
 	*	Updatable fields
-	*/
-	gender: {type: String, enums: ['male', 'female'], sparse: true},
+	*/	
 	name: {type: String},
 	birth: {type: Date},
 	skills: [{type: String, enum: ['cooking','fishing','painting']}],
