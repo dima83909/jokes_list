@@ -22,7 +22,7 @@ export class MongoService {
 			})
 	};
 	private data = {};
-	get(part, opts, cb) {
+	get(part, opts=null, cb=null) {
 		if (typeof opts == 'function') {
 			cb = opts;
 			opts = {};
@@ -46,10 +46,21 @@ export class MongoService {
 			})
 		return this.data['arr' + part];
 	};
-	updateAll(part, doc, opts, cb) {
-		if (typeof opts == 'function') cb = opts;
-		if (typeof opts != 'string') opts = '';
-		this.http.post('/api/' + part + '/update/all' + opts, doc).subscribe(resp => {
+	updateAll(part, doc, opts=null, cb=null) {
+		if (typeof opts == 'function'){
+			cb = opts;
+			opts = {};
+		}
+		if(typeof opts != 'object') opts = {};
+		if(opts.fields){
+			if(typeof opts.fields == 'string') opts.fields = opts.fields.split(' ');
+			let _doc = {};
+			for(let i = 0; i < opts.fields.length; i++){
+				_doc[opts.fields[i]] = doc[opts.fields[i]];
+			}
+			doc = _doc;
+		}
+		this.http.post('/api/' + part + '/update/all' + (opts.name||''), doc).subscribe(resp => {
 			if (resp && typeof cb == 'function') {
 				cb(resp);
 			} else if (typeof cb == 'function') {
@@ -57,7 +68,7 @@ export class MongoService {
 			}
 		});
 	};
-	delete(part, doc, opts, cb) {
+	delete(part, doc, opts=null, cb=null) {
 		if (!opts) opts = '';
 		if (!doc) return;
 		if (typeof opts == 'function') {
