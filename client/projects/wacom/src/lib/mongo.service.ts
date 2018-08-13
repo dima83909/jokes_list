@@ -5,6 +5,31 @@ import { HttpClient } from '@angular/common/http';
 	providedIn: 'root'
 })
 export class MongoService {
+	replace(doc, value, rpl){
+		if(value.indexOf('.')>-1){
+			value = value.split('.');
+			let sub = value.shift();
+			if(doc[sub] && (typeof doc[sub] != 'object' || Array.isArray(doc[sub])))
+				return;
+			if(!doc[sub]) doc[sub] = {};
+			return this.replace(doc[sub], value.join('.'), rpl);
+		}
+		if(typeof rpl == 'function'){
+			rpl(doc[value], function(newValue){
+				doc[value] = newValue;
+			}, doc);
+		}
+	};
+	push(part, doc){
+		if(this.data['opts'+part].replace){
+			for(let key in this.data['opts'+part].replace){
+				this.replace(doc, key, this.data['opts'+part].replace[key]);
+			}
+		}
+		this.data['arr' + part].push(doc);
+		this.data['obj' + part][doc._id] = doc;
+		console.log(this.data['opts'+part]);
+	}
 	create(part, obj=null, cb=null) {
 		if (typeof obj == 'function') {
 			cb = obj;
@@ -13,8 +38,9 @@ export class MongoService {
 		this.http.post < any > ('/api/' + part + '/create', obj || {})
 			.subscribe(resp => {
 				if (resp) {
+					this.push(part,resp);
 					if (typeof cb == 'function') cb(resp);
-				} else if (typeof cb == 'function') {
+				}else if (typeof cb == 'function') {
 					cb(false);
 				}
 			}, err => {
@@ -29,12 +55,12 @@ export class MongoService {
 		}
 		this.data['arr' + part] = [];
 		this.data['obj' + part] = {};
+		this.data['opts' + part] = opts||{};
 		this.http.get < any > ('/api/' + part + '/get')
 			.subscribe(resp => {
 				if (resp) {
 					for (let i = 0; i < resp.length; i++) {
-						this.data['arr' + part].push(resp[i]);
-						this.data['obj' + part][resp[i]._id] = resp[i];
+						this.push(part,resp[i]);
 					}
 					if (typeof cb == 'function') cb(this.data['arr' + part], this.data['obj' + part]);
 				} else if (typeof cb == 'function') {
@@ -92,5 +118,16 @@ export class MongoService {
 			}
 		});
 	};
+	beArr(val, cb){
+		if(!Array.isArray(val)) cb([]);
+		else cb(val);
+	};
+	beObj(val, cb){
+		if(typeof val != 'object' || Array.isArray(val)){
+			val = {};
+		}
+		cb(val);
+	}
+
 	constructor(private http: HttpClient) {}
 }

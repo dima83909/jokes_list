@@ -58,20 +58,15 @@ module.exports = function(sd) {
 	*	Custom Routes Management
 	*/
 		router.get("/me", sd._ensure, function(req, res) {
-			res.json({
-				followings: req.user.followings,
-				architect: req.user.architect,
-				followers: req.user.followers,
-				avatarUrl: req.user.avatarUrl,
-				skills: req.user.skills,
-				gender: req.user.gender,
-				birth: req.user.birth,
-				name: req.user.name,
-				date: req.user.date,
-				kind: req.user.kind,
-				_id: req.user._id,
-				is: req.user.is
-			});
+			var json = {};
+			if(req.user){
+				sd.User.schema.eachPath(function(path) {
+					path = path.split('.')[0];
+					if(path=='password'||path=='__v'||json[path]) return;
+					json[path] = req.user[path];
+				});
+			}
+			res.json(json);
 		});
 		router.post("/changePassword", sd._ensure, function(req, res) {
 			if (!req.user.validPassword(req.body.oldPass)){
