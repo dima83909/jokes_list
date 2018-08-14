@@ -17,36 +17,19 @@ export class MongoService {
 	/*
 	*	waw crud connect functions
 	*/
-		public _id(cb){
-			if(typeof cb == 'function'){
-				this.http.get <any> ('/waw/newId').subscribe(cb);
-			}
-		};
-
-		public to_id(docs){
-	        if(!docs) return [];
-	        docs = docs.slice();
-	        for (let i = 0; i < docs.length; ++i) {
-	            if(docs[i]) docs[i] = docs[i]._id || docs[i];
-        	}
-        	return docs;
-    	}
 		public create(part, doc=null, cb=null) {
 			if (typeof doc == 'function') {
 				cb = doc;
 				doc = {};
 			}
-			this.http.post < any > ('/api/' + part + '/create', doc || {})
-				.subscribe(resp => {
-					if (resp) {
-						this.push(part,resp);
-						if (typeof cb == 'function') cb(resp);
-					}else if (typeof cb == 'function') {
-						cb(false);
-					}
-				}, err => {
-
-				});
+			this.http.post < any > ('/api/' + part + '/create', doc || {}).subscribe(resp => {
+				if (resp) {
+					this.push(part,resp);
+					if (typeof cb == 'function') cb(resp);
+				}else if (typeof cb == 'function') {
+					cb(false);
+				}
+			});
 		};
 		public get(part, opts=null, cb=null) {
 			if (typeof opts == 'function') {
@@ -56,19 +39,16 @@ export class MongoService {
 			this.data['arr' + part] = [];
 			this.data['obj' + part] = {};
 			this.data['opts' + part] = opts||{};
-			this.http.get < any > ('/api/' + part + '/get')
-				.subscribe(resp => {
-					if (resp) {
-						for (let i = 0; i < resp.length; i++) {
-							this.push(part,resp[i]);
-						}
-						if (typeof cb == 'function') cb(this.data['arr' + part], this.data['obj' + part]);
-					} else if (typeof cb == 'function') {
-						cb(false);
+			this.http.get < any > ('/api/' + part + '/get').subscribe(resp => {
+				if (resp) {
+					for (let i = 0; i < resp.length; i++) {
+						this.push(part,resp[i]);
 					}
-				}, err => {
-
-				});
+					if (typeof cb == 'function') cb(this.data['arr' + part], this.data['obj' + part]);
+				} else if (typeof cb == 'function') {
+					cb(false);
+				}
+			});
 			return this.data['arr' + part];
 		};
 		public updateAll(part, doc, opts=null, cb=null) {
@@ -150,13 +130,25 @@ export class MongoService {
 				}
 			});
 		};
+		public _id(cb){
+			if(typeof cb == 'function'){
+				this.http.get <any> ('/waw/newId').subscribe(cb);
+			}
+		};
+		public to_id(docs){
+	        if(!docs) return [];
+	        docs = docs.slice();
+	        for (let i = 0; i < docs.length; ++i) {
+	            if(docs[i]) docs[i] = docs[i]._id || docs[i];
+        	}
+        	return docs;
+    	};
 		public afterWhile(doc, cb, time=1000){
 			if(typeof cb == 'function' && typeof time == 'number'){
 				clearTimeout(doc.__updateTimeout);
 				doc.__updateTimeout = setTimeout(cb, time);
 			}
 		};
-
 	/*
 	*	mongo replace support functions
 	*/
@@ -170,12 +162,8 @@ export class MongoService {
 			}
 			cb(val);
 		}
-		public forceArr(cb){
-			cb([]);
-		}
-		public forceObj(cb){
-			cb({});
-		}
+		public forceArr(cb){ cb([]); }
+		public forceObj(cb){ cb({}); }
 	/*
 	*	mongo local support functions
 	*/
@@ -202,7 +190,6 @@ export class MongoService {
 			}
 			this.data['arr' + part].push(doc);
 			this.data['obj' + part][doc._id] = doc;
-			console.log(this.data['opts'+part]);
 		}
 	/*
 	*	Endof Mongo Service
