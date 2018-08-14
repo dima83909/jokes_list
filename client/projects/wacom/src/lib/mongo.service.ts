@@ -18,11 +18,19 @@ export class MongoService {
 	*	waw crud connect functions
 	*/
 		public _id(cb){
-			if(typeof cb != 'function'){
-				return;
+			if(typeof cb == 'function'){
+				this.http.get <any> ('/waw/newId').subscribe(cb);
 			}
-			this.http.get <any> ('/waw/newId').subscribe(cb);
 		};
+
+		public to_id(docs){
+	        if(!docs) return [];
+	        docs = docs.slice();
+	        for (let i = 0; i < docs.length; ++i) {
+	            if(docs[i]) docs[i] = docs[i]._id || docs[i];
+        	}
+        	return docs;
+    	}
 		public create(part, doc=null, cb=null) {
 			if (typeof doc == 'function') {
 				cb = doc;
@@ -85,6 +93,28 @@ export class MongoService {
 				}
 			});
 		};
+		public updateUnique(part, doc, opts=null, cb=null){
+			if(typeof opts == 'function'){
+				cb = opts;
+				opts='';
+			}
+			if(typeof opts != 'object') opts = {};
+			if(opts.fields){
+				if(typeof opts.fields == 'string') opts.fields = opts.fields.split(' ');
+				let _doc = {};
+				for(let i = 0; i < opts.fields.length; i++){
+					_doc[opts.fields[i]] = doc[opts.fields[i]];
+				}
+				doc = _doc;
+			}
+			this.http.post('/api/'+part+'/unique/field'+opts, doc).subscribe(resp => {
+					if (resp && typeof cb == 'function') {
+					cb(resp);
+				} else if (typeof cb == 'function') {
+					cb(false);
+				}
+			});
+		};
 		public delete(part, doc, opts=null, cb=null) {
 			if (typeof opts == 'function') {
 				cb = opts;
@@ -120,6 +150,13 @@ export class MongoService {
 				}
 			});
 		};
+		public afterWhile(doc, cb, time=1000){
+			if(typeof cb == 'function' && typeof time == 'number'){
+				clearTimeout(doc.__updateTimeout);
+				doc.__updateTimeout = setTimeout(cb, time);
+			}
+		};
+
 	/*
 	*	mongo replace support functions
 	*/
@@ -132,6 +169,12 @@ export class MongoService {
 				val = {};
 			}
 			cb(val);
+		}
+		public forceArr(cb){
+			cb([]);
+		}
+		public forceObj(cb){
+			cb({});
 		}
 	/*
 	*	mongo local support functions

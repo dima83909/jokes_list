@@ -26,5 +26,6 @@ export class UserService {
 				this[key] = resp[key];
 			}
 		});
+
 	}
 }

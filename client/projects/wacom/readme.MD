@@ -39,6 +39,22 @@ mongo.updateAll('colName', {
 	console.log('document is updated');
 });
 ```
+### updateUnique
+It's a function which connecting with waw CRUD updateUnique. As parameters accepting name of mongo collection, object with document _id and field value, optionally options and optionally callback function which will return if field has been updated. Example:
+```javascript
+mongo.updateUnique('colName', {
+	name: doc.name,
+	_id: doc._id
+}, {
+	fields: 'name'
+}, (resp) => {
+	if(resp){
+		console.log('field is updated');
+	}else {
+		console.log('field is not updated');
+	} 
+});
+```
 ### delete
 It's a function which connecting with waw CRUD delete. As parameters accepting name of mongo collection, document object, optionally options and optionally callback function which will return the document. Example:
 ```javascript
@@ -55,6 +71,57 @@ It's a function which provide new mongo _id. As parameters accepting callback fu
 ```javascript
 mongo._id(function(_id){
 	console.log(_id);
+});
+```
+### to_id
+It's a function which convert array of documents to array of _id. Example:
+```javascript
+mongo.to_id([{
+	_id: '1'
+}, '2']);
+// ['1', '2']
+```
+### afterWhile
+It's a function which works after specified time. As parameters accepting document, callback and optionally time. Example:
+```javascript
+mongo.afterWhile(doc, () => {
+	console.log('text was wroten');
+}, 2000)
+```
+### beArr
+It's function which checking value if it's array or not. If this value isn't array it'll convert it to array. Example each doc will have data as array:
+```javascript
+mongo.get('colName',{
+	replace:{
+		'data':mongo.beArr
+	}
+});
+```
+### beObj
+It's function which checking value if it's object or not. If this value isn't object it'll convert it to object. Example each doc will have data as object:
+```javascript
+mongo.get('colName',{
+	replace:{
+		'data':mongo.beObj
+	}
+});
+```
+### forceArr
+It's function convert any value to array. Example each doc will have data as empty array:
+```javascript
+mongo.get('colName',{
+	replace:{
+		'data':mongo.forceArr
+	}
+});
+```
+### forceObj
+It's function convert any value to object. Example each doc will have data as empty object:
+```javascript
+mongo.get('colName',{
+	replace:{
+		'data':mongo.forceObj
+	}
 });
 ```
 ## SD Service
