@@ -17,12 +17,18 @@ export class MongoService {
 	/*
 	*	waw crud connect functions
 	*/
-		public create(part, obj=null, cb=null) {
-			if (typeof obj == 'function') {
-				cb = obj;
-				obj = {};
+		public _id(cb){
+			if(typeof cb != 'function'){
+				return;
 			}
-			this.http.post < any > ('/api/' + part + '/create', obj || {})
+			this.http.get <any> ('/waw/newId').subscribe(cb);
+		};
+		public create(part, doc=null, cb=null) {
+			if (typeof doc == 'function') {
+				cb = doc;
+				doc = {};
+			}
+			this.http.post < any > ('/api/' + part + '/create', doc || {})
 				.subscribe(resp => {
 					if (resp) {
 						this.push(part,resp);
@@ -32,7 +38,7 @@ export class MongoService {
 					}
 				}, err => {
 
-				})
+				});
 		};
 		public get(part, opts=null, cb=null) {
 			if (typeof opts == 'function') {
@@ -52,10 +58,9 @@ export class MongoService {
 					} else if (typeof cb == 'function') {
 						cb(false);
 					}
-					console.log(resp);
 				}, err => {
 
-				})
+				});
 			return this.data['arr' + part];
 		};
 		public updateAll(part, doc, opts=null, cb=null) {
@@ -81,13 +86,24 @@ export class MongoService {
 			});
 		};
 		public delete(part, doc, opts=null, cb=null) {
-			if (!opts) opts = '';
-			if (!doc) return;
 			if (typeof opts == 'function') {
 				cb = opts;
-				opts = '';
+				opts = {};
 			}
-			this.http.post('/api/' + part + '/delete' + opts, doc).subscribe(resp => {
+			if(typeof opts != 'object') opts = {};
+			if(opts.fields){
+				if(typeof opts.fields == 'string') opts.fields = opts.fields.split(' ');
+				let _doc = {};
+				for(let i = 0; i < opts.fields.length; i++){
+					_doc[opts.fields[i]] = doc[opts.fields[i]];
+				}
+				doc = _doc;
+			}else{
+				doc={
+					_id:doc._id
+				}
+			}
+			this.http.post('/api/' + part + '/delete' + (opts.name||''), doc).subscribe(resp => {
 				if (resp && Array.isArray(this.data['arr' + part])) {
 					for (var i = 0; i < this.data['arr' + part].length; i++) {
 						if (this.data['arr' + part][i]._id == doc._id) {

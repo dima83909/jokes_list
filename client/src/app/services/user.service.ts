@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {MongoService} from 'wacom';
+import { MongoService } from 'wacom';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
