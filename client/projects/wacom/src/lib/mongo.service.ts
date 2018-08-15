@@ -36,6 +36,12 @@ export class MongoService {
 				cb = opts;
 				opts = {};
 			}
+			if(Array.isArray(this.data['arr' + part])){
+				if(typeof cb == 'function'){
+					cb(this.data['arr' + part], this.data['obj' + part]);
+				}
+				return this.data['arr' + part];
+			}
 			this.data['arr' + part] = [];
 			this.data['obj' + part] = {};
 			this.data['opts' + part] = opts||{};
@@ -51,16 +57,6 @@ export class MongoService {
 				this.data['loaded'+part]=true;
 			});
 			return this.data['arr' + part];
-		};
-		public use(part, cb){
-			if(typeof cb != 'function') return;
-			if(Array.isArray(data['arr'+part])){
- 				cb(data['arr'+part], data['obj'+part]);
- 			}else {
-				setTimeout(() =>{
-					this.use(part, cb);
-				}, 100); 
-			}
 		};
 		public updateAll(part, doc, opts=null, cb=null) {
 			if (typeof opts == 'function'){
@@ -148,7 +144,16 @@ export class MongoService {
 		};
 		public to_id(docs){
 	        if(!docs) return [];
-	        docs = docs.slice();
+	        if(Array.isArray(docs)){
+	        	docs = docs.slice();
+	        }else if(typeof docs == 'object'){
+	        	if(docs._id) return [docs._id];
+	        	let _docs = [];
+	        	for(let key in docs){
+	        		if(docs[key]) _docs.push(docs[key]._id||docs[key]);
+	        	}
+	        	docs = _docs;
+	        }
 	        for (let i = 0; i < docs.length; ++i) {
 	            if(docs[i]) docs[i] = docs[i]._id || docs[i];
         	}
@@ -160,12 +165,32 @@ export class MongoService {
 				doc.__updateTimeout = setTimeout(cb, time);
 			}
 		};
-		public populate(doc,field,part){
+		public populate(doc, field, part){
+			if(!doc||!field||!part) return;
 			if(this.data['loaded'+part]){
-				
+				if(Array.isArray(field)){
+					for(let i = 0; i < field.length; i++){
+						this.populate(doc, field[i], part);
+					}
+					return;
+				}else if(field.indexOf('.')>-1){
+					field = field.split('.');
+					let sub = field.shift();
+					return this.populate(doc[sub], field.join('.'), part);
+				}
+				if(Array.isArray(doc[field])){
+					for(let i = 0; i < doc[field].length; i++){
+						this.populate(doc[field][i], field, part);
+					}
+					return;
+				}else if(typeof doc[field] == 'string'){
+					
+				}else{
+					
+				}
 			}else{
 				setTimeout(() =>{
-					this.populate(doc,field,part);
+					this.populate(doc, field, part);
 				}, 100);
 			}
 		}
@@ -207,6 +232,9 @@ export class MongoService {
 				for(let key in this.data['opts'+part].replace){
 					this.replace(doc, key, this.data['opts'+part].replace[key]);
 				}
+			}
+			if(this.data['opts'+part].populate){
+
 			}
 			this.data['arr' + part].push(doc);
 			this.data['obj' + part][doc._id] = doc;
