@@ -176,18 +176,21 @@ export class MongoService {
 				}else if(field.indexOf('.')>-1){
 					field = field.split('.');
 					let sub = field.shift();
+					if(typeof doc[sub] != 'object') return;
 					return this.populate(doc[sub], field.join('.'), part);
 				}
 				if(Array.isArray(doc[field])){
-					for(let i = 0; i < doc[field].length; i++){
-						this.populate(doc[field][i], field, part);
+					for(let i = doc[field].length-1; i >= 0; i--){
+						if(this.data['obj'+part][doc[field][i]]){
+							doc[field][i] = this.data['obj'+part][doc[field][i]]
+						}else{
+							doc[field].splice(i, 1);
+						}
 					}
 					return;
 				}else if(typeof doc[field] == 'string'){
-					
-				}else{
-					
-				}
+					doc[field] = this.data['obj'+part][doc[field]] || null;
+				}else return;
 			}else{
 				setTimeout(() =>{
 					this.populate(doc, field, part);

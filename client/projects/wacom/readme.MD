@@ -20,7 +20,11 @@ Module which support waw project on basic level, elements and scripts which is n
 [Hash service](https://www.npmjs.com/package/wacom#hash-service) with use of href hash, provide memo sharable points for modals or popups.
 
 Installation:
-> npm i --save wacom
+```bash
+$ npm i --save wacom
+```
+
+
 ## Mongo Service
 Mongo Service is an suportive service for combining angular 6 client with waw CRUD back-end. Example of importing mongo service:
 ```javascript
@@ -166,3 +170,7 @@ mongo.get('colName', {
 ## Socket Service
 ## Image Service
 ## Hash Service
+
+## License
+
+  [MIT](LICENSE)
