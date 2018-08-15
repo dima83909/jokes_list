@@ -48,8 +48,19 @@ export class MongoService {
 				} else if (typeof cb == 'function') {
 					cb(false);
 				}
+				this.data['loaded'+part]=true;
 			});
 			return this.data['arr' + part];
+		};
+		public use(part, cb){
+			if(typeof cb != 'function') return;
+			if(Array.isArray(data['arr'+part])){
+ 				cb(data['arr'+part], data['obj'+part]);
+ 			}else {
+				setTimeout(() =>{
+					this.use(part, cb);
+				}, 100); 
+			}
 		};
 		public updateAll(part, doc, opts=null, cb=null) {
 			if (typeof opts == 'function'){
@@ -149,6 +160,15 @@ export class MongoService {
 				doc.__updateTimeout = setTimeout(cb, time);
 			}
 		};
+		public populate(doc,field,part){
+			if(this.data['loaded'+part]){
+				
+			}else{
+				setTimeout(() =>{
+					this.populate(doc,field,part);
+				}, 100);
+			}
+		}
 	/*
 	*	mongo replace support functions
 	*/

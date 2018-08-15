@@ -15,17 +15,26 @@ It's a function which connecting with waw CRUD create. As parameters accepting n
 mongo.create('colName', {
 	name: 'docName'
 }, created => {
-	console.log('created');
+	console.log('document has been created');
 });
 ```
 ### read
 It's functions which connecting with waw CRUD read. As parameters accepting name of mongo collection, optionally options, optionally callback which will return all documents in array as first parameter and in object with doc._id placeholder for doc as second parameter. Function returning directing array which will host the documents. Example:
 ```javascript
 mongo.get('colName',{
-	fields: 'name'
+	replace: {
+		name: function(val, cb, doc){
+			cb(val+'_modified')
+		}
+	}
 }, () => {
-	console.log('document is read');
+	console.log('documents is loaded and field name is modified on each doc.');
 })
+```
+### use
+It's functions which checking if function get has been worked or not. If get has been worked, callback array and object of 
+```javascript
+
 ```
 ### updateAll
 It's a function which connecting with waw CRUD updateAll. As parameters accepting name of mongo collection, document object, optionally options and optionally callback function which will return the document. Example:
@@ -46,7 +55,7 @@ mongo.updateUnique('colName', {
 	name: doc.name,
 	_id: doc._id
 }, {
-	fields: 'name'
+	name: 'name'
 }, (resp) => {
 	if(resp){
 		console.log('field is updated');
@@ -87,6 +96,11 @@ It's a function which works after specified time. As parameters accepting docume
 mongo.afterWhile(doc, () => {
 	console.log('text was wroten');
 }, 2000)
+```
+### populate
+It's a function which make population on specific field and specific collection. Example doc will have field as document: 
+```javascript
+mongo.populate(doc, 'field', 'colName');
 ```
 ### beArr
 It's function which checking value if it's array or not. If this value isn't array it'll convert it to array. Example each doc will have data as array:
