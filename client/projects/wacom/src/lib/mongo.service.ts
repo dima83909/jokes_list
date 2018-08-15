@@ -237,7 +237,16 @@ export class MongoService {
 				}
 			}
 			if(this.data['opts'+part].populate){
-
+				let p = this.data['opts'+part].populate;
+				if(Array.isArray(p)){
+					for(let i = 0; i < p.length; i++){
+						if(typeof p == 'object' && p[i].field && p[i].part){
+							this.populate(doc, p[i].field, p[i].part);
+						}
+					}
+				}else if(typeof p == 'object' && p.field && p.part){
+					this.populate(doc, p.field, p.part);
+				}
 			}
 			this.data['arr' + part].push(doc);
 			this.data['obj' + part][doc._id] = doc;
