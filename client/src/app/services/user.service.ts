@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { MongoService } from 'wacom';
+import {
+	MongoService,
+	ModalService
+} from 'wacom';
 import { HttpClient } from '@angular/common/http';
+import { PictureComponent } from '../com/modal/picture/picture.component';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,12 +15,19 @@ export class UserService {
 	public users;
 	public avatarUrl = "/api/user/default.png";
 	public data = {};
-	update() {
+	update(){
 		this.mongo.updateAll('user', this, {
 			fields: 'name birth skills data'
 		});
 	}
-	constructor(private mongo: MongoService, http: HttpClient) {
+
+	picture(){
+		this.modal.appendComponentToBody(PictureComponent);
+	}
+
+	constructor(private mongo: MongoService, 
+		private http: HttpClient,
+		private modal: ModalService) {
 		this.users = mongo.get('user',{
 			replace:{
 				'data':mongo.beObj
@@ -26,6 +39,5 @@ export class UserService {
 				this[key] = resp[key];
 			}
 		});
-
 	}
 }

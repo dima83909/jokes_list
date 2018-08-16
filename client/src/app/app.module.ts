@@ -30,6 +30,9 @@ const routes: Routes = [{
     HttpClientModule,
     FormsModule
   ],
+  entryComponents:[
+    PictureComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
