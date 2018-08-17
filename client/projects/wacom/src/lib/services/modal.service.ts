@@ -29,18 +29,20 @@ export class ModalService {
     this.appRef.attachView(componentRef.hostView);
     
     // Get DOM element from component
-    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
+    const contentElem = (componentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
     
+    const domElem = document.createElement("modal");
+
+    domElem.appendChild(contentElem);
+
     // Append DOM element to the body
     document.body.appendChild(domElem);
     
     // Wait some time and remove it from the component tree and from the DOM
-    setTimeout(() => {
+   /* setTimeout(() => {
         this.appRef.detachView(componentRef.hostView);
         componentRef.destroy();
-    }, 3000);
+    }, 3000);*/
   }
-    
-    
 }

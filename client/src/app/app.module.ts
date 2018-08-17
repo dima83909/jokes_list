@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { PictureComponent } from './com/modal/picture/picture.component';
+import { WacomModule } from 'wacom';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';

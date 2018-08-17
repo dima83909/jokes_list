@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { PictureComponent } from '../com/modal/picture/picture.component';
 
 
+
 @Injectable({
   providedIn: 'root'
 })

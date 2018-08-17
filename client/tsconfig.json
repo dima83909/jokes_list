@@ -23,6 +23,12 @@
       ],
       "wacom/*": [
         "dist/wacom/*"
+      ],
+      "my-test": [
+        "dist/my-test"
+      ],
+      "my-test/*": [
+        "dist/my-test/*"
       ]
     }
   }
