@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-explore',
@@ -7,12 +7,9 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit {
-
-  constructor(public us: UserService) {
-    
+public post = {};
+  constructor(public ps: PostService) {
    }
-
   ngOnInit() {
   }
-
 }

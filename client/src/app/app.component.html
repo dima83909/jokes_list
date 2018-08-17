@@ -1,6 +1,12 @@
 <div>
-  <a routerLink="/">Explore</a>
-  <a routerLink="/Profile">Profile</a>
+  <a routerLink="/">Explore |</a>
+  <a routerLink="/Users">Users |</a>
+  <a routerLink="/Profile">Profile |</a>
+  <a *ngIf="us.is.admin" routerLink="/Admin/Dashboard">AdminDashboard |</a>
+  <a *ngIf="us.is.admin" routerLink="/Admin/Posts">AdminPosts |</a>
+  <a *ngIf="us.is.admin" routerLink="/Admin/Users">AdminUsers |</a>
+  <a *ngIf="us.is.admin" routerLink="/Admin/Architect">AdminArcitect</a>
+  
 </div>
 
 <router-outlet></router-outlet>

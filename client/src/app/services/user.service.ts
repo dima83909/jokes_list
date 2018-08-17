@@ -16,6 +16,7 @@ export class UserService {
 	public users;
 	public avatarUrl = "/api/user/default.png";
 	public data = {};
+	public is = {};
 	update(){
 		this.mongo.updateAll('user', this, {
 			fields: 'name birth skills data'

@@ -6,7 +6,7 @@ import {
     ApplicationRef,
     ComponentRef
 } from '@angular/core';
-
+import { ModalComponent } from '../components/modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,18 @@ export class ModalService {
     const contentElem = (componentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
     
-    const domElem = document.createElement("modal");
+         // Create a component reference from the component 
+    let componentRefer = this.componentFactoryResolver
+      .resolveComponentFactory(ModalComponent)
+      .create(this.injector);
+    
+    // Attach component to the appRef so that it's inside the ng component tree
+    this.appRef.attachView(componentRefer.hostView);
+    
+    // Get DOM element from component
+    const domElem = (componentRefer.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+    
 
     domElem.appendChild(contentElem);
 

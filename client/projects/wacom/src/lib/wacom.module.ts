@@ -5,6 +5,9 @@ import { ModalComponent } from './components/modal.component';
   imports: [
   ],
   declarations: [ModalComponent],
-  exports: [ModalComponent]
+  exports: [ModalComponent],
+  entryComponents:[
+    ModalComponent
+  ]
 })
 export class WacomModule { }
