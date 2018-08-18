@@ -6,7 +6,9 @@ module.exports = function(sd) {
 		else res.send(false);
 	};
 	let ensure_super = sd.ensure_super = function(req, res, next){
-		if(req.user&&req.user.is&&req.user.is.super_admin) next();
+		if(req.user&&req.user.is&&req.user.is.super){
+			next();
+		} 
 		else res.send(false);
 	};
 	/*

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-architect',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchitectComponent implements OnInit {
 
-  constructor() { }
+  constructor(public us: UserService) { }
 
   ngOnInit() {
   }

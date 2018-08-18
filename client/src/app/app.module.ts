@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { OtaPipe } from './pipes/ota.pipe';
 import { PictureComponent } from './com/modal/picture/picture.component';
 import { WacomModule } from 'wacom';
 import { ExploreComponent } from './pages/explore/explore.component';
@@ -40,6 +41,7 @@ const routes: Routes = [{
   declarations: [
     AppComponent,
     SearchPipe,
+    OtaPipe,
     ProfileComponent,
     PictureComponent,
     ExploreComponent,

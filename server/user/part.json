@@ -16,7 +16,7 @@
 			"keys": ["name","birth","skills","data","kind"],
 			"name": "admin"
 		},{
-			"keys": ["name","birth","skills","data","is","kind","architect"],
+			"keys": ["is"],
 			"name": "super"
 		}],
 		"updates": [],

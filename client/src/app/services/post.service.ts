@@ -10,7 +10,7 @@ export class PostService {
 	create(post){
 		this.mongo.create('post', {
 			text: post.text,
-			photos: post.photos
+			photos: post.photos,
 			_id: post._id
 		});
 	}
@@ -22,6 +22,6 @@ export class PostService {
  	constructor(private mongo: MongoService, 
 		private http: HttpClient,
 	  	public us:UserService) {
-		this.posts = mongo.get('post')
+		this.posts = mongo.get('post');
 	}
 }

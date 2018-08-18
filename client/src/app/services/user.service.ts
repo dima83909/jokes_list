@@ -22,17 +22,25 @@ export class UserService {
 			fields: 'name birth skills data'
 		});
 	}
+	changeIs(user){
+		this.mongo.updateAll('user', user, {
+			fields: 'is _id',
+			name: 'super'
+		});
+		console.log(user.is);
 
-	picture(){
-		this.modal.appendComponentToBody(PictureComponent);
 	}
+	/*picture(){
+		this.modal.appendComponentToBody(PictureComponent);
+	}*/
 
 	constructor(private mongo: MongoService, 
 		private http: HttpClient,
 		private modal: ModalService) {
 		this.users = mongo.get('user',{
 			replace:{
-				'data':mongo.beObj
+				data:mongo.beObj,
+				is:mongo.beObj
 			}
 		});
 		console.log(this.users);
