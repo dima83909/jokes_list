@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PostService {
+	private posts;
 	create(post){
 		this.mongo.create('post', {
 			text: post.text,

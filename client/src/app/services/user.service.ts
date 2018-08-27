@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-	MongoService,
-	ModalService
+	MongoService
 } from 'wacom';
 import { HttpClient } from '@angular/common/http';
-import { PictureComponent } from '../com/modal/picture/picture.component';
 
 
 
@@ -30,13 +28,9 @@ export class UserService {
 		console.log(user.is);
 
 	}
-	/*picture(){
-		this.modal.appendComponentToBody(PictureComponent);
-	}*/
 
 	constructor(private mongo: MongoService, 
-		private http: HttpClient,
-		private modal: ModalService) {
+		private http: HttpClient) {
 		this.users = mongo.get('user',{
 			replace:{
 				data:mongo.beObj,

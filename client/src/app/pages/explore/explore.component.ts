@@ -7,9 +7,8 @@ import { PostService } from '../../services/post.service';
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit {
-public post = {};
-  constructor(public ps: PostService) {
-   }
+	public post = {};
+  constructor(public ps: PostService) { }
   ngOnInit() {
   }
 }
