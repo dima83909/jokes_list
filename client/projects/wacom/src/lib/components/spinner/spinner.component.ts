@@ -12,7 +12,7 @@ export class SpinnerComponent implements OnInit {
 	public cover;
 	public header;
 	public content;
-	
+
 	close(){
 		this.spin.close(this.id);
 	}
@@ -20,9 +20,5 @@ export class SpinnerComponent implements OnInit {
   constructor(private spin: SpinnerService) { }
   
   ngOnInit() {
-  	let obj=this.spin.pull();
-  	for(let key in obj){
-  		this[key]=obj[key];
-  		}
 	}
 }

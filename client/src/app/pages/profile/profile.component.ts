@@ -23,6 +23,6 @@ export class ProfileComponent implements OnInit {
       let id = this.spin.open();
       setTimeout( () => {
         this.spin.close(id);
-    }, 3000);
+    }, 2000);
   }
 }

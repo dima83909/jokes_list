@@ -20,7 +20,6 @@ export class SpinnerService {
       private injector: Injector
   ) { }
   private data = {};
-  private last;
   open(component: any, obj:any = {}) {
     if(!component) component = SpinnerComponent;
     if(!obj.id) obj.id = new Date().getTime();
@@ -42,12 +41,8 @@ export class SpinnerService {
       appRef:this.appRef,
       componentRefer:componentRefer
     }
-    this.last=obj;
     return obj.id;
         
-  }
-  pull(){
-    return this.last;
   }
   close(id){
     this.data[id].appRef.detachView(this.data[id].componentRefer.hostView);
