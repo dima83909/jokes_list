@@ -2,6 +2,7 @@ import { Component, OnInit, NgModule, ViewChild} from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ModalService, ImageService, FileService } from 'wacom';
 import { HttpClient } from '@angular/common/http';
+import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
 
 
 @Component({
