@@ -1,0 +1,7 @@
+<div class="popup" (clickOutside)="show=false" >
+	<div (click)="show=true; open($event);" class="popuptext">
+		<ng-content ></ng-content>
+	</div>
+	<div *ngIf="config.html&&show" [innerHTML]="config.html" style="position: fixed;">
+	</div>
+</div>
