@@ -24,11 +24,11 @@
       "wacom/*": [
         "dist/wacom/*"
       ],
-      "my-test": [
-        "dist/my-test"
+      "ng-click-outside": [
+        "projects/wacom/node_modules/ng-click-outside"
       ],
-      "my-test/*": [
-        "dist/my-test/*"
+      "ng-click-outside/*": [
+        "projects/wacom/node_modules/ng-click-outside/*"
       ]
     }
   }

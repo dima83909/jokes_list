@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { OtaPipe } from './pipes/ota.pipe';
-import { InputComponent } from './com/input/input.component';
 import { PictureComponent } from './com/modal/picture/picture.component';
 import { WacomModule } from 'wacom';
 import { ExploreComponent } from './pages/explore/explore.component';
@@ -45,7 +44,6 @@ const routes: Routes = [{
     OtaPipe,
     ProfileComponent,
     PictureComponent,
-    InputComponent,
     ExploreComponent,
     UsersComponent,
     DashboardComponent,
@@ -60,8 +58,7 @@ const routes: Routes = [{
     WacomModule
   ],
   entryComponents:[
-    PictureComponent,
-    InputComponent
+    PictureComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

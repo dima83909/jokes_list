@@ -10,7 +10,8 @@ import { MongoService, ModalService, SpinnerService, PopupService } from 'wacom'
 export class ProfileComponent implements OnInit {
 
   public config ={
-    html: 'hello'
+    html: 'hello my dear friend',
+    pos: ''
   }
   constructor(public us: UserService,
   			public modal: ModalService,
@@ -27,6 +28,6 @@ export class ProfileComponent implements OnInit {
       let id = this.spin.open();
       setTimeout( () => {
         this.spin.close(id);
-    }, 2000);
+    }, 1000);
   }
 }
