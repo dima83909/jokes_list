@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { PictureComponent } from '../../com/modal/picture/picture.component';
+import { InfoComponent } from '../../com/pop/info/info.component';
 import { MongoService, ModalService, SpinnerService, PopupService } from 'wacom';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -9,8 +11,9 @@ import { MongoService, ModalService, SpinnerService, PopupService } from 'wacom'
 })
 export class ProfileComponent implements OnInit {
 
-  public config ={
-    html: 'hello my dear friend',
+  public config = {
+    html: 'dsdvdfbxvbzczsvc',
+    component: InfoComponent,
     pos: ''
   }
   constructor(public us: UserService,
@@ -22,7 +25,6 @@ export class ProfileComponent implements OnInit {
 	picture(){
 		this.modal.open(PictureComponent);
 	}
-
 
   ngOnInit() {
       let id = this.spin.open();

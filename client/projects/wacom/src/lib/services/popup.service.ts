@@ -19,7 +19,7 @@ export class PopupService {
   ) { }
   private data = {};
   private last;
-  open(component: any = null, obj:any = {}) {
+    open(component: any = null, obj:any = {}) {
     if(!component) component = PopupComponent;
     if(!obj.id) obj.id = new Date().getTime();
 
@@ -35,12 +35,12 @@ export class PopupService {
     // Append DOM element to the body
     document.body.appendChild(domElem);
     // Wait some time and remove it from the component tree and from the DOM
+
     this.data[obj.id]={
       appRef:this.appRef,
       componentRefer:componentRefer
     }
-    this.last=obj;
-    return obj.id;
+    return obj.id;      
   }
   pull(){
     return this.last;
@@ -48,4 +48,5 @@ export class PopupService {
   close(id){
     this.data[id].appRef.detachView(this.data[id].componentRefer.hostView);
   }
+ 
 }

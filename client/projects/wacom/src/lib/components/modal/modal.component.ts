@@ -5,6 +5,7 @@ import { ModalService } from '../../services/modal.service';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
+
 export class ModalComponent implements OnInit {
 	private id;
 	public full;

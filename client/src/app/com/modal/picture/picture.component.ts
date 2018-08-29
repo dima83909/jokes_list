@@ -38,13 +38,13 @@ export class PictureComponent implements OnInit {
             private mod: ModalService,
             private image: ImageService,
             private file: FileService) {
-    this.file.add({
+   /* this.file.add({
       id: 'profilePicture',
       width:500,
       height:500
     }, dataUrl =>{
       console.log(dataUrl.length);
-    })
+    })*/
    }
     ngOnInit() {
       let obj=this.mod.pull();

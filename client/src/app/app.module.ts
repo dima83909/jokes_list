@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { OtaPipe } from './pipes/ota.pipe';
 import { PictureComponent } from './com/modal/picture/picture.component';
+import { InfoComponent } from './com/pop/info/info.component';
 import { WacomModule } from 'wacom';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -44,6 +45,7 @@ const routes: Routes = [{
     OtaPipe,
     ProfileComponent,
     PictureComponent,
+    InfoComponent,
     ExploreComponent,
     UsersComponent,
     DashboardComponent,
@@ -58,7 +60,8 @@ const routes: Routes = [{
     WacomModule
   ],
   entryComponents:[
-    PictureComponent
+    PictureComponent,
+    InfoComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
