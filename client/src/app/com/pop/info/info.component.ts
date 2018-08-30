@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule, ViewChild} from '@angular/core';
-
+import { PopupComponent } from 'wacom';
 
 @Component({
   selector: 'app-info',

@@ -4,22 +4,22 @@ import {
     ComponentFactoryResolver,
     EmbeddedViewRef,
     ApplicationRef,
-    ComponentRef
+    ComponentRef,
+    ViewChild
 } from '@angular/core';
-import { PopupComponent } from '../components/popup/popup.component';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PopupService {
-	 constructor(
-      private componentFactoryResolver:ComponentFactoryResolver,
-      private appRef: ApplicationRef,
-      private injector: Injector
-  ) { }
-  private data = {};
-  private last;
-    open(component: any = null, obj:any = {}) {
+	private data = {};
+       constructor(
+        private componentFactoryResolver:ComponentFactoryResolver,
+        private appRef: ApplicationRef,
+        private injector: Injector
+        ) { }
+
+   /* open(component: any = null, obj:any = {}) {
     if(!component) component = PopupComponent;
     if(!obj.id) obj.id = new Date().getTime();
 
@@ -41,12 +41,83 @@ export class PopupService {
       componentRefer:componentRefer
     }
     return obj.id;      
+  }*/
+
+    open(event, pops, config, left, top){
+
+      console.log(config);
+      
+      switch(config.pos){
+        case 'rt':
+          left = event.clientX-event.offsetX + event.target.offsetWidth;
+          top = event.clientY-event.offsetY - (event.target.offsetHeight*2);
+          break;
+        case 'r':
+          left = event.clientX-event.offsetX + event.target.offsetWidth;
+          top = event.clientY-event.offsetY - (event.target.offsetHeight/2);
+          break;
+        case 'rb':
+          left = event.clientX-event.offsetX + event.target.offsetWidth;
+          top = event.clientY-event.offsetY + event.target.offsetHeight;
+          break;
+        case 'b':
+          left = event.clientX-event.offsetX + (event.target.offsetWidth/2) - (pops.nativeElement.offsetWidth/2);
+          top = event.clientY-event.offsetY + event.target.offsetHeight;
+          break;
+        case 'lb':
+          left = event.clientX-event.offsetX - pops.nativeElement.offsetWidth;
+          top = event.clientY-event.offsetY + event.target.offsetHeight;
+          break;
+        case 'l':
+          left = event.clientX-event.offsetX - pops.nativeElement.offsetWidth;
+          top = event.clientY-event.offsetY - (event.target.offsetHeight/2);
+          break;
+        case 'lt':
+          left = event.clientX-event.offsetX - pops.nativeElement.offsetWidth;
+          top = event.clientY-event.offsetY - (event.target.offsetHeight*2);
+          break;
+        case 't':
+          left = event.clientX-event.offsetX + (event.target.offsetWidth/2) - (pops.nativeElement.offsetWidth/2);
+          top = event.clientY-event.offsetY - pops.nativeElement.offsetHeight;
+          break;
+        /*default:
+          return this.default(event, pops, config);
+      }*/
+    }
   }
-  pull(){
-    return this.last;
-  }
-  close(id){
-    this.data[id].appRef.detachView(this.data[id].componentRefer.hostView);
-  }
- 
+  /*  default(event, pops, config){
+
+      let top = event.clientY-event.offsetY>pops.nativeElement.offsetHeight;
+      
+      let left = event.clientX-event.offsetX>pops.nativeElement.offsetWidth;
+      
+      let botton = document.documentElement.clientHeight-((event.clientX-event.offsetX)+event.target.offsetHeight)>pops.nativeElement.offsetHeight;
+      
+      let right = document.documentElement.clientWidth-((event.clientX-event.offsetX)+event.target.offsetWidth)>pops.nativeElement.offsetWidth;
+      
+      if(left&&top){
+        config.pos = 'lt';
+      } else if(right&&top) {
+        config.pos = 'rt';
+      } else if(right&&botton) {
+        config.pos = 'rb';
+      } else if(left&&botton) {
+        config.pos = 'lb';
+      } else if(top) {
+        config.pos = 't';
+      } else if(right) {
+        config.pos = 'r';
+      }else if(botton) {
+        config.pos = 'b';
+      }else if(left) {
+        config.pos = 'l';
+      } else config.pos = 'b';
+      this.open(event, pops, config, left, top);
+    }*/
+
+/*
+    close(id){
+      this.data[id].appRef.detachView(this.data[id].componentRefer.hostView);
+    }*/
 }
+

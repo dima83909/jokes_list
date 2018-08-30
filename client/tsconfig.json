@@ -25,10 +25,10 @@
         "dist/wacom/*"
       ],
       "ng-click-outside": [
-        "projects/wacom/node_modules/ng-click-outside"
+        "node_modules/ng-click-outside"
       ],
       "ng-click-outside/*": [
-        "projects/wacom/node_modules/ng-click-outside/*"
+        "node_modules/ng-click-outside/*"
       ]
     }
   }

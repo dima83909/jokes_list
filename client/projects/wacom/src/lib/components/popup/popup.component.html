@@ -1,5 +1,5 @@
-<div (clickOutside)="show=false;" >
-	<span  (click)="show=true; open($event);" style="background-color: red;">
+<div (clickOutside)="show=false;"  >
+	<span  (click)="open($event); show = true;" style="background-color: red;">
 		<ng-content ></ng-content>
 	</span>
 	<div  class="popup" *ngIf="config.html&&show" [innerHTML]="config.html" [ngStyle]="{'left.px': left, 'top.px': top, 'width.px': 300}" #pops>

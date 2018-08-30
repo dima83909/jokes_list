@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { PictureComponent } from '../../com/modal/picture/picture.component';
 import { InfoComponent } from '../../com/pop/info/info.component';
-import { MongoService, ModalService, SpinnerService, PopupService } from 'wacom';
+import { MongoService, ModalService, SpinnerService } from 'wacom';
 
 @Component({
   selector: 'app-profile',
@@ -11,15 +11,10 @@ import { MongoService, ModalService, SpinnerService, PopupService } from 'wacom'
 })
 export class ProfileComponent implements OnInit {
 
-  public config = {
-    html: 'dsdvdfbxvbzczsvc',
-    component: InfoComponent,
-    pos: ''
-  }
+
   constructor(public us: UserService,
   			public modal: ModalService,
         public spin: SpinnerService,
-        public pop: PopupService,
         private mongo: MongoService) { }
 
 	picture(){
