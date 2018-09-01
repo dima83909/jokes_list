@@ -16,3 +16,4 @@ export * from './lib/services/modal.service';
 export * from './lib/wacom.module';
 export * from './lib/components/modal/modal.component';
 export * from './lib/components/popup/popup.component';
+export * from './lib/components/pop/pop.component';

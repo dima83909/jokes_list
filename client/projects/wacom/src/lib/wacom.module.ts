@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ModalComponent } from './components/modal/modal.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PopupComponent } from './components/popup/popup.component';
+import { PopComponent } from './components/pop/pop.component';
 import { CommonModule } from '@angular/common'; 
 import { ClickOutsideModule } from 'ng-click-outside';
 @NgModule({
@@ -12,17 +13,20 @@ import { ClickOutsideModule } from 'ng-click-outside';
   declarations: [
   	ModalComponent,
     SpinnerComponent,
-    PopupComponent
+    PopupComponent,
+    PopComponent
   ],
   exports: [
   	ModalComponent,
     SpinnerComponent,
-    PopupComponent
+    PopupComponent,
+    PopComponent
   ],
   entryComponents:[
     ModalComponent,
     SpinnerComponent,
-    PopupComponent
+    PopupComponent,
+    PopComponent
   ]
 })
 export class WacomModule { }
