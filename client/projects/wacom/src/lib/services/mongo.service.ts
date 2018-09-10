@@ -209,7 +209,7 @@ export class MongoService {
    		    }
    		    for (var i = 0; i < parts.length; i++) {
    		        if (!this.data['loaded'+parts[i]]) {
-   		            setTimeout( () => {
+   		            return setTimeout( () => {
    		                this.on(parts, cb);
    		            }, 100);
    		        } 
