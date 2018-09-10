@@ -229,8 +229,15 @@ export class MongoService {
 			}
 			cb(val);
 		}
+		public beString(val, cb){
+			if(typeof val != 'string'){
+				val = '';
+			}
+			cb(val);
+		}
 		public forceArr(cb){ cb([]); }
 		public forceObj(cb){ cb({}); }
+		public forceString(cb){ cb(''); }
 	/*
 	*	mongo local support functions
 	*/
