@@ -53,10 +53,13 @@ mongo.get('colName',{
 		field: 'author',
 		part: 'user'
 	}],
-	groups: 
+	groups: 'city name'
 }, (arr, obj) => {
-
-	console.log('documents is loaded and field name is modified on each doc.');
+	/*
+     *    arr will be array with total docs from that part
+     *    obj will be object with total docs from that part binded by _id
+     *    groups will be saved into obj in the way: obj.name['Denys'] or obj.city['Kiev']
+     */
 })
 #### replace `options`
 work as filler of each doc for cases when we can calculate things to use in website. Good example can be currencies which change each moment, we have product in one currency and we want to show it in different currrencies. Other good example can be date fields, which is saved as string and we need them in `new Date()` format.
