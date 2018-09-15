@@ -61,13 +61,13 @@ mongo.get('colName',{
      *    groups will be saved into obj in the way: obj.name['Denys'] or obj.city['Kiev']
      */
 })
+```
 #### replace `options`
 work as filler of each doc for cases when we can calculate things to use in website. Good example can be currencies which change each moment, we have product in one currency and we want to show it in different currrencies. Other good example can be date fields, which is saved as string and we need them in `new Date()` format.
 #### populate `options`
 works in the same way as populate of mongodb but in the client side. This works great when you need documents inside other documents and put on them sorting or other things.
 #### groups `options`
 makings arrays which show different documents inside specific placeholders. As example we can have list of users in specific town or country, so we don't have to create pipes for that.
-```
 ### updateAll `function`
 connecting with waw CRUD updateAll. As parameters accepting name of mongo collection, document object, optionally options and optionally callback function which will return the document. Example:
 ```javascript
