@@ -25,7 +25,7 @@ export class MongoService {
 			}
 			this.http.post < any > ('/api/' + part + '/create', doc || {}).subscribe(resp => {
 				if (resp) {
-					this.push(part,resp);
+					this.push(part, resp);
 					if (typeof cb == 'function') cb(resp);
 				}else if (typeof cb == 'function') {
 					cb(false);
@@ -95,16 +95,19 @@ export class MongoService {
 					}
 				}
 			}
-			this.http.get < any > ('/api/' + part + '/get').subscribe(resp => {
+			this.http.get < any > ('/api/' + part + '/get'+(opts.name||'')+(opts.param||'')).subscribe(resp => {
 				if (resp) {
 					for (let i = 0; i < resp.length; i++) {
 						this.push(part,resp[i]);
 					}
-					if (typeof cb == 'function') cb(this.data['arr' + part], this.data['obj' + part]);
+					if (typeof cb == 'function') cb(this.data['arr' + part], this.data['obj' + part], opts.name||'', resp);
 				} else if (typeof cb == 'function') {
-					cb(false);
+					cb(this.data['arr' + part], this.data['obj' + part], opts.name||'', resp);
 				}
 				this.data['loaded'+part]=true;
+				if(opts.next){
+					this.next(part, opts.next, cb);
+				}
 			});
 			return this.data['arr' + part];
 		};
@@ -252,7 +255,7 @@ export class MongoService {
 					this.populate(doc, field, part);
 				}, 100);
 			}
-		}
+		};
 		public on(parts, cb) {
    		    if (typeof parts == 'string') {
    		        parts = parts.split(" ");
@@ -265,32 +268,32 @@ export class MongoService {
    		        } 
    		    }
    		    cb();
-   		}
+   		};
 	/*
 	*	mongo replace filters
 	*/
 		public beArr(val, cb){
 			if(!Array.isArray(val)) cb([]);
 			else cb(val);
-		}
+		};
 		public beObj(val, cb){
 			if(typeof val != 'object' || Array.isArray(val)){
 				val = {};
 			}
 			cb(val);
-		}
+		};
 		public beString(val, cb){
 			if(typeof val != 'string'){
 				val = '';
 			}
 			cb(val);
-		}
-		public forceArr(val, cb){ cb([]); }
-		public forceObj(val, cb){ cb({}); }
-		public forceString(val, cb){ cb(''); }
+		};
+		public forceArr(val, cb){ cb([]); };
+		public forceObj(val, cb){ cb({}); };
+		public forceString(val, cb){ cb(''); };
 		public getCreated(val, cb, doc){
 			return new Date(parseInt(doc._id.substring(0,8), 16)*1000);
-		}
+		};
 	/*
 	*	mongo local support functions
 	*/
@@ -310,6 +313,7 @@ export class MongoService {
 			}
 		};
 		private push(part, doc){
+			if(this.data['obj' + part][doc._id]) return;
 			if(this.data['opts'+part].replace){
 				for(let key in this.data['opts'+part].replace){
 					this.replace(doc, key, this.data['opts'+part].replace[key]);
@@ -366,7 +370,22 @@ export class MongoService {
 					}
 				}
 			}
-		}
+		};
+		private next(part, opts, cb){
+			this.http.get < any > ('/api/' + part + '/get'+(opts.name||'')+(opts.param||'')).subscribe(resp => {
+				if (resp) {
+					for (let i = 0; i < resp.length; i++) {
+						this.push(part, resp[i]);
+					}
+					if (typeof cb == 'function') cb(this.data['arr' + part], this.data['obj' + part], opts.name||'', resp);
+				} else if (typeof cb == 'function') {
+					cb(this.data['arr' + part], this.data['obj' + part], opts.name||'', resp);
+				}
+				if(opts.next){
+					this.next(part, opts.next, cb);
+				}
+			});
+		};
 	/*
 	*	Endof Mongo Service
 	*/

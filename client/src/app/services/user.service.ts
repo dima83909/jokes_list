@@ -33,7 +33,7 @@ export class UserService {
 				is:mongo.beObj
 			},
 			groups: 'email'
-		}, (arr, obj)=>{
+		}, (arr, obj, name, resp)=>{
 			console.log(obj);
 		});
 		http.get('/api/user/me').subscribe(resp => {
