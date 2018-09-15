@@ -55,11 +55,11 @@ mongo.get('colName',{
 	}],
 	groups: 'city name'
 }, (arr, obj) => {
-	/*
-	*		arr will be array with total docs from that part
-	*		obj will be object with total docs from that part binded by _id
-	*		groups will be saved into obj in the way: obj.name['Denys'] or obj.city['Kiev']
-	*/
+/*
+*	arr will be array with total docs from that part
+*	obj will be object with total docs from that part binded by _id
+*	groups will be saved into obj in the way: obj.name['Denys'] or obj.city['Kiev']
+*/
 })
 ```
 #### replace `options`
