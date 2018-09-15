@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-	MongoService
-} from 'wacom';
+import { MongoService } from 'wacom';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -26,18 +24,18 @@ export class UserService {
 			name: 'super'
 		});
 		console.log(user.is);
-
 	}
-
 	constructor(private mongo: MongoService, 
 		private http: HttpClient) {
 		this.users = mongo.get('user',{
 			replace:{
 				data:mongo.beObj,
 				is:mongo.beObj
-			}
+			},
+			groups: 'email'
+		}, (arr, obj)=>{
+			console.log(obj);
 		});
-		console.log(this.users);
 		http.get('/api/user/me').subscribe(resp => {
 			for (var key in resp) {
 				this[key] = resp[key];

@@ -9,6 +9,7 @@ export class MongoService {
 	*	Data will be storage for all information we are pulling from waw crud.
 	*	data['arr' + part] will host all docs from collection part in array form
 	*	data['obj' + part] will host all docs from collection part in object form
+	*		and all groups collecitons provided
 	*	data['opts' + part] will host options for docs from collection part
 	*		Will be initialized only inside get
 	*		Will be used inside push
@@ -45,6 +46,46 @@ export class MongoService {
 			this.data['arr' + part] = [];
 			this.data['obj' + part] = {};
 			this.data['opts' + part] = opts||{};
+			if(this.data['opts'+part].groups){
+				if(typeof this.data['opts'+part].groups == 'string'){
+					this.data['opts'+part].groups = this.data['opts'+part].groups.split(' ');
+				}
+				if(Array.isArray(this.data['opts'+part].groups)){
+					let arr = this.data['opts'+part].groups.slice();
+					this.data['opts'+part].groups = {};
+					for(let i = 0; i < arr.length; i++){
+						if(typeof arr[i] == 'string'){
+							this.data['opts'+part].groups[arr[i]] = true;
+						}else {
+							for(let key in arr[i]){
+								this.data['opts'+part].groups[key] = arr[i][key];
+							}
+						}
+					}
+				}
+				for(let key in this.data['opts'+part].groups){
+					if(typeof this.data['opts'+part].groups[key] == 'boolean'){
+						if(this.data['opts'+part].groups[key]){
+							this.data['opts'+part].groups[key] = {
+								field: function(doc){
+									return doc[key];
+								}
+							}
+						}else{
+							delete this.data['opts'+part].groups[key];
+							continue;
+						}
+					}
+					if(typeof this.data['opts'+part].groups[key] != 'object'){
+						delete this.data['opts'+part].groups[key];
+						continue;
+					}
+					if(typeof this.data['opts'+part].groups[key].field != 'function'){
+						delete this.data['opts'+part].groups[key];
+						continue;
+					}
+				}
+			}
 			this.http.get < any > ('/api/' + part + '/get').subscribe(resp => {
 				if (resp) {
 					for (let i = 0; i < resp.length; i++) {
@@ -222,7 +263,7 @@ export class MongoService {
 		public beArr(val, cb){
 			if(!Array.isArray(val)) cb([]);
 			else cb(val);
-		};
+		}
 		public beObj(val, cb){
 			if(typeof val != 'object' || Array.isArray(val)){
 				val = {};
@@ -276,6 +317,30 @@ export class MongoService {
 			}
 			this.data['arr' + part].push(doc);
 			this.data['obj' + part][doc._id] = doc;
+			if(this.data['opts'+part].groups){
+				for(let key in this.data['opts'+part].groups){
+					let g = this.data['opts'+part].groups[key];
+					if(typeof g.ignore == 'function' && g.ignore(doc)) return;
+					if(typeof g.allow == 'function' && !g.allow(doc)) return;
+					if(!this.data['obj' + part][key]){
+						this.data['obj' + part][key] = {};
+					}
+					let set = field => {
+						if(!field) return;
+						if(!Array.isArray(this.data['obj' + part][key][field])){
+							this.data['obj' + part][key][field] = [];
+						}
+						this.data['obj' + part][key][field].push(doc);
+						if(typeof g.sort == 'function'){
+							this.data['obj' + part][key][field].sort(g.sort);
+						}
+					}
+					set(g.field(doc, (field)=>{
+						set(field);
+					}));
+				}
+
+			}
 		}
 	/*
 	*	Endof Mongo Service
