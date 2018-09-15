@@ -45,43 +45,52 @@ export class MongoService {
 			}
 			this.data['arr' + part] = [];
 			this.data['obj' + part] = {};
-			this.data['opts' + part] = opts||{};
-			if(this.data['opts'+part].groups){
-				if(typeof this.data['opts'+part].groups == 'string'){
-					this.data['opts'+part].groups = this.data['opts'+part].groups.split(' ');
+			this.data['opts' + part] = opts = opts||{};
+			if(opts.query){
+				for(let key in opts.query){
+					if(typeof opts.query[key] == 'function'){
+						opts.query[key] = {
+							allow: opts.query[key]
+						}
+					}
 				}
-				if(Array.isArray(this.data['opts'+part].groups)){
-					let arr = this.data['opts'+part].groups.slice();
-					this.data['opts'+part].groups = {};
+			}
+			if(opts.groups){
+				if(typeof opts.groups == 'string'){
+					opts.groups = opts.groups.split(' ');
+				}
+				if(Array.isArray(opts.groups)){
+					let arr = opts.groups.slice();
+					opts.groups = {};
 					for(let i = 0; i < arr.length; i++){
 						if(typeof arr[i] == 'string'){
-							this.data['opts'+part].groups[arr[i]] = true;
+							opts.groups[arr[i]] = true;
 						}else {
 							for(let key in arr[i]){
-								this.data['opts'+part].groups[key] = arr[i][key];
+								opts.groups[key] = arr[i][key];
 							}
 						}
 					}
 				}
-				for(let key in this.data['opts'+part].groups){
-					if(typeof this.data['opts'+part].groups[key] == 'boolean'){
-						if(this.data['opts'+part].groups[key]){
-							this.data['opts'+part].groups[key] = {
+				for(let key in opts.groups){
+					if(typeof opts.groups[key] == 'boolean'){
+						if(opts.groups[key]){
+							opts.groups[key] = {
 								field: function(doc){
 									return doc[key];
 								}
 							}
 						}else{
-							delete this.data['opts'+part].groups[key];
+							delete opts.groups[key];
 							continue;
 						}
 					}
-					if(typeof this.data['opts'+part].groups[key] != 'object'){
-						delete this.data['opts'+part].groups[key];
+					if(typeof opts.groups[key] != 'object'){
+						delete opts.groups[key];
 						continue;
 					}
-					if(typeof this.data['opts'+part].groups[key].field != 'function'){
-						delete this.data['opts'+part].groups[key];
+					if(typeof opts.groups[key].field != 'function'){
+						delete opts.groups[key];
 						continue;
 					}
 				}
@@ -258,7 +267,7 @@ export class MongoService {
    		    cb();
    		}
 	/*
-	*	mongo replace support functions
+	*	mongo replace filters
 	*/
 		public beArr(val, cb){
 			if(!Array.isArray(val)) cb([]);
@@ -276,9 +285,12 @@ export class MongoService {
 			}
 			cb(val);
 		}
-		public forceArr(cb){ cb([]); }
-		public forceObj(cb){ cb({}); }
-		public forceString(cb){ cb(''); }
+		public forceArr(val, cb){ cb([]); }
+		public forceObj(val, cb){ cb({}); }
+		public forceString(val, cb){ cb(''); }
+		public getCreated(val, cb, doc){
+			return new Date(parseInt(doc._id.substring(0,8), 16)*1000);
+		}
 	/*
 	*	mongo local support functions
 	*/
@@ -339,7 +351,20 @@ export class MongoService {
 						set(field);
 					}));
 				}
-
+			}
+			if(this.data['opts'+part].query){
+				for(let key in this.data['opts'+part].query){
+					let query = this.data['opts'+part].query[key];
+					if(typeof query.ignore == 'function' && query.ignore(doc)) return;
+					if(typeof query.allow == 'function' && !query.allow(doc)) return;
+					if(!this.data['obj' + part][key]){
+						this.data['obj' + part][key] = [];
+					}
+					this.data['obj' + part][key].push(doc);
+					if(typeof query.sort == 'function'){
+						this.data['obj' + part][key].sort(query.sort);
+					}
+				}
 			}
 		}
 	/*
