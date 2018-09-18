@@ -37,7 +37,7 @@ export class MongoService {
 				cb = opts;
 				opts = {};
 			}
-			if(Array.isArray(this.data['arr' + part])){
+			if(this.data['loaded'+part]){
 				if(typeof cb == 'function'){
 					cb(this.data['arr' + part], this.data['obj' + part]);
 				}
@@ -53,6 +53,7 @@ export class MongoService {
 							allow: opts.query[key]
 						}
 					}
+					this.data['obj' + part][key] = [];
 				}
 			}
 			if(opts.groups){
@@ -60,7 +61,7 @@ export class MongoService {
 					opts.groups = opts.groups.split(' ');
 				}
 				if(Array.isArray(opts.groups)){
-					let arr = opts.groups.slice();
+					let arr = opts.groups;
 					opts.groups = {};
 					for(let i = 0; i < arr.length; i++){
 						if(typeof arr[i] == 'string'){
@@ -93,6 +94,12 @@ export class MongoService {
 						delete opts.groups[key];
 						continue;
 					}
+					if(Array.isArray(this.data['obj' + part][key])){
+						console.warn('You can have same field groups with query. Field '+key+' is not used in groups.');
+						delete opts.groups[key];
+						continue;
+					}
+					this.data['obj' + part][key] = {};
 				}
 			}
 			this.http.get < any > ('/api/' + part + '/get'+(opts.name||'')+(opts.param||'')).subscribe(resp => {
@@ -175,13 +182,34 @@ export class MongoService {
 			}
 			this.http.post('/api/' + part + '/delete' + (opts.name||''), doc).subscribe(resp => {
 				if (resp && Array.isArray(this.data['arr' + part])) {
-					for (var i = 0; i < this.data['arr' + part].length; i++) {
+					for (let i = 0; i < this.data['arr' + part].length; i++) {
 						if (this.data['arr' + part][i]._id == doc._id) {
 							this.data['arr' + part].splice(i, 1);
 							break;
 						}
 					}
 					delete this.data['obj' + part][doc._id];
+					if(this.data['opts'+part].groups){
+						for(let key in this.data['opts'+part].groups){
+							for(let field in this.data['obj' + part][key]){
+								for (let i = this.data['obj' + part][key][field].length-1; i >= 0 ; i--) {
+									if (this.data['obj' + part][key][field][i]._id == doc._id) {
+										this.data['obj' + part][key][field].splice(i, 1);
+									}
+								}
+							}
+						}
+					}
+					if(this.data['opts'+part].query){
+						for(let key in this.data['opts'+part].query){
+							for (let i = this.data['obj' + part][key].length-1; i >= 0 ; i--) {
+								if (this.data['obj' + part][key][i]._id == doc._id) {
+									this.data['obj' + part][key].splice(i, 1);
+									break;
+								}
+							}
+						}
+					}
 				}
 				if (resp && typeof cb == 'function') {
 					cb(resp);
@@ -281,6 +309,9 @@ export class MongoService {
 				val = {};
 			}
 			cb(val);
+		};
+		public beDate(val, cb) {
+			cb( new Date(val) );
 		};
 		public beString(val, cb){
 			if(typeof val != 'string'){
