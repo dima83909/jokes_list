@@ -297,6 +297,118 @@ export class MongoService {
    		    }
    		    cb();
    		};
+   	/*
+	*	mongo sort filters
+	*/
+   		public sortAscId(){
+   			return function(a,b){
+   				if(a._id>b._id) return 1;
+   				else return -1;
+   			}
+   		};
+   		public sortDescId(){
+   			return function(a,b){
+   				if(a._id<b._id) return 1;
+   				else return -1;
+   			}
+   		};
+   		public sortAscString(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(a[opts.field].toLowerCase()>b[opts.field].toLowerCase()) return 1;
+   				else if(a[opts.field].toLowerCase()<b[opts.field].toLowerCase() || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+   		public sortDescString(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(a[opts.field].toLowerCase()<b[opts.field].toLowerCase()) return 1;
+   				else if(a[opts.field].toLowerCase()>b[opts.field].toLowerCase() || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+   		public sortAscDate(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(a[opts.field].getTime()>b[opts.field].getTime()) return 1;
+   				else if(a[opts.field].getTime()<b[opts.field].getTime() || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+   		public sortDescDate(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(a[opts.field].getTime()<b[opts.field].getTime()) return 1;
+   				else if(a[opts.field].getTime()>b[opts.field].getTime() || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+   		public sortAscNumber(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(a[opts.field]>b[opts.field]) return 1;
+   				else if(a[opts.field]<b[opts.field] || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+   		public sortDescNumber(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(a[opts.field]<b[opts.field]) return 1;
+   				else if(a[opts.field]>b[opts.field] || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+   		public sortAscBoolean(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(!a[opts.field]&&b[opts.field]) return 1;
+   				else if(a[opts.field]&&!b[opts.field] || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+   		public sortDescBoolean(opts){
+   			if(typeof opts == 'string'){
+   				opts = {
+   					field: opts
+   				}
+   			}
+   			return function(a,b){
+   				if(a[opts.field]&&!b[opts.field]) return 1;
+   				else if(!a[opts.field]&&b[opts.field] || !opts.next) return -1;
+   				else return opts.next(a,b);
+   			}
+   		}
+
 	/*
 	*	mongo replace filters
 	*/
@@ -323,7 +435,7 @@ export class MongoService {
 		public forceObj(val, cb){ cb({}); };
 		public forceString(val, cb){ cb(''); };
 		public getCreated(val, cb, doc){
-			return new Date(parseInt(doc._id.substring(0,8), 16)*1000);
+			cb(new Date(parseInt(doc._id.substring(0,8), 16)*1000));
 		};
 	/*
 	*	mongo local support functions
@@ -363,6 +475,9 @@ export class MongoService {
 				}
 			}
 			this.data['arr' + part].push(doc);
+			if(this.data['opts'+part].sort){
+				this.data['arr' + part].sort(this.data['opts'+part].sort);
+			}
 			this.data['obj' + part][doc._id] = doc;
 			if(this.data['opts'+part].groups){
 				for(let key in this.data['opts'+part].groups){

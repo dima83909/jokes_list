@@ -30,11 +30,21 @@ export class UserService {
 		this.users = mongo.get('user',{
 			replace:{
 				data:mongo.beObj,
-				is:mongo.beObj
+				is:mongo.beObj,
+				created: mongo.getCreated
 			},
-			groups: 'email'
+			groups: 'email',
+			sort: mongo.sortAscBoolean({
+				field: 'birth',
+				next: mongo.sortAscString({
+					field:'email',
+					next: mongo.sortAscId()
+				})
+			})
 		}, (arr, obj, name, resp)=>{
 			console.log(obj);
+			console.log(arr);
+
 		});
 		http.get('/api/user/me').subscribe(resp => {
 			for (var key in resp) {
