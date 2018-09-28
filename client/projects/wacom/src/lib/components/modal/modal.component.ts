@@ -1,25 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../../services/modal.service';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'modal',
 	templateUrl: './modal.component.html',
 	styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements {
 	private id;
 	public full;
 	public cover;
 	public header;
 	public content;
+	constructor(){}
+	private modalClose: Subject<any> = new Subject();
 	close(){
-		this.mod.close(this.id);
+		this.modalClose.next();
+		this.modalClose.complete();
 	}
-	constructor(private mod: ModalService){}
-	ngOnInit() {
-		let obj=this.mod.pull();
-		for(let key in obj){
-			this[key]=obj[key];
-		}
+	onModalClose(): Observable<any> {
+		return this.modalClose.asObservable();
 	}
 }
+ 

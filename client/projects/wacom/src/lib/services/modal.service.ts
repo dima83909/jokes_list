@@ -7,8 +7,6 @@ import {
 	Injector
 } from '@angular/core';
 import { ModalComponent } from '../components/modal/modal.component';
-
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -19,10 +17,8 @@ export class ModalService {
 		private injector: Injector
 	){}
 	private data = {};
-	private last;
 	open(component: any, obj:any = {}) {
 		if(!obj.id) obj.id = new Date().getTime();
-
 		// Create a component reference from the component 
 		let componentRef = this.componentFactoryResolver
 		  .resolveComponentFactory(component)
@@ -46,19 +42,13 @@ export class ModalService {
 		// Append DcontentElemOM element to the body
 		domElem.querySelector("#modalHoster").appendChild(contentElem);
 		// Wait some time and remove it from the component tree and from the DOM
-
 		this.data[obj.id]={
 			componentRefer: componentRefer,
 			appRef: this.appRef
 		}
-		this.last=obj;
 		return obj.id;
 	}
-	pull(){
-		return this.last;
-	}
 	close(id){
-		this.data[id].appRef.detachView(this.data[id].componentRefer.hostView);
+		this.data[id].componentRefer.instance.onModalClose().subscribe(() => {});
 	}
-
 }
