@@ -6,6 +6,7 @@
     "entryFile": "src/public_api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "ng-click-outside"
+    "ng-click-outside",
+    "rxjs"
   ]
 }
