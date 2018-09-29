@@ -28,3 +28,5 @@ export class ProfileComponent implements OnInit {
     }, 1000);
   }
 }
+
+
