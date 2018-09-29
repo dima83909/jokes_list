@@ -17,6 +17,7 @@ export class ModalService {
 		private injector: Injector
 	){}
 	private data = {};
+	private last;
 	open(component: any, obj:any = {}) {
 		if(!obj.id) obj.id = new Date().getTime();
 		// Create a component reference from the component 
@@ -46,7 +47,11 @@ export class ModalService {
 			componentRefer: componentRefer,
 			appRef: this.appRef
 		}
+		this.last=obj;
 		return obj.id;
+	}
+	pull(){
+		return this.last;
 	}
 	close(id){
 		this.data[id].componentRefer.instance.onModalClose().subscribe(() => {});
