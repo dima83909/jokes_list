@@ -505,8 +505,8 @@ export class MongoService {
 			if(this.data['opts'+part].query){
 				for(let key in this.data['opts'+part].query){
 					let query = this.data['opts'+part].query[key];
-					if(typeof query.ignore == 'function' && query.ignore(doc)) return;
-					if(typeof query.allow == 'function' && !query.allow(doc)) return;
+					if(typeof query.ignore == 'function' && query.ignore(doc)) continue;
+					if(typeof query.allow == 'function' && !query.allow(doc)) continue;
 					if(!this.data['obj' + part][key]){
 						this.data['obj' + part][key] = [];
 					}
