@@ -482,8 +482,8 @@ export class MongoService {
 			if(this.data['opts'+part].groups){
 				for(let key in this.data['opts'+part].groups){
 					let g = this.data['opts'+part].groups[key];
-					if(typeof g.ignore == 'function' && g.ignore(doc)) return;
-					if(typeof g.allow == 'function' && !g.allow(doc)) return;
+					if(typeof g.ignore == 'function' && g.ignore(doc)) continue;
+					if(typeof g.allow == 'function' && !g.allow(doc)) continue;
 					if(!this.data['obj' + part][key]){
 						this.data['obj' + part][key] = {};
 					}

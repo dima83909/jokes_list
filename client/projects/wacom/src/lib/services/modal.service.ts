@@ -49,7 +49,6 @@ export class ModalService {
 		}
 		this.last=obj;
 		componentRefer.instance.onModalClose().subscribe(() => {
-			console.log('called close');
 			this.appRef.detachView(componentRefer.hostView);
 		});
 		return obj.id;
