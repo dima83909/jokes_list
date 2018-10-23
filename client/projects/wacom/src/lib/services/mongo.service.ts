@@ -455,7 +455,7 @@ export class MongoService {
 				}, doc);
 			}
 		};
-		private push(part, doc){
+		public push(part, doc){
 			if(this.data['obj' + part][doc._id]) return;
 			if(this.data['opts'+part].replace){
 				for(let key in this.data['opts'+part].replace){
