@@ -8,7 +8,10 @@ module.exports = function(sd) {
 	*/
 		var router = sd._initRouter('/api/user');
 		if(mongoose.connection.readyState==0){
-			mongoose.connect(sd._mongoUrl);
+			mongoose.connect(sd._mongoUrl, {
+				useNewUrlParser: true
+			});
+			mongoose.set('useCreateIndex', true);
 			mongoose.Promise = global.Promise;
 		}
 		sd._passport.serializeUser(function(user, done) {
@@ -53,7 +56,7 @@ module.exports = function(sd) {
 				passwordField : 'password',
 				passReqToCallback : true
 			}, function(req, username, password, done) {
-				//recaptcha.verify(req, function(error) {
+				recaptcha.verify(req, function(error) {
 					User.findOne({
 						'email': username.toLowerCase()
 					}, function(err, user) {
@@ -73,7 +76,7 @@ module.exports = function(sd) {
 							});
 						}
 					});
-				//});
+				});
 			}));
 		}
 	// Google
