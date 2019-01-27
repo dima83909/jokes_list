@@ -24,6 +24,25 @@ module.exports = function(sd) {
 		});
 	// Local Routing
 		if(sd._config.passport.local){
+			router.get("/me", sd._ensure, function(req, res) {
+				var json = {};
+				if(req.user){
+					sd.User.schema.eachPath(function(path) {
+						path = path.split('.')[0];
+						if(path=='password'||path=='__v'||json[path]) return;
+						json[path] = req.user[path];
+					});
+				}
+				res.json(json);
+			});
+			router.post("/changePassword", sd._ensure, function(req, res) {
+				if (req.user.validPassword(req.body.oldPass)){
+					req.user.password = req.user.generateHash(req.body.newPass);
+					req.user.save(function(){
+						res.json(true);
+					});
+				}else res.json(false);
+			});
 			router.get('/logout', function(req, res) {
 				req.logout();
 				res.redirect(sd._config.passport.local.successRedirect);

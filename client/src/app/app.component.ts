@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
+import { UserService } from './services';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'client';
-
-  constructor(public us: UserService) {
-
-  }
+	constructor(public us: UserService) {}
 }
 
