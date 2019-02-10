@@ -10,3 +10,4 @@
 .idea
 *.git
 *server.json
+*package-lock.json
