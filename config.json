@@ -1,8 +1,8 @@
 {
-	"name": "wawAngular",
-	"description": "Sample project from waw framework.",
+	"name": "wawNgx",
+	"description": "Sample project from waw framework with ngx Client.",
 	"icon": "/client/src/favicon.ico",
-	"prefix": "initialize",
+	"prefix": "wawNgx",
 	"license": "MIT",
 	"port": 8080,
 	"session": true,
@@ -10,7 +10,7 @@
 	"mongo": {
 		"host": "localhost",
 		"port": 27017,
-		"db": "pms"
+		"db": "ngx"
 	},
 	"passport": {
 		"local": {
@@ -20,5 +20,13 @@
 	},
 	"angular": {
 		"localhost": 4200
+	},
+	"runners": {
+		"global": [],
+		"public": []
+	},
+	"parts": {
+		"global": [],
+		"public": []
 	}
 }

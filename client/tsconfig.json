@@ -19,17 +19,23 @@
       "dom"
     ],
     "paths": {
-      "wacom": [
-        "dist/wacom"
+      "@multiple": [
+        "src/app/multiple"
       ],
-      "wacom/*": [
-        "dist/wacom/*"
+      "@interfaces": [
+        "src/app/interfaces"
       ],
-      "ng-click-outside": [
-        "node_modules/ng-click-outside"
+      "@cloud": [
+        "src/app/cloud"
       ],
-      "ng-click-outside/*": [
-        "node_modules/ng-click-outside/*"
+      "@services": [
+        "src/app/services"
+      ],
+      "@pipes": [
+        "src/app/pipes/pipes.module.ts"
+      ],
+      "@services": [
+        "src/app/services"
       ]
     }
   }

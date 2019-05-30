@@ -1,0 +1,10 @@
+{
+	"priority": 997,
+	"dependencies": {
+		"passport": "*"
+	},
+	"router": [{
+		"name": "Start",
+		"src": "index.js"
+	}]
+}

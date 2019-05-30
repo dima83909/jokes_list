@@ -1,5 +1,11 @@
 {
 	"name": "User",
+	"dependencies": {
+		"express-recaptcha": "*",
+		"passport-local": "*",
+		"bcrypt-nodejs": "*",
+		"mongoose": "*"
+	},
 	"router": [{
 		"name": "Basic",
 		"src": "router.js"
@@ -23,11 +29,5 @@
 			"key": "email",
 			"name": "email"
 		}]
-	},
-	"dependencies": {
-		"express-recaptcha": "*",
-		"passport-local": "*",
-		"bcrypt-nodejs": "*",
-		"mongoose": "*"
 	}
 }

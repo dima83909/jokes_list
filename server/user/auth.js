@@ -1,7 +1,7 @@
 var User = require(__dirname+'/schema.js');
 var mongoose = require('mongoose');
-var Recaptcha = require('express-recaptcha').Recaptcha;
-var recaptcha = new Recaptcha('6Lf4nUsUAAAAAMtjSbr2Nfj0iDrc3RSlkEzepIcN', '6Lf4nUsUAAAAANR6Vmkafh82L2Gf08AREuRicHS7');
+// var Recaptcha = require('express-recaptcha').Recaptcha;
+// var recaptcha = new Recaptcha('6Lf4nUsUAAAAAMtjSbr2Nfj0iDrc3RSlkEzepIcN', '6Lf4nUsUAAAAANR6Vmkafh82L2Gf08AREuRicHS7');
 module.exports = function(sd) {
 	/*
 	*	Initialize User and Mongoose
@@ -75,7 +75,7 @@ module.exports = function(sd) {
 				passwordField : 'password',
 				passReqToCallback : true
 			}, function(req, username, password, done) {
-				recaptcha.verify(req, function(error) {
+				//recaptcha.verify(req, function(error) {
 					User.findOne({
 						'email': username.toLowerCase()
 					}, function(err, user) {
@@ -95,7 +95,7 @@ module.exports = function(sd) {
 							});
 						}
 					});
-				});
+				//});
 			}));
 		}
 	// Google

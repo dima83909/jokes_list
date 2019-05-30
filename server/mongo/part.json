@@ -1,0 +1,8 @@
+{
+	"priority": 998,
+	"dependencies": {},
+	"router": [{
+		"name": "Start",
+		"src": "index.js"
+	}]
+}
