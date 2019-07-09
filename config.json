@@ -1,32 +1,28 @@
 {
 	"name": "wawNgx",
 	"description": "Sample project from waw framework with ngx Client.",
-	"icon": "/client/src/favicon.ico",
-	"prefix": "wawNgx",
 	"license": "MIT",
-	"port": 8080,
-	"session": true,
 	"production": false,
-	"mongo": {
-		"host": "localhost",
-		"port": 27017,
-		"db": "ngx"
-	},
-	"passport": {
-		"local": {
-			"successRedirect": "/",
-			"failureRedirect": "/"
-		}
-	},
-	"angular": {
-		"localhost": 4200
-	},
+
+		"icon": "/client/src/favicon.ico",
+		"prefix": "wawNgx",
+		"port": 8080,
+		"session": true,
+		"mongo": {
+			"host": "localhost",
+			"port": 27017,
+			"db": "ngx"
+		},
+		"passport": {
+			"local": {
+				"successRedirect": "/",
+				"failureRedirect": "/"
+			}
+		},
+
 	"runners": {
-		"global": [],
-		"public": []
+		"nodemon": "latest"
 	},
-	"parts": {
-		"global": [],
-		"public": []
-	}
+	"parts": {},
+	"helpers": {}
 }

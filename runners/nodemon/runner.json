@@ -1,7 +1,0 @@
-{
-	"name": "nodemon",
-	"dependencies": {
-		"nodemon": "*"
-	},
-	"commands": [""]
-}

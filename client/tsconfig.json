@@ -33,9 +33,6 @@
       ],
       "@pipes": [
         "src/app/pipes/pipes.module.ts"
-      ],
-      "@services": [
-        "src/app/services"
       ]
     }
   }

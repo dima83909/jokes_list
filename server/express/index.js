@@ -8,8 +8,8 @@ var app = express();
 
 module.exports = function(sd){
 	var sessionMaxAge = 365 * 24 * 60 * 60 * 1000;
-	if(typeof sd._config.session == 'number'){
-		sessionMaxAge = sd._config.session;
+	if(typeof sd.config.session == 'number'){
+		sessionMaxAge = sd.config.session;
 	}
 	app.use(session({
 		key: 'express.sid.'+sd.config.prefix,
@@ -18,10 +18,10 @@ module.exports = function(sd){
 		saveUninitialized: true,
 		cookie: {
 			maxAge: sessionMaxAge,
-			domain: sd._config.domain||undefined
+			domain: sd.config.domain||undefined
 		},
 		rolling: true,
-		store: store
+		//store: store
 	}));
 
 	sd.router = function(api){
