@@ -21,8 +21,15 @@
 		},
 
 	"runners": {
-		"nodemon": "latest"
+		"nodemon": "latest",
+		"ngx": "latest"
 	},
-	"parts": {},
+	"parts": {
+		"express": "latest",
+		"session": "latest",
+		"mongo": "latest",
+		"crud": "latest",
+		"derer": "latest"
+	},
 	"helpers": {}
 }

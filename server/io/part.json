@@ -1,0 +1,8 @@
+{
+	"name": "io",
+	"router": [{
+		"name": "Basic",
+		"src": "index.js"
+	}],
+	"dependencies": {}
+}

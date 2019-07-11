@@ -1,17 +1,15 @@
 {
-	"name": "User",
+	"name": "user",
 	"dependencies": {
 		"express-recaptcha": "*",
 		"passport-local": "*",
 		"bcrypt-nodejs": "*",
+		"passport": "*",
 		"mongoose": "*"
 	},
 	"router": [{
 		"name": "Basic",
 		"src": "router.js"
-	}, {
-		"name": "Config",
-		"src": "config.js"
 	}, {
 		"name": "Pages",
 		"src": "pages/route.js"
@@ -20,14 +18,13 @@
 		"src": "auth.js"
 	}],
 	"crud": {
-		"get": ["admin"],
 		"updatesAll": [{
 			"keys": ["name"],
 			"name": ""
 		}],
 		"unique_field": [{
 			"key": "email",
-			"name": "email"
+			"name": ""
 		}]
 	}
 }
