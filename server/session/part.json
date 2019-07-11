@@ -1,0 +1,12 @@
+{
+	"priority": 995,
+	"name": "session",
+	"dependencies": {
+		"express-session": "*",
+		"connect-mongo": "*"
+	},
+	"router": [{
+		"name": "Start",
+		"src": "index.js"
+	}]
+}
