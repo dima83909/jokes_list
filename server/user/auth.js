@@ -1,12 +1,25 @@
-var User = require(__dirname+'/schema.js');
-var mongoose = require('mongoose');
-var passport = require('passport');
+const User = require(__dirname+'/schema.js');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const passportSocketIo = require("passport.socketio");
 // var Recaptcha = require('express-recaptcha').Recaptcha;
 // var recaptcha = new Recaptcha('6Lf4nUsUAAAAAMtjSbr2Nfj0iDrc3RSlkEzepIcN', '6Lf4nUsUAAAAANR6Vmkafh82L2Gf08AREuRicHS7');
 module.exports = function(sd) {
-	var router = sd.router('/api/user');
+	const router = sd.router('/api/user');
 	sd.app.use(passport.initialize());
 	sd.app.use(passport.session());
+	sd.io.use(passportSocketIo.authorize({
+		passport: passport,
+		cookieParser: sd.cookieParser,
+		key: 'express.sid.'+sd.config.prefix,
+		secret: 'thisIsCoolSecretFromWaWFramework'+sd.config.prefix,
+		store: sd.store,
+		success: function(data, accept) {
+			accept();
+		}, fail: function(data, message, error, accept) {
+			accept();
+		}
+	}));
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
 	});

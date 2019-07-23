@@ -21,15 +21,17 @@
 		},
 
 	"runners": {
-		"nodemon": "latest",
-		"ngx": "latest"
+		"nodemon": "latest"
 	},
 	"parts": {
 		"express": "latest",
+		"socket": "latest",
 		"session": "latest",
 		"mongo": "latest",
 		"crud": "latest",
 		"derer": "latest"
 	},
-	"helpers": {}
+	"helpers": {
+		"git": "latest"
+	}
 }

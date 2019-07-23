@@ -1,6 +1,7 @@
 {
 	"name": "user",
 	"dependencies": {
+		"passport.socketio": "*",
 		"express-recaptcha": "*",
 		"passport-local": "*",
 		"bcrypt-nodejs": "*",
