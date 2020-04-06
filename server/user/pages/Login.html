@@ -1,10 +1,37 @@
 {% extends 'index.html' %}
 {% block body %}
-<form action="/api/user/login" method="POST">
-	<input type="email" name="username" placeholder="email" value="crackeraki@gmail.com">
-	<input type="password" name="password" placeholder="password" value="asdasdasdasd">
-	<button>Sign</button>
-</form>
-<a href="/Sign">Sign up</a>
-<a href="/Reset">Reset</a>
-{% endblock %}
+<div ng-controller="Login">
+	<form id="login" method="POST">
+		<input type="email" ng-model="email" name="username" placeholder="email">
+		<input type="password" ng-model="password" name="password" placeholder="password">
+		<button ng-click="validation(email, password);">Sign</button>
+	</form>
+
+	<a href="/Sign">Sign up</a>
+	<a href="/Reset">Reset</a>
+</div>
+
+<script>
+	app.controller('Login', function($scope, $http){
+		$scope.email = 'crackeraki@gmail.com';
+		$scope.password = 'asdasdasdasd';
+		$scope.validation = function(email, password) {
+			$http.post('/api/user/status', {
+				email: email,
+				password: password
+			}).then(function(resp) {
+				if (resp.data.email&&resp.data.pass) {
+					document.getElementById('login').action='/api/user/login';
+					document.getElementById('login').submit();
+				} else if (!resp.data.email) {
+					alert('Email is incorrect');
+				} else if (!resp.data.pass) {
+					alert('Password is incorrect');
+				}	
+			});
+			
+		};
+	});
+</script>
+
+{% endblock %} 

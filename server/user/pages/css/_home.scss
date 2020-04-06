@@ -1,0 +1,53 @@
+.home-section {
+  scroll-snap-align: start;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  flex-direction: column;
+}
+
+.home__title {
+  color: rgb(254, 218, 58);
+  font-size: 3em;
+  font-family: "Ubuntu", sans-serif;
+  text-shadow: 1px 1px 10px #151515;
+}
+.home__subtitle {
+  max-width: 700px;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 40px;
+  font-family: "Ubuntu", sans-serif;
+  letter-spacing: 0.17em;
+  text-align: center;
+  color: #ff716f;
+  margin-top: 20px;
+
+  text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.65);
+}
+
+.home-btn {
+  margin-top: 100px;
+  &__button {
+    font-family: "Ubuntu", sans-serif;
+    cursor: pointer;
+    background: #ff716d;
+    // border: 3px solid #ffffff;
+    border: none;
+    box-shadow: 0px 1px 20px 0px #ff716d;
+
+
+
+    border-radius: 10px;
+    width: 250px;
+    height: 60px;
+    font-size: 2.25em;
+    outline: none;
+    color: #ffffff;
+  }
+}

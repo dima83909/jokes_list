@@ -1,9 +1,33 @@
 {% extends 'index.html' %}
 {% block body %}
-<form action="/api/user/signup" method="POST">
-    <input type="email" name="username" placeholder="email">
-    <input type="password" name="password" placeholder="password">
-    <button>Sign</button>
+<div ng-controller="Signup">
+<form id="signup" method="POST">
+    <input type="email" ng-model="email" name="username" placeholder="email">
+    <input type="password" ng-model="password" name="password" placeholder="password">
+    <button ng-click="validation(email, password)">Sign</button>
 </form>
+
 <a href="/Login">Login</a>
+</div>
+<script>
+	app.controller('Signup', function($scope, $http){
+		$scope.email = 'crackeraki@gmail.com';
+		$scope.password = 'asdasdasdasd';
+		$scope.validation = function(email, password) {
+			$http.post('/api/user/status', {
+				email: email,
+				password: password
+			}).then(function(resp) {
+				if (!resp.data.email&&!resp.data.pass) {
+					document.getElementById('signup').action='/api/user/signup';
+					document.getElementById('signup').submit();
+				} else if (resp.data.email) {
+					alert('Email already taken');
+				}
+			});
+			
+		};
+	});
+</script>
+
 {% endblock %}

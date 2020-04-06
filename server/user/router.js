@@ -1,14 +1,112 @@
-var User = require(__dirname+'/schema.js');
-module.exports = function(sd) {
-	var router = sd.router('/api/user');
+var User = require(__dirname + '/schema.js');
+module.exports = function(waw) {
+	// temp
+	if(!waw.dataUrlToLocation){
+		waw.dataUrlToLocation = function(dataUrl, loc, file, cb){
+			var base64Data = dataUrl.replace(/^data:image\/png;base64,/, '').replace(/^data:image\/jpeg;base64,/, '');
+			var decodeData = new Buffer(base64Data, 'base64');
+			waw.fs.mkdirSync(loc, { recursive: true });
+			waw.fs.writeFile(loc+'/'+file, decodeData, cb);
+		}
+	}
+	/*
+	*	Serve Client
+	*/
+		waw.use(function(req, res, next) {
+			let host = req.get('host').toLowerCase();
+			if(req.url.indexOf('/api/')==0) return next();
+			if(waw.config.user && waw.config.user.urls.indexOf(host)>=0){
+				if(req.url.indexOf('.')>-1){
+					res.sendFile(process.cwd()+'/client/dist/client'+req.url);
+				}else{
+					let pages = waw.config.user.pages.split(' ');
+					for (var i = 0; i < pages.length; i++) {
+						if(req.url.indexOf(pages[i])>=0){
+							return res.sendFile(process.cwd()+'/client/dist/client/index.html');
+						}
+					}
+					next();
+				}
+			}else{
+				next();
+			}
+		});
+	/*
+	*	Set is on users from config
+	*/
+		const set_is = (email, is)=>{
+			User.findOne({
+				email: email
+			}, function(err, user){
+				if(!user) return;
+				if(!user.is) user.is={};
+				user.is[is] = true;
+				user.markModified('is');
+				user.save((err)=>{
+					if(err) console.log(err);
+				});
+			});
+		}
+		if(waw.config.user && waw.config.user.is){
+			for(let is in waw.config.user.is){
+				let emails = waw.config.user.is[is].split(' ');
+				for (var i = 0; i < emails.length; i++) {
+					set_is(emails[i], is);
+				}
+			}
+		}
+	/*
+	*	Routing
+	*/
+	var router = waw.router('/api/user');
+	waw.crud('user', {
+		get: {
+			query: function(){
+				return {};
+			},
+			select: function(){
+				return '-password';
+			}
+		},
+		update: {
+			ensure: function(req, res, next){
+				if(req.user){
+					req.body.is = req.user.is;
+					if(req.body.remove){
+						req.body.is[req.body.remove] = false;
+					}
+					return next();
+				}
+				req.session.data = req.body.data;
+				res.json(true);
+			},
+			query: function(req, res, next) {
+				return {
+					_id: req.user._id
+				}
+			}
+		},
+		delete: {
+			query: function(req, res, next){
+				return {
+					_id: req.user._id
+				}
+			}
+		}
+	});
+	/*
+	waw.files({
+		part: 'user',
+
+	});
+	*/
 	router.post("/avatar", function(req, res) {
 		req.user.avatarUrl = '/api/user/avatar/' + req.user._id + '.jpg?' + Date.now();
-		sd._parallel([function(n){
-			req.user.save(n);
-		}, function(n){
-			sd._dataUrlToLocation(req.body.dataUrl,
-				__dirname + '/files/', req.user._id + '.jpg', n);
-		}], function(){
+		waw.parallel([function(next) {
+			req.user.save(next);
+		}, function(next) {
+			waw.dataUrlToLocation(req.body.dataUrl, __dirname + '/files/', req.user._id + '.jpg', next);
+		}], function() {
 			res.json(req.user.avatarUrl);
 		});
 	});
@@ -18,76 +116,8 @@ module.exports = function(sd) {
 	router.get("/default.png", function(req, res) {
 		res.sendFile(__dirname + '/files/avatar.png');
 	});
-
-
-
-
-
-
-	let ensure_admin = sd.ensure_admin = function(req, res, next){
-		if(req.user&&req.user.is&&req.user.is.admin) next();
-		else res.send(false);
-	};
-	let ensure_super = sd.ensure_super = function(req, res, next){
-		if(req.user&&req.user.is&&req.user.is.super){
-			next();
-		} 
-		else res.send(false);
-	};
-	/*
-	*	waw crud : Get Configuration
-	*/
-		sd['query_get_user'] = function(){return {}};
-		sd['select_get_user'] = function(){return 'avatarUrl skills gender name birth email'};
-		sd['ensure_get_user_admin'] = ensure_admin;
-		sd['query_get_user_admin'] = function(){return {}};
-		sd['select_get_user_admin'] = function(){return '-password'};
-	/*
-	*	waw crud : Update Configuration
-	*/
-		sd['ensure_update_all_user_super'] = ensure_super;
-		sd['query_update_all_user_super'] = function(req, res, next) {
-			return {
-				_id: req.body._id
-			}
-		};
-		sd['ensure_update_all_user_admin'] = ensure_admin;
-		sd['query_update_all_user_admin'] = function(req, res, next) {
-			return {
-				_id: req.body._id
-			}
-		};
-		sd['query_update_all_user'] = function(req, res, next) {
-			return {
-				_id: req.user._id
-			}
-		};
-	/*
-	*	waw crud : Delete Configuration
-	*/
-		sd['ensure_delete_user_admin'] = ensure_admin;
-		sd['query_delete_user_admin'] = function(req, res, next){
-			return {
-				_id: req.body._id
-			}
-		};
-		sd['query_delete_user'] = function(req, res, next){
-			return {
-				_id: req.user._id
-			}
-		};
-		sd['files_to_remove_delete_user'] = function(req, res, next){
-			return __dirname+'/files/'+req.user._id;
-		};
-	// End of
-
-
-
-
-
-
-
-
-
-	
+	// Until back-end editor completed
+	router.get("/cdn/*", function(req, res) {
+		res.sendFile(__dirname + '/cdn/' + req.params['0']);
+	});
 };

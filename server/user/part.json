@@ -1,13 +1,6 @@
 {
-	"name": "user",
-	"dependencies": {
-		"passport.socketio": "*",
-		"express-recaptcha": "*",
-		"passport-local": "*",
-		"bcrypt-nodejs": "*",
-		"passport": "*",
-		"mongoose": "*"
-	},
+	"priority": 901,
+	"name": "User",
 	"router": [{
 		"name": "Basic",
 		"src": "router.js"
@@ -19,13 +12,17 @@
 		"src": "auth.js"
 	}],
 	"crud": {
-		"updatesAll": [{
-			"keys": ["name"],
-			"name": ""
-		}],
-		"unique_field": [{
-			"key": "email",
-			"name": ""
+		"update": [{
+			"keys": ["name", "data", "is", "avatarUrl"]
+		}, {
+			"keys": ["data", "is"],
+			"name": "admin"
 		}]
+	},
+	"dependencies": {
+		"express-recaptcha": "*",
+		"passport-local": "*",
+		"bcrypt-nodejs": "*",
+		"passport": "*"
 	}
 }

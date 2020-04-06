@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html ng-app="ngapp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{{title}}}</title>
+	<meta itemprop="name" content="{{{title}}}">
+	<meta name="twitter:title" content="{{{title}}}">
+	<meta property="og:title" content="{{{title}}}" />
+
+	<meta name="description" content="{{{description}}}">
+	<meta itemprop="description" content="{{{description}}}">
+	<meta name="twitter:description" content="{{{description}}}">
+	<meta property="og:description" content="{{{description}}}" />
+
+	<meta itemprop="image" content="{{{image}}}">
+	<meta name="twitter:image:src" content="{{{image}}}">
+	<meta property="og:image" content="{{{image}}}" />
+
+	<meta name="keywords" content="{{{keywords}}}">
+	
+	<link rel="shortcut icon" type="image/png" href="/api/user/cdn/styles/panianka_favicon.png">
+
+	<base href="/">
+
+	<!-- REPLACE THIS WITH NEW CODE -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-78236546-11"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'UA-78236546-11');
+	</script>
+
+	<style>
+		body {
+			margin: 0;
+			font-family: "Roboto", sans-serif;
+			user-select: none;
+			background:  url(/api/user/cdn/styles/bg.png); 
+			background-attachment: fixed;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+			overflow-x: hidden;
+			padding: 0;
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+		img{
+			width: 100%;
+			border-radius: 5px;
+			margin: 20px 0;
+			opacity: 1;
+		}
+		p{
+			margin: 0;
+			color: #000000;
+			font-size: 18px;
+			line-height: 21px;
+			text-align: center;
+		}
+		.land-container{
+			padding: 40px 20px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			text-align: center;
+
+		}
+		.land-top{
+			background: rgba(255,255,255, 0.7);
+			box-shadow: 0 4px 4px rgba(255,255,255, 0.7);
+			border-radius: 50px 50px 0 0;
+			padding: 10px;
+			color: #5E0000; 
+			margin-bottom: 15px;
+
+		}
+		.land-description{
+			background: rgba(255,255,255, 0.7);
+			box-shadow: 0 4px 4px rgba(255,255,255, 0.7);
+			border-radius: 0 0 50px 50px;
+			padding: 20px;
+			color: #5E0000; 
+			margin-bottom: 20px;
+		}
+		@media only screen and (min-width: 600px) {
+			img { 
+				width: 250px;
+				height: auto;
+			}
+			.land-container{
+				padding: 40px 15%;
+			}
+			.land-top, .land-description{
+				padding: 20px 40px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="land-container">
+		<div class="land-top">
+			<h1>Вітаємо Вас на styles.panianka.com</h1>
+		</div>
+		<div class="land-description">
+			<p>Головне завдання styles.panianka.com - стерти будь-які обмеження, що виникають під час вибору одягу.</p>
+		</div>
+		<div class="land-top">
+			<h2>Що ми пропонуємо</h2>
+		</div>
+		<div class="land-description">
+			<p>Ми пропонуємо Вам широкий вибір суконь різноманітного фасону, які Ви можете модифікувати та замовити у будь-якому розмірі відповідно до своїх побажань та пропорцій фігури за допомогою вбудованого конструктора. </p>
+			<img src="/api/user/cdn/styles/1.png" alt="">
+			<p>Авторизовані користувачі мають можливість змінювати колір та сам матеріал суконь і  змінювати їх дизайн.</p>
+			<img src="/api/user/cdn/styles/2.png" alt="">
+			<p>Авторизовані користувачі мають можливість змінювати колір та сам матеріал суконь і  змінювати їх дизайн. Користувачі матимуть змогу купити собі сукню будь-якого розміру із вказаних у перелікуабо ж власноруч сконструювати новий дизайн і в подальшому оформити замовлення.</p>
+			<img src="/api/user/cdn/styles/3.png" alt="">
+			<p>Проект дає можливість користувачам замовляти пошиття одягу дистанційно, адже уВашому профілі Ви вказуєте усю важливу для швачки інформацію.</p>
+			<img src="/api/user/cdn/styles/4.png" alt="">
+		</div>
+		<div class="land-top">
+			<h2>Переваги для швачок</h2>
+		</div>
+		<div class="land-description">
+			<p>Проект передбачає залучення фрілансерів із досвідом надання швацьких послуг танаявністю необхідного обладнання. Це дає можливість швачкам працювати з дому та за власноруч обраним графіком роботи. Швачка (фрілансер) повинна розмістити усвоєму профілі фото виробів та обладнання, які підтверджують її вміння.</p>
+			<img src="/api/user/cdn/styles/5.png" alt="">
+			<p>Клієнти (після підтвердження пошиття замовлення) мають можливість написати відгукдля швачки, таким чином висловити свої враження щодо виробу. На основі інформаціїз профілів та відгуків, клієнти матимуть   змогу підібрати швачку, яка найкраще відповідатиме їхнім вимогам.</p>
+			<img src="/api/user/cdn/styles/6.png" alt="">
+			<p>Цей проект даватиме змогу вирішити проблему   несумісності одягу та фігури і уподобань, а також даватиме змогу віддалено пошити одяг на замовлення, а не шукатишвачку у своєму місті, коли це малоймовірно. Швачки можуть отримувати більшезамовлень завдяки цій платформі, а клієнти зможуть із легкістю знайти людину, яка зможе реалізувати їх ідеї та пошити сукні відповідно до усіх параметрів.</p>
+			<img src="/api/user/cdn/styles/7.png" alt="">
+			<p>Швачки мають змогу отримувати запити на пошиття відповідно до своїх можливостей,кваліфікації та бажаних цін. На основі цього клієнти підбиратимуть собі швачку.</p>
+			<img src="/api/user/cdn/styles/8.png" alt="">
+			<p>Запити на пошиття суконь швачка може прийняти або відхилити та обговорити усідеталі у чаті з клієнтом. Коли замовлення буде виконано, тоді клієнт зможе підтвердитипошиття і запит буде автоматично закрито. Після цього швачка отримає плату за своюроботу, яку вона раніше узгодила з клієнтом. Тобто заробіток   буде  залежати відкількості обраних Вами замовлень та Ви самі регулюватимете свій графік.</p>
+			<img src="/api/user/cdn/styles/9.png" alt="">
+			<p>Наразі проект перебуває на стадії розробки, тому ми пропонуємо Вам ознайомитись із матеріалами, які будуть будуть використані для подальшого пошиття усіх замовлень.</p>
+			<img src="/api/user/cdn/styles/10.png" alt="">
+			<p>Тканини розміщені у каталозі сайту tkani.panianka.com. До моменту запуску проекту Виможете спробувати попрацювати із цими тканинами та обрати ті, які полюбите!</p>
+		</div>
+		<div class="land-top">
+			<h2>Хочу стати частиною проекту!</h2>
+		</div>
+		<div class="land-description">
+			<p>Зареєструйтесь, щоб отримувати усі новини щодо проекту і приєднатись до нас! Новини надходитимуть на ВАшу електронну пошту, а усі інші дані Вам знадобляться для входу на платформу у майбутньому.</p>
+			<img src="/api/user/cdn/styles/11.png" alt="">
+			<p>tkani.panianka.com - це магазин, який пропонує широкий вибір тканин та аксесуарів залояльними цінами для пошиття різноманітного одягу. Асортимент дозволяє купититканини для будь-якого гардеробу і може задовольнити різноманітні потреби покупців,адже охоплює як трендові новинки, так і класичні тканини. Не менш важливим є те, щомагазин   регулярно   оновлює   та   проводить   розпродажі   тканин,   з   чим   можна ознайомитись у каталозі, який доступний на сайті.</p>
+		</div>
+	</div>
+</body>
+</html>

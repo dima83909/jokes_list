@@ -1,4 +1,46 @@
 {% extends 'index.html' %}
 {% block body %}
-<a href="/Recover">Recover</a>
+<div ng-controller="Mail">
+	<form ng-if="!flag" method="POST">
+		<input type="email" ng-model="form.email" name="username" placeholder="email">
+		<button ng-click="request(form.email);" ng-disabled="!form.email">Recover</button>
+	</form>
+	<form ng-if="flag" method="POST">
+		<input type="number" name="Pin" ng-model="form.pin" placeholder="Pin code from mail">
+		<input type="password" name="password" ng-model="form.password" placeholder="New password">
+		<button ng-click="change(form.password, form.pin);" ng-disabled="!form.pin||!form.password">Change</button>
+	</form>
+</div>
+
+<script>
+	app.controller('Mail', function($scope, $http){
+		$scope.form = {};
+		$scope.flag = false;
+
+		$scope.request = function() {
+			$http.post('/api/user/status', {
+				email: $scope.form.email
+			}).then(function(resp) {
+				if (resp.data.email) {
+					$http.post('/api/user/request', {
+						email: $scope.form.email
+					});
+					$scope.flag = true;
+					alert("Mail succesfully sent to your address");
+				} else if (!resp.data.email) {
+					alert('Email is incorrect');
+				}
+			});
+		};
+		$scope.change = function() {
+			$http.post('/api/user/change', {
+				email: $scope.form.email,
+				password: $scope.form.password,
+				pin: $scope.form.pin
+			}).then(function(resp) {
+				alert(resp.data);
+			});
+		};
+	});
+</script>
 {% endblock %}

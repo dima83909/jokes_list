@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link
+		href="https://fonts.googleapis.com/css?family=Oswald:400,600|Roboto:400,400i,500,700|Ubuntu:400,700&display=swap"
+		rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<header class="header">
+			<div class="nav-wrap">
+				<h2 class="logo"><a href="/home.html">[D.M]aksiuta</a></h2>
+				<a id="menu-icon" (click)="menuShow=!menuShow">&#9776; Menu</a>
+				<nav class="navbar" [class.expand]="menuShow">
+					<ul class="menu">
+						<li><a href="home.html" class="active">Home</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="portfolio.html">Portfolio</a></li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main>
+			<section class="home-section section">
+
+				<div class="avatar"><img src="/api/user/cdn/avatar.png" alt=""></div>
+				<h1 class="home__title">Dmytro Maksiuta</h1>
+				<p class="home__subtitle">
+					Сreating future websites </p>
+				<div class="home-btn">
+					<button class="home-btn__button"><a href="about.html">About me</a> </button>
+					<div class="home-btn__hand"></div>
+				</div>
+			</section>
+
+
+
+		</main>
+
+		<footer></footer>
+	</div>
+</body>
+
+
+<script src="https://kit.fontawesome.com/3899e84644.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+
+<script src="/main.js"></script>
+
+
+</html>

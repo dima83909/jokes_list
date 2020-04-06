@@ -1,0 +1,48 @@
+.contact-info {
+  h4 {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+.contact-links {
+  list-style: none;
+  a {
+    display: flex;
+    align-items: center;
+
+    color: black;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: 0.5s all ease-in-out;
+    &:hover {
+      transition: 0.5s all ease-in-out;
+      color: #f34f43;
+    }
+  }
+  img {
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+  }
+}
+.contact-form {
+  h4 {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.contact-wrapper {
+	display: flex;
+	justify-content: space-between;
+	.contact-form {
+		padding: 20px;
+		
+	}
+	.contact-info {
+		padding: 20px;
+		
+	}
+}
+
+

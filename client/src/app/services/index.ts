@@ -1,1 +1,1 @@
-export { UserService } from './user.service';
+export { Authenticated, Guest } from './guard';

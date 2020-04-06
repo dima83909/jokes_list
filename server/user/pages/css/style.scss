@@ -1,0 +1,125 @@
+/* You can add global styles to this file, and also import other style files */
+@import "base";
+@import "var";
+@import "nav";
+@import "home";
+@import "about";
+@import "portfolio";
+@import "contact";
+@import "portfolioCart";
+@import "stylesmade";
+@import "other";
+@import "modal";
+
+  
+@media screen and (min-width: 770px) {
+  .hidden-xl {
+    display: none;
+  }
+}
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 770px) {
+  html {
+    font-size: 11px;
+  }
+  .container section {
+    // height: 100%;
+    padding-bottom: 50px;
+  }
+  .about-section {
+    .about-info {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .about-info__right {
+      width: 100%;
+    }
+    .about-info__left {
+      align-items: center;
+      width: 100%;
+    }
+    .about-info__left--img {
+      width: 100px;
+      height: 100px;
+    }
+    .about-title {
+      margin-bottom: 10px;
+    }
+    .about-team {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .column-sm {
+      flex-direction: column;
+    }
+    .hidden-sm {
+      display: none;
+    }
+    .show-sm{
+      display: block;
+    }
+  }
+  .contact-wrapper {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 530px) {
+  html {
+    font-size: 10px;
+  }
+  .about-team {
+    display: none;
+  }
+  .about-team-section {
+    display: block;
+  }
+  .about-section, .job-section {
+    height: 100%;
+  }
+}
+@media screen and (max-width: 350px) {
+  html {
+    font-size: 10px;
+  }
+  .about-info__right--2 {
+    margin-top: 0;
+  }
+  .about-skills__back {
+    display: none;
+  }
+  .mt35 {
+    margin-top: 0;
+  }
+  .about-skills__content {
+    background: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    color: white;
+    letter-spacing: 1px;
+  }
+  .home-section {
+    padding: 0 15px;
+  }
+  .avatar {
+    width: 100px;
+  }
+  .home__title {
+    font-size: 3em;
+  }
+  .home__subtitle {
+    font-size: 1.5em;
+  }
+  .home-btn__button {
+    width: 150px;
+  }
+}
+a {
+  text-decoration: none;
+}
+
+
