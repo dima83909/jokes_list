@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 const User = require(__dirname+'/schema.js');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const passportSocketIo = require("passport.socketio");
 // var Recaptcha = require('express-recaptcha').Recaptcha;
 // var recaptcha = new Recaptcha('6Lf4nUsUAAAAAMtjSbr2Nfj0iDrc3RSlkEzepIcN', '6Lf4nUsUAAAAANR6Vmkafh82L2Gf08AREuRicHS7');
+=======
+var User = require(__dirname+'/schema.js');
+var mongoose = require('mongoose');
+>>>>>>> 0b764a1ef135691920bfae7c137a03ca93b0ed5a
 module.exports = function(sd) {
 	const router = sd.router('/api/user');
 	sd.app.use(passport.initialize());
@@ -157,6 +162,7 @@ module.exports = function(sd) {
 					instagram.username = profile.username;
 					req.user.saveInstagram(instagram, function() {});
 					return done(null, user);
+<<<<<<< HEAD
 				}
 			});
 		}));
@@ -193,6 +199,80 @@ module.exports = function(sd) {
 					});
 					return done(null, user);
 				}
+=======
+				});
+			}));
+			router.post('/signup', sd._passport.authenticate('local-signup', {
+				successRedirect: sd._config.passport.local.successRedirect,
+				failureRedirect: sd._config.passport.local.failureRedirect
+			}));
+			sd._passport.use('local-signup', new LocalStrategy({
+				usernameField : 'username',
+				passwordField : 'password',
+				passReqToCallback : true
+			}, function(req, username, password, done) {
+				User.findOne({
+					'email': username.toLowerCase()
+				}, function(err, user) {
+					if (err) return done(err);
+					if (user) return done(null, false);
+					else {
+						var newUser = new User();
+						newUser.is = {
+							admin: false
+						};
+						newUser.email = username.toLowerCase();
+						newUser.password = newUser.generateHash(password);
+						newUser.save(function(err) {
+							console.log(newUser);
+							if (err) throw err;
+							return done(null, newUser);
+						});
+					}
+				});
+			}));
+		}
+	// Google
+		if (sd._config.passport.google) {
+			var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+			router.get('/google', sd._passport.authenticate('google', {
+				scope: ['profile', 'email']
+			}));
+			router.get('/google/callback', sd._passport.authenticate('google', {
+				successRedirect: '/',
+				failureRedirect: '/'
+			}));
+			sd._passport.use('google', new GoogleStrategy({
+				clientID: sd._config.passport.google.clientID,
+				clientSecret: sd._config.passport.google.clientSecret,
+				callbackURL: sd._config.passport.google.callbackURL,
+				passReqToCallback: true
+			}, function(req, token, refreshToken, profile, done) {
+				User.findOne({
+					_id: req.user._id
+				}, function(err, user) {
+					if (err) return done(err);
+					if (user) {
+						var google = {};
+						google.id = profile.id;
+						google.url = profile._json.url;
+						req.user.saveGoogle(google, function() {});
+						return done(null, user);
+					}
+				});
+			}));
+		}
+	// Instagram
+		if(sd._config.passport.instagram){
+			var InstagramStrategy= require('passport-instagram').Strategy;
+			router.get('/instagram',
+				sd._passport.authenticate('instagram')
+			);
+			router.get('/instagram/callback', sd._passport.authenticate('instagram', {
+				failureRedirect: '/login'
+			}), function(req, res) {
+				res.redirect('/');
+>>>>>>> 0b764a1ef135691920bfae7c137a03ca93b0ed5a
 			});
 		}));
 	}
