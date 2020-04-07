@@ -13,6 +13,7 @@ export class UserService {
 	*/
 		public users: any = [];
 		public _users: any = {};
+		public is: any = {};
 		public data: any = {};
 		public avatarUrl: any;
 		public name: any;

@@ -20,11 +20,11 @@ const routes: Routes = [{
 	path: '', redirectTo: 'profile', pathMatch: 'full'
 }, {
 	path: '',
-	//canActivate: [Admins],
+	canActivate: [Authenticated],
 	component: UserComponent,
 	children: [{
 		path: 'profile',
-		//canActivate: [MetaGuard],
+		canActivate: [MetaGuard],
 		data: {
 			meta: {
 				title: 'My Profile'
@@ -34,11 +34,11 @@ const routes: Routes = [{
 	}]
 }, {
 	path: '',
-	//canActivate: [Authenticated],
+	canActivate: [Admins],
 	component: UserComponent,
 	children: [{
 		path: 'users',
-		//canActivate: [MetaGuard],
+		canActivate: [MetaGuard],
 		data: {
 			meta: {
 				title: 'Users'
@@ -48,11 +48,11 @@ const routes: Routes = [{
 	}]
 }, {
 	path: '',
-	//canActivate: [Guest],
+	canActivate: [Guest],
 	component: GuestComponent,
 	children: [{
 		path: 'login',
-		//canActivate: [MetaGuard],
+		canActivate: [MetaGuard],
 		data: {
 			meta: {
 				title: 'Login'
@@ -61,7 +61,7 @@ const routes: Routes = [{
 		loadChildren: () => import('./pages/guest/login/login.module').then(m => m.LoginModule)
 	}, {
 		path: 'sign',
-		//canActivate: [MetaGuard],
+		canActivate: [MetaGuard],
 		data: {
 			meta: {
 				title: 'Sign Up'
@@ -70,7 +70,7 @@ const routes: Routes = [{
 		loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
 	}, {
 		path: 'reset',
-		//canActivate: [MetaGuard],
+		canActivate: [MetaGuard],
 		data: {
 			meta: {
 				title: 'Reset Password'
@@ -79,7 +79,7 @@ const routes: Routes = [{
 		loadChildren: () => import('./pages/guest/reset/reset.module').then(m => m.ResetModule)
 	}, {
 		path: 'save',
-		//canActivate: [MetaGuard],
+		canActivate: [MetaGuard],
 		data: {
 			meta: {
 				title: 'New Password'
