@@ -1,0 +1,25 @@
+<div *ngFor= "let user of us.users">
+
+	<div *ngFor="let request of user.data.request|each: 2">
+		<div *ngIf="user.data.request[request.holder]">
+			{{user.name}} want to be a {{request.holder}}
+			<button (click)="user.is[request.holder] = true; user.data.request[request.holder] = null; us.save(user);">Accept</button>
+			<input type="text" [(ngModel)]="user.data.reason[request.holder]" placeholder="Reason to reject">
+			<button (click)="user.data.request[request.holder] = null; us.save(user);">Reject</button>
+		</div>
+
+	</div>
+
+	<div *ngFor="let role of user.is|each:2">
+		<div *ngIf="user.is[role.holder]">
+			{{user.name}} is - {{role.holder}}
+			<button (click)="user.is[role.holder] = null; us.save(user);">Remove</button>
+		</div>
+	</div>
+	{{user.name}}
+	<form (ngSubmit)="user.is[newrole]=true; us.save(user);">
+		<input type="text" name="is" placeholder="Custom is" [(ngModel)]="newrole">
+		<button [disabled]="!newrole">Create</button>
+	</form>
+
+</div>	

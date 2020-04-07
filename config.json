@@ -1,37 +1,30 @@
 {
 	"name": "wawNgx",
-	"description": "Sample project from waw framework with ngx Client.",
+	"description": "Default waw project with Angular client",
 	"license": "MIT",
 	"production": false,
-
-		"icon": "/client/src/favicon.ico",
-		"prefix": "wawNgx",
-		"port": 8080,
-		"session": true,
-		"mongo": {
-			"host": "localhost",
-			"port": 27017,
-			"db": "ngx"
-		},
-		"passport": {
-			"local": {
-				"successRedirect": "/",
-				"failureRedirect": "/"
-			}
-		},
-
-	"runners": {
-		"nodemon": "latest"
+	"icon": "/client/src/favicon.ico",
+	"prefix": "wawNgx",
+	"port": 8080,
+	"session": true,
+	"mongo": {
+		"host": "localhost",
+		"port": 27017,
+		"db": "waw"
 	},
 	"parts": {
-		"express": "latest",
-		"socket": "latest",
-		"session": "latest",
-		"mongo": "latest",
-		"crud": "latest",
-		"derer": "latest"
+		"core": "waw",
+		"sem": "waw",
+		"unique": "waw"
 	},
-	"helpers": {
-		"git": "latest"
+	"dependencies": {
+		"mongoose": "*"
+	},
+	"user": {
+		"pages": "login sign reset save",
+		"is": {
+			"admin": "ceo@webart.work"
+		},
+		"urls": ["webart.work", "localhost:8080"]
 	}
 }

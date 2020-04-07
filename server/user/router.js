@@ -1,14 +1,5 @@
 var User = require(__dirname + '/schema.js');
 module.exports = function(waw) {
-	// temp
-	if(!waw.dataUrlToLocation){
-		waw.dataUrlToLocation = function(dataUrl, loc, file, cb){
-			var base64Data = dataUrl.replace(/^data:image\/png;base64,/, '').replace(/^data:image\/jpeg;base64,/, '');
-			var decodeData = new Buffer(base64Data, 'base64');
-			waw.fs.mkdirSync(loc, { recursive: true });
-			waw.fs.writeFile(loc+'/'+file, decodeData, cb);
-		}
-	}
 	/*
 	*	Serve Client
 	*/
@@ -68,7 +59,7 @@ module.exports = function(waw) {
 				return '-password';
 			}
 		},
-		update: {
+		update: [{
 			ensure: function(req, res, next){
 				if(req.user){
 					req.body.is = req.user.is;
@@ -85,14 +76,21 @@ module.exports = function(waw) {
 					_id: req.user._id
 				}
 			}
-		},
-		delete: {
-			query: function(req, res, next){
+		}, {
+			name: 'admin',
+			ensure: function(req, res, next){
+				if(req.user && req.user.is && req.user.is.admin){
+					next();
+				}else{
+					res.json(false);
+				}
+			},
+			query: function(req, res, next) {
 				return {
-					_id: req.user._id
+					_id: req.body._id
 				}
 			}
-		}
+		}]
 	});
 	/*
 	waw.files({
@@ -115,9 +113,5 @@ module.exports = function(waw) {
 	});
 	router.get("/default.png", function(req, res) {
 		res.sendFile(__dirname + '/files/avatar.png');
-	});
-	// Until back-end editor completed
-	router.get("/cdn/*", function(req, res) {
-		res.sendFile(__dirname + '/cdn/' + req.params['0']);
 	});
 };

@@ -1,6 +1,21 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, Route } from '@angular/router';
-import { Observable } from 'rxjs';
+
+@Injectable()
+export class Admins implements CanActivate {
+	constructor(private router: Router) {}
+	canActivate(){
+		if ( localStorage.getItem('waw_user') ) {
+			let user = JSON.parse(localStorage.getItem('waw_user'));
+			if(user.is && user.is.admin) return true;
+			this.router.navigate(['/profile']);
+			return false;
+		} else {
+			this.router.navigate(['/login']);
+			return false;
+		}
+	}
+}
 
 @Injectable()
 export class Authenticated implements CanActivate {

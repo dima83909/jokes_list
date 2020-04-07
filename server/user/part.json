@@ -1,16 +1,7 @@
 {
 	"priority": 901,
 	"name": "User",
-	"router": [{
-		"name": "Basic",
-		"src": "router.js"
-	}, {
-		"name": "Pages",
-		"src": "pages/route.js"
-	}, {
-		"name": "Auth",
-		"src": "auth.js"
-	}],
+	"router": "router.js auth.js",
 	"crud": {
 		"update": [{
 			"keys": ["name", "data", "is", "avatarUrl"]

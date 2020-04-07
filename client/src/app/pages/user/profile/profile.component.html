@@ -1,0 +1,31 @@
+<div class="profile-block row">
+	<div class="col-xs-12 col-md-4 profile-info">
+		<div class="jc-sb">
+			<label>
+				<img width="50" height="50" [src]="us.avatarUrl" alt="">
+				<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true">
+			</label>
+			<div>
+				<i class="material-icons ml5" (click)="us.logout();">meeting_room</i>
+			</div>
+		</div>
+		<div>
+			<div class="row">
+				<div class="col-xs-12">
+					<input class="input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.name" (ngModelChange)="us.update();">
+				</div>
+				<div class="col-xs-12">
+					<input class="input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.data.phone" (ngModelChange)="us.update();">
+				</div>
+				<div class="col-xs-12">
+					<input class="input" type="text" name="location" placeholder="Your location" [(ngModel)]="us.data.location" (ngModelChange)="us.update();">
+				</div>
+				<div class="col-xs-12">
+					<textarea class="input" type="text" name="description" placeholder="Your bio" [(ngModel)]="us.data.description" (ngModelChange)="us.update();" rows="5" cols="45">
+					</textarea>
+					<span>{{us.email}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

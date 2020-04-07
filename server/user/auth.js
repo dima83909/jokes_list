@@ -117,7 +117,7 @@ module.exports = function(sd) {
 		});
 		router.get('/logout', function(req, res) {
 			req.logout();
-			res.redirect(sd._config.passport.local.successRedirect);
+			res.redirect(sd.config.user.local.successRedirect);
 		});
 		router.get('/logout-local', function(req, res) {
 			req.logout();
@@ -234,7 +234,7 @@ module.exports = function(sd) {
 			});
 		}));
 	// Google
-		if (sd._config.passport.google) {
+		if (sd.config.user.google) {
 			var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 			router.get('/google', passport.authenticate('google', {
 				scope: ['profile', 'email']
@@ -244,9 +244,9 @@ module.exports = function(sd) {
 				failureRedirect: '/'
 			}));
 			passport.use('google', new GoogleStrategy({
-				clientID: sd._config.passport.google.clientID,
-				clientSecret: sd._config.passport.google.clientSecret,
-				callbackURL: sd._config.passport.google.callbackURL,
+				clientID: sd.config.user.google.clientID,
+				clientSecret: sd.config.user.google.clientSecret,
+				callbackURL: sd.config.user.google.callbackURL,
 				passReqToCallback: true
 			}, function(req, token, refreshToken, profile, done) {
 				User.findOne({
@@ -264,7 +264,7 @@ module.exports = function(sd) {
 			}));
 		}
 		// Instagram
-		if (sd._config.passport.instagram) {
+		if (sd.config.user.instagram) {
 			var InstagramStrategy= require('passport-instagram').Strategy;
 			router.get('/instagram',
 				passport.authenticate('instagram')
@@ -275,9 +275,9 @@ module.exports = function(sd) {
 				res.redirect('/');
 			});
 			passport.use('instagram',new InstagramStrategy({
-				clientID : sd._config.passport.instagram.clientID,
-				clientSecret : sd._config.passport.instagram.clientSecret,
-				callbackURL : sd._config.passport.instagram.callbackURL,
+				clientID : sd.config.user.instagram.clientID,
+				clientSecret : sd.config.user.instagram.clientSecret,
+				callbackURL : sd.config.user.instagram.callbackURL,
 				passReqToCallback:true
 			}, function (req, accessToken, refreshToken, profile, done) {
 				User.findOne({
@@ -295,7 +295,7 @@ module.exports = function(sd) {
 			}));
 		}
 		// Facebook
-		if (sd._config.passport.facebook) {
+		if (sd.config.user.facebook) {
 			var FacebookStrategy = require('passport-facebook').Strategy;
 			router.get('/facebook', passport.authenticate('facebook', {
 				display: 'page',
@@ -307,9 +307,9 @@ module.exports = function(sd) {
 				res.redirect('/');
 			});
 			passport.use('facebook',new FacebookStrategy({
-				clientID: sd._config.passport.facebook.clientID,
-				clientSecret: sd._config.passport.facebook.clientSecret,
-				callbackURL: sd._config.passport.facebook.callbackURL,
+				clientID: sd.config.user.facebook.clientID,
+				clientSecret: sd.config.user.facebook.clientSecret,
+				callbackURL: sd.config.user.facebook.callbackURL,
 				profileFields: ['id', 'profileUrl'],
 				passReqToCallback:true
 			}, function (req,token, refreshToken, profile, done) {
@@ -331,12 +331,12 @@ module.exports = function(sd) {
 			}));
 		}
 		// Twitter
-		if (sd._config.passport.twitter) {
+		if (sd.config.user.twitter) {
 			var TwitterStrategy = require('passport-twitter').Strategy;
 			passport.use(new TwitterStrategy({
-				consumerKey: sd._config.passport.twitter.consumerKey,
-				consumerSecret: sd._config.passport.twitter.consumerSecret,
-				callbackURL: sd._config.passport.twitter.callbackURL
+				consumerKey: sd.config.user.twitter.consumerKey,
+				consumerSecret: sd.config.user.twitter.consumerSecret,
+				callbackURL: sd.config.user.twitter.callbackURL
 			},function(token, tokenSecret, profile, done) {
 				process.nextTick(function() {
 					User.findOne({
@@ -363,10 +363,10 @@ module.exports = function(sd) {
 			}));
 			router.get('/twitter', passport.authenticate('twitter'));
 			router.get('/twitter/callback', passport.authenticate('twitter', {
-				successRedirect: sd._config.passport.twitter.successRedirect,
-				failureRedirect: sd._config.passport.twitter.failureRedirect
+				successRedirect: sd.config.user.twitter.successRedirect,
+				failureRedirect: sd.config.user.twitter.failureRedirect
 			}),function(req, res) {
-				res.redirect(sd._config.passport.twitter.successRedirect);
+				res.redirect(sd.config.user.twitter.successRedirect);
 			});
 		}
 	// End of Crud
