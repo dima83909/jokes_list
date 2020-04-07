@@ -13,7 +13,7 @@ export class LoginComponent {
 		private http: HttpClient,
 		private alert: NgxIzitoastService) {}
 	public user:any = {
-		email: 'crackeraki@gmail.com',
+		email: 'ceo@webart.work',
 		password: 'asdasdasdasd'
 	};
 	login() {
@@ -36,7 +36,7 @@ export class LoginComponent {
 					password: this.user.password
 				}).subscribe((res:any) => {
 					localStorage.setItem('waw_user', JSON.stringify(res));
-					this.router.navigate(['/'])
+					this.router.navigate(['/profile'])
 				})
 			} else {
 				this.alert.error({

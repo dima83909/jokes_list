@@ -20,7 +20,7 @@ export class SaveComponent {
 		}
 	}
 	public user:any = {
-		email: 'crackeraki@gmail.com',
+		email: 'ceo@webart.work',
 		password: 'asdasdasdasd'
 	};
 	changePass() {
@@ -49,7 +49,7 @@ export class SaveComponent {
 				username: this.user.email
 			}).subscribe((res:any) => {
 				localStorage.setItem('waw_user', JSON.stringify(res));
-				this.router.navigate(['/']);
+				this.router.navigate(['/profile']);
 			});			
 		});
 	}

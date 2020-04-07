@@ -13,7 +13,7 @@ export class ResetComponent {
 		private http: HttpClient,
 		private alert: NgxIzitoastService) {}
 	public user:any = {
-		email: 'crackeraki@gmail.com',
+		email: 'ceo@webart.work',
 		password: 'asdasdasdasd'
 	};
 	reset() {
