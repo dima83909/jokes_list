@@ -86,7 +86,7 @@
 	font-weight: bold;
 	padding: .6em 1.3em;
 	margin: 0 0 4px 0;
-	width: 100%;
+	width: 100px;
 	background-color: #255692;
 	color: #fff;
 	border: none;
@@ -94,6 +94,15 @@
     &:hover {
     	background-color: #3669a7;
     }
+}
+.accept-btn {
+	background-color: white;
+	border: 1px solid #e5e5e5;
+	color: black;
+	&:hover {
+		border: 1px solid transparent;
+		color: white;
+	}
 }
 .pages-card{
 	display: flex;
@@ -134,6 +143,10 @@
 	display: flex;
 	justify-content: space-between;
 	.text-row {
-		flex-grow: 1
+		flex-grow: 1;
+		padding-top: 10px;
 	}
+}
+.text-row span {
+	padding-right: 5px;
 }

@@ -1,8 +1,8 @@
 <div class="profile-block row">
-	<div class="col-xs-12 col-md-4 profile-info">
+	<div class="col-xs-12 col-md-6 profile-info">
 		<div class="jc-sb">
 			<label>
-				<img width="50" height="50" [src]="us.avatarUrl" alt="">
+				<img width="50" height="50" src="/assets/avatar.png" alt="">
 				<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true">
 			</label>
 			<div>
@@ -12,18 +12,109 @@
 		<div>
 			<div class="row">
 				<div class="col-xs-12">
-					<input class="input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.name" (ngModelChange)="us.update();">
+					<label class="label-inp" for="project_name"><span>Name</span></label>
+					<input class="input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.name" (ngModelChange)="us.update();" class="form-control form-field">
 				</div>
 				<div class="col-xs-12">
-					<input class="input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.data.phone" (ngModelChange)="us.update();">
+					<label class="label-inp" for="project_name"><span>Phone number</span></label>
+					<input class="input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.data.phone" (ngModelChange)="us.update();" class="form-control form-field">
 				</div>
 				<div class="col-xs-12">
-					<input class="input" type="text" name="location" placeholder="Your location" [(ngModel)]="us.data.location" (ngModelChange)="us.update();">
+					<label class="label-inp" for="project_name"><span>Location</span></label>
+					<input class="input" type="text" name="location" placeholder="Your location" [(ngModel)]="us.data.location" (ngModelChange)="us.update();" class="form-control form-field">
 				</div>
 				<div class="col-xs-12">
-					<textarea class="input" type="text" name="description" placeholder="Your bio" [(ngModel)]="us.data.description" (ngModelChange)="us.update();" rows="5" cols="45">
+					<label class="label-inp" for="project_name"><span>Bio</span></label>
+					<textarea class="input" type="text" name="description" placeholder="Your bio" [(ngModel)]="us.data.description" (ngModelChange)="us.update();" rows="5" cols="45" class="form-control form-field">
 					</textarea>
 					<span>{{us.email}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-6 tags-wrapper">
+		<div class="tags-block">
+			<div>
+				<h3>Skills:</h3>
+			</div>
+			<div class="tags">
+				<div class="ai-c">
+					<label class="waw-checkbox">skill
+						<input class="dn" type="checkbox" checked="checked" name="check_skill">
+						<span class="checkmark"></span>
+					</label>
+				</div>
+				<div>
+					<div class="remove-row">
+						<span>skill.holder</span>
+						<button class="create-btn">Remove Skill</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="tags-block">
+			<div>
+				<h3>Tools:</h3>
+			</div>
+			<div class="tags">
+				<div>
+					<label class="waw-checkbox">tools
+						<input class="dn" type="checkbox" checked="checked" name="check_tool">
+						<span class="checkmark"></span>
+					</label>
+				</div>
+				<div>
+					<div class="remove-row">
+						<span>tools.holder</span>
+						<button class="create-btn">Remove Tool</button>
+					</div>
+				</div>
+				<div>
+					<label class="waw-checkbox">tools
+						<input class="dn" type="checkbox" checked="checked" name="check_tool">
+						<span class="checkmark"></span>
+					</label>
+				</div>
+				<div>
+					<div class="remove-row">
+						<span>tools.holder</span>
+						<button class="create-btn">Remove Tool</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tags-block">
+			<div class="jc-sb">
+				<h3>Portfolio:</h3>
+				<i class="material-icons">
+					add
+				</i>
+			</div>
+			<div class="profile-list">
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
+				</div>
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
+				</div>
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
+				</div>
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
 				</div>
 			</div>
 		</div>
