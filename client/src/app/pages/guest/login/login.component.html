@@ -1,20 +1,26 @@
-<div class="login-form">
-	<h1>Log In</h1>	
-	<div class="login-container">	
-		<form (ngSubmit)="login()">
-			<div>
-				<input (keydown.enter)="login()" type="text" placeholder="Email" name="email" [(ngModel)]="user.email" class="inp form-field">
-				<input (keydown.enter)="login()" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" class="inp form-field">
+<div class="inner-section">
+	<div class="form-wrapper">
+		<div>
+			<div class="login-form">
+				<h1>Log In</h1>	
+				<div class="login-container">	
+					<form (ngSubmit)="login()">
+						<div>
+							<input (keydown.enter)="login()" type="text" placeholder="Email" name="email" [(ngModel)]="user.email" class="inp form-field">
+							<input (keydown.enter)="login()" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" class="inp form-field">
+						</div>
+						<button type="submit" class="login-btn">Login</button>
+						<div class="form-link">
+							<div>
+								<a routerLink="/reset">Forgot password?</a>
+							</div>
+							<div>
+								<a routerLink="/sign">Don't have an account?</a>
+							</div>
+						</div>
+					</form>
+				<div class="login-container">
 			</div>
-			<button type="submit" class="login-btn">Login</button>
-			<div class="form-link">
-				<div>
-					<a routerLink="/reset">Forgot password?</a>
-				</div>
-				<div>
-					<a routerLink="/sign">Don't have an account?</a>
-				</div>
-			</div>
-		</form>
-	<div class="login-container">
+		</div>
+	</div>
 </div>

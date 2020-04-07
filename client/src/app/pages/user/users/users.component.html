@@ -1,4 +1,119 @@
-<div *ngFor= "let user of us.users">
+<!-- <div>
+
+	<div>
+		<div>
+			user.name want to be a request.holder
+			<button (click)="user.is[request.holder] = true; user.data.request[request.holder] = null; us.save(user);">Accept</button>
+			<input type="text" [(ngModel)]="user.data.reason[request.holder]" placeholder="Reason to reject">
+			<button (click)="user.data.request[request.holder] = null; us.save(user);">Reject</button>
+		</div>
+
+	</div>
+
+	<div>
+		<div>
+			user.name is - role.holder
+			<button (click)="user.is[role.holder] = null; us.save(user);">Remove</button>
+		</div>
+	</div>
+	user.name
+	<form (ngSubmit)="user.is[newrole]=true; us.save(user);">
+		<input type="text" name="is" placeholder="Custom is" [(ngModel)]="newrole">
+		<button [disabled]="!newrole">Create</button>
+	</form>
+
+</div>	 -->
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet"> -->
+<div class="page-wrapper">
+  	<div class="page-flex">
+		<div class="pages-right-column">
+			<div class="page-title-container">
+				<h1 class="page-title">Add new user</h1>
+			</div>
+			<div class="pages-left-column">
+				<div class="project-sidebar top-0 px-3 px-md-4 px-lg-4 overflow-auto">
+					<div class="newpage-container">
+						<div class="role-container">
+							<div class="text-row">
+								<span>user.name</span> <span>want to be a</span> <span>request.holder</span>
+							</div>
+							<div class="form-btn">
+								<button class="create-btn">Accept</button>
+							</div>
+						</div>
+						<form class="pages-form pages-container">
+							<div class="form-group project-name">
+								<input type="text" placeholder="Reason to reject" class="form-field">
+							</div>
+							<div class="form-btn">
+								<button class="create-btn">Reject</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="page-title-container">
+				<h1 class="page-title">Remove user</h1>
+			</div>
+			<div class="pages-left-column">
+				<div class="project-sidebar top-0 px-3 px-md-4 px-lg-4 overflow-auto">
+					<div class="newpage-container">
+						<div class="role-container">
+							<div class="text-row">
+								<span>user.name</span> <span>is -</span> <span>role.holder</span>
+							</div>
+							<div class="form-btn">
+								<button class="create-btn">Remove</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page-title-container">
+				<h1 class="page-title">Add user role</h1>
+			</div>
+			<div class="pages-left-column">
+				<div class="project-sidebar top-0 px-3 px-md-4 px-lg-4 overflow-auto">
+					<div class="newpage-container">
+						user.name
+						<form class="pages-form pages-container">
+							<div class="form-group project-name">
+								<input type="text" name="is" placeholder="Custom is" class="form-field">
+							</div>
+							<div class="form-btn">
+								<button class="create-btn">Create</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <form (ngSubmit)="ds.create(form); form={};">
+	<label>
+		<p>Url</p>
+		<input type="text" [(ngModel)]="form.url" name="url" placeholder="url">
+	</label>
+	<label>
+		<p>Description</p>
+		<input type="text" [(ngModel)]="form.description" name="description" placeholder="description">
+	</label>
+	<div>
+		<button>Create</button>
+	</div>
+</form>
+
+<div *ngFor="let domain of ds.domains">
+	<p>{{domain.url}}</p>
+	<p>{{domain.description}}</p>
+	<button (click)="ds.delete(domain)">Delete</button>
+</div> -->
+
+
+<!-- <div *ngFor= "let user of us.users">
 
 	<div *ngFor="let request of user.data.request|each: 2">
 		<div *ngIf="user.data.request[request.holder]">
@@ -22,4 +137,4 @@
 		<button [disabled]="!newrole">Create</button>
 	</form>
 
-</div>	
+</div>	 -->

@@ -29,3 +29,248 @@
 		</div>
 	</div>
 </div>
+<!-- <div class="profile-block row">
+	<div class="col-xs-12 col-md-4 profile-info">
+		<div class="jc-sb">
+			<label>
+				<img width="50" height="50" [src]="us.avatarUrl" alt="">
+				<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true">
+			</label>
+			<div>
+				<i class="material-icons" (click)="modal.getModal('UserRoles').open()">
+					supervisor_account
+				</i>
+				<i class="material-icons ml5" (click)="modal.getModal('ProfileSettings').open()">
+					settings
+				</i>
+				<i class="material-icons ml5" (click)="us.logout();">
+					meeting_room
+				</i>
+			</div>
+		</div>
+		<div>
+			<div class="row">
+				<div class="col-xs-12">
+					<input class="input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.name" (ngModelChange)="us.update();">
+				</div>
+				<div class="col-xs-12">
+					<input class="input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.data.phone" (ngModelChange)="us.update();">
+				</div>
+				<div class="col-xs-12">
+					<input class="input" type="text" name="location" placeholder="Your location" [(ngModel)]="us.data.location" (ngModelChange)="us.update();">
+				</div>
+				<div class="col-xs-12">
+					<textarea class="input" type="text" name="description" placeholder="Your bio" [(ngModel)]="us.data.description" (ngModelChange)="us.update();" rows="5" cols="45">
+					</textarea>
+					<span>{{us.email}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-8 tags-wrapper">
+		<div class="tags-block">
+			<div>
+				<h3>Skills:</h3>
+			</div>
+			<div class="tags">
+				<div *ngFor="let skill of us.skills" class="ai-c">
+					<label class="waw-checkbox">{{skill}}
+						<input class="dn" type="checkbox" checked="checked" name="check_skill" [(ngModel)]="us.data.skills[skill]" (ngModelChange)="us.update(us);" >
+						<span class="checkmark"></span>
+					</label>
+				</div>
+				<div *ngFor="let skill of us.data.skills|each:2">
+					<div *ngIf="skill.value">
+						{{skill.holder}}
+						<button (click)="us.data.skills[skill.holder] = null; us.update(us); ">Remove Skill</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="tags-block">
+			<div>
+				<h3>Tools:</h3>
+			</div>
+			<div class="tags">
+				<div *ngFor="let tools of us.tools">
+					<label class="waw-checkbox">{{tools}}
+						<input class="dn" type="checkbox" checked="checked" name="check_tool" [(ngModel)]="us.data.tools[tools]" (ngModelChange)="us.update(us);" >
+						<span class="checkmark"></span>
+					</label>
+				</div>
+				<div *ngFor="let tools of us.data.tools|each:2">
+					<div *ngIf="tools.value">
+						{{tools.holder}}
+						<button (click)="us.data.tools[tools.holder] = null; us.update(us); ">Remove Tool</button>
+					</div>
+				</div>
+				<div *ngFor="let tools of us.tools">
+					<label class="waw-checkbox">{{tools}}
+						<input class="dn" type="checkbox" checked="checked" name="check_tool" [(ngModel)]="us.data.tools[tools]" (ngModelChange)="us.update(us);" >
+						<span class="checkmark"></span>
+					</label>
+				</div>
+				<div *ngFor="let tools of us.data.tools|each:2">
+					<div *ngIf="tools.value">
+						{{tools.holder}}
+						<button (click)="us.data.tools[tools.holder] = null; us.update(us); ">Remove Tool</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tags-block">
+			<div class="jc-sb">
+				<h3>Portfolio:</h3>
+				<i class="material-icons" (click)="modal.getModal('Portfolio').open()">
+					add
+				</i>
+			</div>
+			<div class="profile-list">
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
+				</div>
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
+				</div>
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
+				</div>
+				<div class="profile-list_stroke">
+					<span>Lorem ipsum </span>
+					<i class="material-icons">
+						delete
+					</i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ngx-smart-modal #UserRoles identifier="UserRoles">
+		<h3>Current Role:</h3>
+		<div *ngFor="let role of us.roles" class="current-role">
+			<span>{{role}}</span>
+			<button *ngIf="!us.is[role] && !us.data.request[role]" (click)="us.data.request[role] = true; us.update();" class="btn">Request</button>
+			<button *ngIf="us.is[role]" (click)="us.remove_role(role); us.is[role] = false;" class="btn">Remove Role</button>
+			<button *ngIf="!us.is[role] && us.data.request[role]" (click)="us.data.request[role] = null; us.update();" class="btn_red">Cancel</button>
+		</div>
+		<div *ngFor="let role of us.is|each:2">
+			<div *ngIf="role.holder != 'admin'">
+				Current role: {{role.holder}}
+				<button class="btn" (click)="us.is[role.holder] = null; us.update(us);">Remove</button>
+			</div>
+		</div>
+		<div *ngFor="let message of us.data.reason|each:2; let i = index;">
+			<div *ngIf = "us.data.reason[message.holder] != null">
+				<p>Your requiest was declined. This is the reason: {{message.value}}</p>	
+				<button (click)="us.data.reason[message.holder] = null; us.update();" class="btn">Delete</button>
+			</div>
+		</div>
+	</ngx-smart-modal>
+
+
+	<ngx-smart-modal #Portfolio identifier="Portfolio">
+		<h2>New project</h2> 
+		<div *ngFor="let prt of pr._portfolios.user[us._id]">
+			<portfolio [_id]="prt._id"></portfolio>
+		</div>
+		<form (ngSubmit)="portfolio.user = us._id; pr.create(portfolio);">
+			<div class="row">
+				<div class="col-xs-12 col-md-6">
+					<label class="formbox" for="">
+						<div class="formbox_label">Project Title: </div>
+						<input class="input" type="text"  name="title" [(ngModel)]="portfolio.name" placeholder="Name of project">
+					</label>
+
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="formbox" for="">
+						<div class="formbox_label">Project URL:</div>
+						<input class="input" type="url"  name="url" [(ngModel)]="portfolio.site" placeholder="Link to your project">
+					</label>
+				</div>
+			</div>
+			<label class="formbox" for="">
+				<div class="formbox_label">Project Description: </div>
+				<textarea name="" id="" rows="8" name="description" [(ngModel)]="portfolio.description" 
+				placeholder="Description of your project" 
+				></textarea>
+			</label>
+		</form>
+		<h3>Skills:</h3>
+		<div class="tags _stack">
+			<div *ngFor="let st of pr.stacks;"> 
+				<label class="waw-checkbox">{{st}}
+					<input class="dn" type="checkbox" checked="checked" name="check" name="check" [(ngModel)]="portfolio.stack[st]" >
+					<span class="checkmark"></span>
+				</label>
+			</div>
+		</div>
+		<div class="jc-sb">
+			<h3>Gallery</h3>
+			<label>
+				<i class="material-icons">
+					add
+				</i>
+				<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden] = "true">
+			</label>
+			
+		</div>
+		
+		<div class="row profile-gallery">
+			<div class="col-xs-6 profile-gallery">
+				
+				<img src="//bipbap.ru/wp-content/uploads/2017/08/16.jpg" alt="">
+
+			</div>
+			<div class="col-xs-6 profile-gallery">
+				<img src="//bipbap.ru/wp-content/uploads/2017/08/16.jpg" alt="">
+
+			</div>
+		</div>
+		<div class="row profile-gallery">
+			<div class="col-xs-6 profile-gallery">
+				<img src="//bipbap.ru/wp-content/uploads/2017/08/16.jpg" alt="">
+				
+			</div>
+			<div class="col-xs-6 profile-gallery
+			">
+			<img src="//bipbap.ru/wp-content/uploads/2017/08/16.jpg" alt="">
+
+		</div>
+	</div>
+	<div class="jc-fe">
+		<button class="btn" (click)="UserRoles.close()">Save</button>
+	</div>
+</ngx-smart-modal>
+
+<ngx-smart-modal #ProfileSettings identifier="ProfileSettings">
+	<h3>Change password</h3> 
+	<form (ngSubmit)="ProfileSettings.user = us._id; pr.create(ProfileSettings);">
+		<label class="formbox" for="">
+			<div class="formbox_label">Current password:</div>
+			<input class="input" type="password" name="Current password" [(ngModel)]="ProfileSettings.name" placeholder="Your password">
+		</label>
+		<label class="formbox" for="">
+			<div class="formbox_label">New password:</div>
+			<input class="input" type="password" name="New password" [(ngModel)]="ProfileSettings.name" placeholder="Your new password">
+		</label>
+
+		<label class="formbox" for="">
+			<div class="formbox_label">Confirm new password:</div>
+			<input class="input" type="password" name="Confirm new password" [(ngModel)]="ProfileSettings.name" placeholder="Confirm your new password">
+		</label>
+	</form>
+	<div class="jc-fe">
+		<button class="btn" (click)="UserRoles.save()">Save</button>
+	</div>
+</ngx-smart-modal> -->
+

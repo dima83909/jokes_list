@@ -1,0 +1,139 @@
+.page-wrapper {
+	overflow-y: auto !important;
+}
+.page-flex {
+	display: flex!important;
+	flex-wrap: wrap!important;
+	height: calc(100vh - 50px);
+	.pages-left-column {
+		border-bottom: 1px solid #e5e5e5;
+	}
+	.pages-right-column {
+		width: 100%;
+		max-width: 880px;
+		margin-right: auto;
+    	margin-left: auto;
+    	padding: 0 16px;
+    	.page-title-container {
+    		border-bottom: 1px solid #e5e5e5;
+    		display: flex;
+    	}
+	}
+}
+.page-title {
+	margin: 16px 0;
+    font-size: 1.65em;
+}
+.list-page{
+	padding: 20px 40px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.newpage-container {
+	padding: 16px;
+	background-color: #fafafa;
+}
+.pages-container {
+	display: flex;
+}
+.project-name {
+	flex-grow: 1;
+	margin-right: 20px;
+}
+.label-inp {
+	display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 14px;
+}
+.form-field {
+	width: 100%;
+	display: block;
+	padding: .5em;
+	margin: 0;
+	font-size: 14px;
+	background-color: #FAFBFC;
+	border: 1px solid #DFE1E6;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 3px;
+	height: 44px;
+	-webkit-transition: background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s;
+	transition: background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s;
+}
+.descript-field {
+	flex-grow: 1;
+	// textarea::placeholder {
+	// 	padding-top: 6px;
+	// }
+	textarea {
+		padding-top: 13px;
+	}
+}
+.pages-form{
+	justify-content: space-between;
+	align-items: flex-end;
+	// &>*{
+	// 	margin: 0 10px 0 0;
+	// }
+}
+.form-btn {
+	margin-left: auto;
+	align-self: flex-end;
+}
+.create-btn {
+	border-radius: .3em;
+	font-weight: bold;
+	padding: .6em 1.3em;
+	margin: 0 0 4px 0;
+	width: 100%;
+	background-color: #255692;
+	color: #fff;
+	border: none;
+    cursor: pointer;
+    &:hover {
+    	background-color: #3669a7;
+    }
+}
+.pages-card{
+	display: flex;
+	width: 100%;
+	flex-grow: 1;
+	padding: 16px;
+	background: #FFFFFF;
+	border-bottom: 1px solid #e5e5e5;
+	img{
+		margin-right: 15px;
+		width: 44px;
+		height: 44px;
+		object-fit: cover;
+	}
+	&_text{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		a, span>*{
+			flex-wrap: wrap;
+		}
+		.jc-sb i{
+			font-size: 16px;
+		}
+		.jc-sb span {
+			font-weight: bold;
+		}
+		.link-container {
+			font-size: 14px;
+			display: flex;
+    		justify-content: space-between;
+    		margin-top: 4px;
+		}
+	}
+}
+.role-container {
+	display: flex;
+	justify-content: space-between;
+	.text-row {
+		flex-grow: 1
+	}
+}

@@ -1,3 +1,13 @@
+.inner-section {
+	width: 100%;
+	padding: 0px;
+	overflow: visible;
+	margin-bottom: 30px;
+	.form-wrapper {
+		max-width: 400px;
+		margin: 8em auto;
+	}
+}
 .login-form {
 	display: block;
 	position: relative;

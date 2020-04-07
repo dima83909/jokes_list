@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'scss/utils/index';
+@import 'scss/vendors/index';
+@import 'scss/atoms/index';
+@import 'scss/blocks/index';
+@import 'scss/layout/index';
+@import 'scss/pages/index';
+@import 'scss/waw/index';
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: 'Roboto', sans-serif;
+}
+a {
+	cursor: pointer;
+}

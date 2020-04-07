@@ -1,3 +1,13 @@
+.inner-section {
+	width: 100%;
+	padding: 0px;
+	overflow: visible;
+	margin-bottom: 30px;
+	.form-wrapper {
+		max-width: 400px;
+		margin: 8em auto;
+	}
+}
 .login-form {
 	display: block;
 	position: relative;
@@ -47,7 +57,6 @@
 	display: flex;
     justify-content: space-between;
     padding: 0 10px;
-    margin-bottom: 16px;
 	a {
 		font-size: 14px;
 		color: #0052CC !important;
