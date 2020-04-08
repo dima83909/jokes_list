@@ -4,15 +4,32 @@
 			<!-- Users Column -->
 			<div>
 				<input type="text" [(ngModel)]="search" name="search">
-				<div *ngFor="let user of us.users|search:search:'name email'">
-					<img [src]="user.avatarUrl" alt="" height="50" width="50">
-					<span>{{user.name}} {{user.email}}</span>
-					<label *ngFor="let role of us.data.roles; let i = index;">
-						<h4>{{role}}</h4>
-						<input type="checkbox" [(ngModel)]="user.is[role]" (ngModelChange)="us.save(user);" name="role name">
-					</label>
-					<button (click)="us.delete(user);">Delete</button>
-				</div>
+				<table>
+					<thead>
+						<td>Avatar</td>
+						<td>Name</td>
+						<td>Email</td>
+						<td *ngFor="let role of us.data.roles; let i = index;">{{role}}</td>
+						<td></td>
+					</thead>
+					<tr *ngFor="let user of us.users|search:search:'name email'">
+						<td>
+							<img [src]="user.avatarUrl" alt="" height="50" width="50">
+						</td>
+						<td>{{user.name}}</td>
+						<td>{{user.email}}</td>
+						<td *ngFor="let role of us.data.roles; let i = index;">
+							<!-- label should cover all space it can cover under this td tab -->
+							<label>
+								<input type="checkbox" [(ngModel)]="user.is[role]" (ngModelChange)="us.save(user);" name="role name">
+							</label>
+						</td>
+						<td>
+							<!-- this should be icon trash -->
+							<button (click)="us.delete(user);">Delete</button>
+						</td>
+					</tr>
+				</table>
 			</div>
 			<!-- Supportive Forms Column -->
 			<div>

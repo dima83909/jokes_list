@@ -95,12 +95,6 @@ module.exports = function(waw) {
 			}
 		}
 	});
-	/*
-	waw.files({
-		part: 'user',
-
-	});
-	*/
 	router.post("/avatar", function(req, res) {
 		req.user.avatarUrl = '/api/user/avatar/' + req.user._id + '.jpg?' + Date.now();
 		waw.parallel([function(next) {
