@@ -43,7 +43,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="column-wrapper" style="flex-grow: 1;">
+			<div class="column-wrapper" style="width: 430px;">
 				<!-- Supportive Forms Column -->
 				<div class="role-container">
 					<form (ngSubmit)="create_role();" class="pages-form pages-container">
@@ -84,8 +84,10 @@
 					</form>
 				</div>
 				<div class="role-container">
-					<button class="create-btn accept-btn" (click)="generate();">Generate 100 Users</button>
-					<button class="create-btn accept-btn" (click)="delete();">Delete generated Users</button>
+					<div class="bottomrow-btn">
+						<button class="create-btn accept-btn" (click)="generate();">Generate 100 Users</button>
+						<button class="create-btn accept-btn" (click)="delete();">Delete generated Users</button>
+					</div>
 				</div>
 				<!-- <div>
 					<form (ngSubmit)="create_role();">

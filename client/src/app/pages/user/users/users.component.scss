@@ -9,11 +9,11 @@
 	}
 	.pages-right-column {
 		width: 100%;
-		max-width: 1280px;
 		margin-right: auto;
     	margin-left: auto;
     	padding: 0 16px;
     	display: flex;
+    	justify-content: center;
     	.page-title-container {
     		display: flex;
     	}
@@ -24,7 +24,7 @@
     font-size: 1.65em;
 }
 .form-title {
-	margin: 0 0 16px;
+	margin: 0 0 10px;
 }
 .list-page{
 	padding: 20px 40px;
@@ -259,4 +259,16 @@
 		color: #cccccc;
 		cursor: auto;
 	}
+}
+.bottomrow-btn {
+	display: flex;
+	button {
+		width: 185px;
+	}
+}
+.bottomrow-btn button:first-child {
+	margin-right: 10px;
+}
+.bottomrow-btn button:last-child {
+	margin-left: 10px;
 }
