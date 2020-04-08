@@ -3,12 +3,14 @@
 	"name": "User",
 	"router": "router.js auth.js",
 	"crud": {
+		"create": ["admin"],
 		"update": [{
-			"keys": ["name", "data", "is", "avatarUrl"]
+			"keys": ["name", "data"]
 		}, {
-			"keys": ["data", "is"],
+			"keys": ["name", "data", "is"],
 			"name": "admin"
-		}]
+		}],
+		"delete": ["admin"]
 	},
 	"dependencies": {
 		"express-recaptcha": "*",

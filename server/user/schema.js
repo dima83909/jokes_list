@@ -7,6 +7,7 @@ var schema = mongoose.Schema({
 	password: {type: String},
 	avatarUrl: {type: String, default: '/api/user/default.png'},
 	name: {type: String},
+	generated: {type: Boolean, default: false},
 	data: {},
 }, {minimize: false});
 schema.methods.generateHash = function(password) {
@@ -16,13 +17,12 @@ schema.methods.validPassword = function(password) {
 	return bcrypt.compareSync(password, this.password);
 };
 schema.methods.create = function(obj, user, sd) {
-	this.is = {}
-	this.email = obj.email;
+	this.avatarUrl = obj.avatarUrl || '/api/user/default.png';
+	this.generated = obj.generated;
 	this.reg_email = obj.email;
+	this.email = obj.email;
 	this.name = obj.name;
 	this.data = {};
-	this.avatarUrl = obj.avatarUrl || '/api/user/default.png';
-	this.data.balance = {};
-	this.data.friends = [];
+	this.is = {}
 }
 module.exports = mongoose.model('User', schema);

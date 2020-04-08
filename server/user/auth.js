@@ -191,12 +191,9 @@ module.exports = function(sd) {
 					};
 					newUser.name = req.body.name;
 					newUser.email = username.toLowerCase();
+					newUser.reg_email = username.toLowerCase();
 					newUser.password = newUser.generateHash(password);
 					newUser.data = req.session.data && typeof req.session.data == 'object' && req.session.data || {};
-					newUser.data.fr = []
-					newUser.data.friends = []
-					newUser.data.balance = {}
-					newUser.data.phone = ''
 					newUser.save(function(err) {
 						if (err) throw err;
 						return done(null, newUser);
@@ -223,7 +220,9 @@ module.exports = function(sd) {
 					newUser.is = {
 						admin: false
 					};
+					newUser.name = req.body.name;
 					newUser.email = username.toLowerCase();
+					newUser.reg_email = username.toLowerCase();
 					newUser.password = newUser.generateHash(password);
 					newUser.data = req.session.data && typeof req.session.data == 'object' && req.session.data || {};
 					newUser.save(function(err) {
@@ -263,7 +262,7 @@ module.exports = function(sd) {
 				});
 			}));
 		}
-		// Instagram
+	// Instagram
 		if (sd.config.user.instagram) {
 			var InstagramStrategy= require('passport-instagram').Strategy;
 			router.get('/instagram',
@@ -294,7 +293,7 @@ module.exports = function(sd) {
 				});
 			}));
 		}
-		// Facebook
+	// Facebook
 		if (sd.config.user.facebook) {
 			var FacebookStrategy = require('passport-facebook').Strategy;
 			router.get('/facebook', passport.authenticate('facebook', {
@@ -313,7 +312,6 @@ module.exports = function(sd) {
 				profileFields: ['id', 'profileUrl'],
 				passReqToCallback:true
 			}, function (req,token, refreshToken, profile, done) {
-				console.log(profile);
 				User.findOne({
 					_id:req.user._id
 				},
@@ -330,7 +328,7 @@ module.exports = function(sd) {
 				});
 			}));
 		}
-		// Twitter
+	// Twitter
 		if (sd.config.user.twitter) {
 			var TwitterStrategy = require('passport-twitter').Strategy;
 			passport.use(new TwitterStrategy({
@@ -353,7 +351,6 @@ module.exports = function(sd) {
 								token : token,
 							}
 							newUser.save(function(err) {
-								console.log(newUser);
 								if (err) throw err;
 								return done(null, newUser);
 							});

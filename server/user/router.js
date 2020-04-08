@@ -60,17 +60,6 @@ module.exports = function(waw) {
 			}
 		},
 		update: [{
-			ensure: function(req, res, next){
-				if(req.user){
-					req.body.is = req.user.is;
-					if(req.body.remove){
-						req.body.is[req.body.remove] = false;
-					}
-					return next();
-				}
-				req.session.data = req.body.data;
-				res.json(true);
-			},
 			query: function(req, res, next) {
 				return {
 					_id: req.user._id
@@ -90,7 +79,21 @@ module.exports = function(waw) {
 					_id: req.body._id
 				}
 			}
-		}]
+		}], delete: {
+			name: 'admin',
+			ensure: function(req, res, next){
+				if(req.user && req.user.is && req.user.is.admin){
+					next();
+				}else{
+					res.json(false);
+				}
+			},
+			query: function(req, res, next) {
+				return {
+					_id: req.body._id
+				}
+			}
+		}
 	});
 	/*
 	waw.files({
