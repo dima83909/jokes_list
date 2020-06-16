@@ -119,7 +119,7 @@ export class UserService {
 		}
 		save(user){
 			this.mongo.afterWhile(this, ()=>{
-				this.mongo.updateAll('user', user, {
+				this.mongo.update('user', user, {
 					name: 'admin'
 				});
 			});

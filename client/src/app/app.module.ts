@@ -1,13 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MetaModule, MetaGuard, MetaConfig } from 'ng2-meta';
 import { NgxIziToastModule } from 'ngx-izitoast';
-import { GuestComponent } from './common/guest/guest.component';
 import { Authenticated, Guest, Admins } from '@services';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { WacomModule } from 'wacom';
+// Common
+import { AppComponent } from './app.component';
+import { GuestComponent } from './common/guest/guest.component';
 import { UserComponent } from './common/user/user.component';
+// Pages
+import { UsersComponent } from './pages/admin/users/users.component';
+import { ProfileComponent } from './pages/user/profile/profile.component';
+import { LoginComponent } from './pages/guest/login/login.component';
+import { ResetComponent } from './pages/guest/reset/reset.component';
+import { SaveComponent } from './pages/guest/save/save.component';
+import { SignComponent } from './pages/guest/sign/sign.component';
+// config
 const metaConfig: MetaConfig = {
 	useTitleSuffix: true,
 	defaults: {
@@ -30,7 +42,7 @@ const routes: Routes = [{
 				title: 'My Profile'
 			}
 		},
-		loadChildren: () => import('./pages/user/profile/profile.module').then(m => m.ProfileModule)
+		component: ProfileComponent
 	}]
 }, {
 	path: '',
@@ -44,7 +56,7 @@ const routes: Routes = [{
 				title: 'Users'
 			}
 		},
-		loadChildren: () => import('./pages/user/users/users.module').then(m => m.UsersModule)
+		component: UsersComponent
 	}]
 }, {
 	path: '',
@@ -58,7 +70,7 @@ const routes: Routes = [{
 				title: 'Login'
 			}
 		},
-		loadChildren: () => import('./pages/guest/login/login.module').then(m => m.LoginModule)
+		component: LoginComponent
 	}, {
 		path: 'sign',
 		canActivate: [MetaGuard],
@@ -67,7 +79,7 @@ const routes: Routes = [{
 				title: 'Sign Up'
 			}
 		},
-		loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
+		component: SignComponent
 	}, {
 		path: 'reset',
 		canActivate: [MetaGuard],
@@ -76,7 +88,7 @@ const routes: Routes = [{
 				title: 'Reset Password'
 			}
 		},
-		loadChildren: () => import('./pages/guest/reset/reset.module').then(m => m.ResetModule)
+		component: ResetComponent
 	}, {
 		path: 'save',
 		canActivate: [MetaGuard],
@@ -85,7 +97,7 @@ const routes: Routes = [{
 				title: 'New Password'
 			}
 		},
-		loadChildren: () => import('./pages/guest/save/save.module').then(m => m.SaveModule)
+		component: SaveComponent
 	}]
 }, {
 	path: '**', redirectTo: 'profile', pathMatch: 'full'
@@ -95,9 +107,18 @@ const routes: Routes = [{
 	declarations: [
 		AppComponent,
 		GuestComponent,
-		UserComponent
+		UserComponent,
+		UsersComponent,
+		ProfileComponent,
+		LoginComponent,
+		ResetComponent,
+		SaveComponent,
+		SignComponent
 	],
 	imports: [
+		WacomModule,
+		CommonModule,
+		FormsModule,
 		BrowserModule,
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'enabled'
