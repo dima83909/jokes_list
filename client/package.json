@@ -24,7 +24,7 @@
     "ngx-izitoast": "^1.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "wacom": "^1.1.2",
+    "wacom": "^1.1.9",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

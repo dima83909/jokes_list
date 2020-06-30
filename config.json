@@ -14,6 +14,7 @@
 	},
 	"parts": {
 		"core": "waw",
+		"angular": "waw",
 		"sem": "waw",
 		"unique": "waw"
 	},

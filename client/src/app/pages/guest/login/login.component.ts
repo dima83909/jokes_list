@@ -18,16 +18,14 @@ export class LoginComponent {
 	};
 	login() {
 		if(!this.user.email) {
-			this.alert.error({
+			return this.alert.error({
 				title: 'Enter your email',
-			})
-			return;
+			});			
 		}
 		if(!this.user.password) {
-			this.alert.error({
+			return this.alert.error({
 				title: 'Enter your password',
-			})
-			return;
+			});
 		}
 		this.http.post('/api/user/status', this.user).subscribe((resp:any) => {
 			if(resp.email && resp.pass) {
