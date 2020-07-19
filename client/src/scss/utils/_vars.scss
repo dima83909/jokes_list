@@ -1,17 +1,42 @@
-$yellow: #E5E55C;
-$lemon: #F4F4B4;
-$coral: #FFADAD;
-$blue: #2E4F7C;
+// ===== COLORS ===== 
+$blue: #334D6E;
 $sky: #3498DB;
-$green: #5AE00A;
+$skyL: #58ACF5;
+$grey: #BDBDBD;
+$greyL: #F2F2F2;
+$red: #A31010;
+$redD: #8C1B0F;
+$green: #089227;
 $white: #fff;
 $black: #000;
-$grey: #ECF0F1;
-$dark: #7F8C8D;
+$dark: #000;
+
+
+
+// ===== FONT =====
+$ff-base: 'Poppins', sans-serif;
+$ff-second: 'Roboto', sans-serif;
+
+
+// --var
+$c-primary-1:#F44336;
+$c-primary-2:#1E88E5;
+$c-primary-3:#FDD835;
+
+$c-border: #CDD9ED;
+$c-border-hover: #99A3BA;
+$c-text: #6C7486;
+$c-text-head: #3F4656;	
 
 
 
 
-$ff-base: 'Roboto', sans-serif;
-$ff-second: 'Josefin Sans', sans-serif;
+
+
+
+// ====  sidebar settings ====
+
+$sidebarColor: #1F2226;
+$sidebarWidth: 230px;
+$sidebarHiddenWidth: 62px;
 

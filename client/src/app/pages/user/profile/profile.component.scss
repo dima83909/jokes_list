@@ -1,305 +1,62 @@
-/* Breakpoints map with keys */
-$breakpoints-map: (
-	xs: 0,
-	sm: 576px,
-	md: 768px,
-	lg: 992px,
-	xl: 1360px,
-	xxl: 5000px
-	) !default;
-
-/* Helper functions for mixins */
-
-// Name of the next breakpoint, or null for the last breakpoint.
-@function breakpoint-next($name, $breakpoints: $breakpoints-map, $breakpoint-names: map-keys($breakpoints)) {
-	$n: index($breakpoint-names, $name);
-	@return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+.profile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-// Minimum breakpoint width. Null for the smallest (first) breakpoint.
-@function breakpoint-min($name, $breakpoints: $breakpoints-map) {
-	$min: map-get($breakpoints, $name);
-	@return if($min != 0, $min, null);
-}
-
-// Maximum breakpoint width. Null for the largest (last) breakpoint. The maximum value is calculated as the minimum of the next one less 0.1.
-@function breakpoint-max($name, $breakpoints: $breakpoints-map) {
-	$next: breakpoint-next($name, $breakpoints);
-	@return if($next, breakpoint-min($next, $breakpoints) - 0.1, null);
-}
-
-/* Media queries mixins */
-
-// Minimum breakpoint width (no query for the smallest breakpoint).
-// Example: @include bp-min(lg) { content }
-@mixin bp-min($name, $breakpoints: $breakpoints-map) {
-	$min: breakpoint-min($name, $breakpoints);
-	@if $min {
-		@media (min-width: $min) {
-			@content;
-		}
-	}
-	@else {
-		@content;
-	}
-}
-
-// Maximum breakpoint width (no query for the largest breakpoint).
-// Example: @include bp-max(md) { content }
-@mixin bp-max($name, $breakpoints: $breakpoints-map) {
-	$max: breakpoint-max($name, $breakpoints);
-	@if $max {
-		@media (max-width: $max) {
-			@content;
-		}
-	}
-	@else {
-		@content;
-	}
-}
-
-// Between two breakpoint's (no minimum for the smallest breakpoint, and no maximum for the largest one)
-// Example: @include bp-only(sm) { content }
-@mixin bp-only($name, $breakpoints: $breakpoints-map) {
-	@include bp-min($name, $breakpoints) {
-		@include bp-max($name, $breakpoints) {
-			@content;
-		}
-	}
-}
-
-
-// clean after
-.page-wrapper {
-	overflow-y: auto !important;
-}
-.page-flex {
-	display: flex!important;
-	height: calc(100vh - 50px);
-	.pages-left-column {
-		border-bottom: 1px solid #e5e5e5;
-	}
-	.pages-right-column {
-		width: 680px;
-		margin-right: auto;
-    	margin-left: auto;
-    	padding: 0 16px;
-    	display: flex;
-    	justify-content: center;
-    	.page-title-container {
-    		display: flex;
-    		border-bottom: 1px solid #e5e5e5;
-    	}
-	}
-}
-.page-title {
-	margin: 16px 0;
-    font-size: 1.65em;
-}
-.profile-block{
-	overflow: hidden;
-	padding: 22px 0;
-    margin: auto;
-	&>*{
-		display: flex;
-    	flex-direction: row;
-    	padding-left: 0;
-    	padding-right: 0;
-	}
-	h3{
-		text-align: left;
-		margin-bottom: 15px;
-	}
-	h2{
-		font-weight: 600;
-		margin: 0;
-		margin-bottom: 20px;
-	}
-	@include bp-max(md) {
-		overflow-y: scroll;
-		padding: 20px;
-	
-	}
-}
-.profile-info{
-	img{
-		width: 120px;
-		height: 120px;
-		object-fit: cover;
-		object-position: 0 0;
-    	border-radius: 3px;
-    	border: 1px solid #e5e5e5;
-	}
-	&>*{
-		display: block;
-		margin-bottom: 20px;
-    	padding: 0 30px 0 0;
-	}
-	input{
-		margin-bottom: 20px !important;
-	}
-	textarea{
-		height: 100%;
-	}
-}
-.current-role{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10px;
-}
-.tags-wrapper{
-	min-height: 530px;
-	display: flex;
-	flex-direction: column;
-	padding: 0 10px;
-	height: 100%;
-	@include bp-max(sm) {
-		display: flex;
-		flex-direction: column;
-		min-height: 0;
-		max-height: 300px;
-		padding: 0 20px;
-	}
-}
-.tags-block{
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	border-bottom: 1px solid #e5e5e5;
-    margin-top: 20px;
-    &:last-child {
-    	border-bottom: 0;
-    }
-    &:first-child {
-    	margin-top: 0;
-    }
-	@include bp-max(sm) {
-		margin: 0;
-	}
-}
-.tags{
-	flex-wrap: wrap;
-	flex-direction: row;
-	overflow-y: auto;
-	overflow-x: hidden;
-	width: 100%;
-	@include bp-max(sm) {
-		margin-bottom: 20px;
-	}
-	&._stack{
-		overflow-y: auto;
-		width: 100%;
-		margin: 0 0 20px;
-		max-height: 200px;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		&>*{
-			width: 50%;
-		}
-	}
-
-}
-.profile-list{
-	display: flex;
-	flex-direction: column;
-	overflow-y: auto;
-	overflow-x: hidden;
-	width: 100%;
-	height: 100%;
-	
-	&_stroke{
-		cursor: pointer;
-		margin-bottom: 5px;
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
-		height: 24px;
-		i{
-			display: none;
-		}
-		&:hover{
-			i{
-				display: inline-block;
-			}
-		}
-	}
-}
-.profile-gallery{
-	display: flex;
-	flex-wrap: wrap;
-	position: relative;
-
-	img{
-		width: 100%;
-		height: auto;
-		margin-bottom: 40px;
-
-		@include bp-max(sm) {
-			margin-bottom: 20px;
-		}	
-	}
-	i{
-		position: absolute;
-		top: 0;
-		right: 0;
-	}
-}
-.label-inp {
-	display: inline-block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    font-size: 14px;
-}
-.form-field {
-	width: 100%;
-	display: block;
-	padding: .5em;
-	margin: 0 0 22px;
-	font-size: 14px;
-	background-color: #FAFBFC;
-	border: 1px solid #DFE1E6;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	border-radius: 3px;
-	height: 44px;
-	-webkit-transition: background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s;
-	transition: background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s;
-}
-.remove-row {
-	display: flex;
-}
-// .create-btn {
-// 	border-radius: .3em;
-// 	font-weight: bold;
-// 	padding: .6em 1.3em;
-// 	margin: 0 0 4px 0;
-// 	width: 150px;
-// 	background-color: #255692;
-// 	color: #fff;
-// 	border: none;
-//     cursor: pointer;
-//     margin-left: 20px;
-//     &:hover {
-//     	background-color: #3669a7;
-//     }
-// }
-.logout-btn {
-	border-radius: .3em;
-	font-weight: bold;
-	padding: .6em 1.3em;
-	margin: 0 0 4px 0;
-	background-color: white;
-	border: 1px solid #e5e5e5;
-	color: black;
-    cursor: pointer;
+.profile {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    max-width: 900px;
     width: 100%;
-    margin-top: 30px;
-    &:hover {
-    	background-color: #3669a7;
-    	color: white;
-    }
-}
 
+
+    &-header {
+        font-weight: bold;
+        font-size: 16px;
+        text-transform: uppercase;
+        color: #334D6E;
+        padding: 20px;
+        border-bottom: 1px solid #E0E0E0;
+    }
+
+    &-body {
+        padding: 40px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-left {
+        flex-grow: 1;
+        margin-right: 20px;
+    }
+
+    &-right {
+        width: 250px;
+		text-align: center;
+
+        &__img {
+            display: block;
+            width: 150px;
+            height: 150px;
+            margin-left: auto;
+            margin-right: auto;
+			border-radius: 50%;
+			box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04);
+
+            img {
+                height: 100%;
+                object-fit: cover;
+				border-radius: 50%;
+            }
+        }
+    }
+
+    &-logout {
+		margin-top: 40px;
+        text-align: center;
+    }
+
+}
