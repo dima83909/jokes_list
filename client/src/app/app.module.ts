@@ -24,7 +24,7 @@ const routes: Routes = [{
 	path: '',
 	canActivate: [Authenticated],
 	component: UserComponent,
-	children: [/* user */{
+	children: [/* user */ {
 		path: 'profile',
 		canActivate: [MetaGuard],
 		data: {

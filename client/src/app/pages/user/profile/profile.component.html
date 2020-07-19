@@ -23,13 +23,14 @@
 			<div class="profile-right">
 				<div class="profile-right__img">
 					<img width="50" height="50" src="assets/avatar.png" alt="">
+					<label class="profile-right__img__upload">
+						<div><i class="material-icons">arrow_circle_up</i></div>
+						<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true" accept="image/*">
+					</label>
 				</div>
-				<label class="mt10">
-					<span class="waw-btn _primary">Upload photo</span>
-					<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true" accept="image/*">
-				</label>
+
 				<div class="profile-logout">
-					<button class="waw-btn _second" (click)="us.logout();">Logout</button>
+					<button class="waw-btn _danger" (click)="us.logout();">Logout</button>
 				</div>
 				<!-- [src]="us.avatarUrl" -->
 			</div>

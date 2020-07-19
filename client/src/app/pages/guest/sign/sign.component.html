@@ -1,22 +1,24 @@
-<div class="inner-section">
-	<div class="form-wrapper">
-		<div>
-			<div class="login-form">
-				<h1>Register</h1>	
-				<div class="login-container">
-					<form (ngSubmit)="sign()">
-						<div>
-							<input (keydown.enter)="sign()" type="text" placeholder="Email" name="email" [(ngModel)]="user.email" class="inp form-field">
-							<input (keydown.enter)="sign()" type="password" placeholder="Password" name="password" [(ngModel)]="user.password" class="inp form-field">
-						</div>
-						<button type="submit" class="login-btn">Sign</button>
-						<div class="form-link">
-							<p>Already has an account?</p>
-							<a routerLink="/login">Sign in</a>
-						</div>
-					</form>
-				</div>
+<div class="auth-wrapper">
+	<div class="auth">
+		<div class="auth-title">Sign up</div>
+		<form class="auth-form" (ngSubmit)="sign()">
+			<div class="waw-input mb15">
+				<span>Email:</span>
+				<input (keydown.enter)="sign()" type="text" placeholder="Email" name="email" [(ngModel)]="user.email">
 			</div>
+			<div class="waw-input mb15">
+				<span>Password:</span>
+				<input (keydown.enter)="sign()" type="password" placeholder="Password" name="password" [(ngModel)]="user.password">
+			</div>
+			<div class="auth-form__btn"><button class="waw-btn _primary" type="submit">Sign</button></div>
+		</form>
+		<div class="auth-link">
+			<p>Already has an account?</p>
+			<a routerLink="/login">Sign in</a>
 		</div>
 	</div>
 </div>
+
+
+
+
