@@ -109,7 +109,7 @@ export class UserService {
 		logout(){
 			localStorage.removeItem('waw_user')
 			this.http.get('/api/user/logout-local').subscribe((resp:any)=> {});
-			window.location.href = '/login';
+			this.router.navigate(['/login']);
 		}
 	/*
 	*	Admin Management

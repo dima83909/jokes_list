@@ -1,11 +1,11 @@
 var User = require(__dirname+'/schema.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
-module.exports = function(sd) {
-	sd.use(passport.initialize());
-	sd.use(passport.session());
+module.exports = function(waw) {
+	waw.use(passport.initialize());
+	waw.use(passport.session());
 	if(mongoose.connection.readyState==0){
-		mongoose.connect(sd.mongoUrl, {
+		mongoose.connect(waw.mongoUrl, {
 			useUnifiedTopology: true,
 			useNewUrlParser: true
 		});
@@ -23,7 +23,7 @@ module.exports = function(sd) {
 	/*
 	*	Initialize User and Mongoose
 	*/
-		var router = sd.router('/api/user');
+		var router = waw.router('/api/user');
 		router.get("/me", function(req, res) {
 			var json = {};
 			if(req.user){
@@ -66,7 +66,7 @@ module.exports = function(sd) {
 					user.save(function(err){
 						if (err) throw err;
 						res.json(true);
-						sd.send({
+						waw.send({
 							to: user.email,
 							title: 'Code: '+user.data.resetPin,
 							html: 'Code: '+user.data.resetPin
@@ -107,7 +107,7 @@ module.exports = function(sd) {
 				});
 			});
 		});
-		router.post("/changePassword", sd._ensure, function(req, res) {
+		router.post("/changePassword", waw._ensure, function(req, res) {
 			if (req.user.validPassword(req.body.oldPass)){
 				req.user.password = req.user.generateHash(req.body.newPass);
 				req.user.save(function(){
@@ -117,7 +117,7 @@ module.exports = function(sd) {
 		});
 		router.get('/logout', function(req, res) {
 			req.logout();
-			res.redirect(sd.config.user.local.successRedirect);
+			res.redirect(waw.config.user.local.successRedirect);
 		});
 		router.get('/logout-local', function(req, res) {
 			req.logout();
@@ -233,7 +233,7 @@ module.exports = function(sd) {
 			});
 		}));
 	// Google
-		if (sd.config.user.google) {
+		if (waw.config.user.google) {
 			var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 			router.get('/google', passport.authenticate('google', {
 				scope: ['profile', 'email']
@@ -243,9 +243,9 @@ module.exports = function(sd) {
 				failureRedirect: '/'
 			}));
 			passport.use('google', new GoogleStrategy({
-				clientID: sd.config.user.google.clientID,
-				clientSecret: sd.config.user.google.clientSecret,
-				callbackURL: sd.config.user.google.callbackURL,
+				clientID: waw.config.user.google.clientID,
+				clientSecret: waw.config.user.google.clientSecret,
+				callbackURL: waw.config.user.google.callbackURL,
 				passReqToCallback: true
 			}, function(req, token, refreshToken, profile, done) {
 				User.findOne({
@@ -263,7 +263,7 @@ module.exports = function(sd) {
 			}));
 		}
 	// Instagram
-		if (sd.config.user.instagram) {
+		if (waw.config.user.instagram) {
 			var InstagramStrategy= require('passport-instagram').Strategy;
 			router.get('/instagram',
 				passport.authenticate('instagram')
@@ -274,9 +274,9 @@ module.exports = function(sd) {
 				res.redirect('/');
 			});
 			passport.use('instagram',new InstagramStrategy({
-				clientID : sd.config.user.instagram.clientID,
-				clientSecret : sd.config.user.instagram.clientSecret,
-				callbackURL : sd.config.user.instagram.callbackURL,
+				clientID : waw.config.user.instagram.clientID,
+				clientSecret : waw.config.user.instagram.clientSecret,
+				callbackURL : waw.config.user.instagram.callbackURL,
 				passReqToCallback:true
 			}, function (req, accessToken, refreshToken, profile, done) {
 				User.findOne({
@@ -294,7 +294,7 @@ module.exports = function(sd) {
 			}));
 		}
 	// Facebook
-		if (sd.config.user.facebook) {
+		if (waw.config.user.facebook) {
 			var FacebookStrategy = require('passport-facebook').Strategy;
 			router.get('/facebook', passport.authenticate('facebook', {
 				display: 'page',
@@ -306,9 +306,9 @@ module.exports = function(sd) {
 				res.redirect('/');
 			});
 			passport.use('facebook',new FacebookStrategy({
-				clientID: sd.config.user.facebook.clientID,
-				clientSecret: sd.config.user.facebook.clientSecret,
-				callbackURL: sd.config.user.facebook.callbackURL,
+				clientID: waw.config.user.facebook.clientID,
+				clientSecret: waw.config.user.facebook.clientSecret,
+				callbackURL: waw.config.user.facebook.callbackURL,
 				profileFields: ['id', 'profileUrl'],
 				passReqToCallback:true
 			}, function (req,token, refreshToken, profile, done) {
@@ -329,12 +329,12 @@ module.exports = function(sd) {
 			}));
 		}
 	// Twitter
-		if (sd.config.user.twitter) {
+		if (waw.config.user.twitter) {
 			var TwitterStrategy = require('passport-twitter').Strategy;
 			passport.use(new TwitterStrategy({
-				consumerKey: sd.config.user.twitter.consumerKey,
-				consumerSecret: sd.config.user.twitter.consumerSecret,
-				callbackURL: sd.config.user.twitter.callbackURL
+				consumerKey: waw.config.user.twitter.consumerKey,
+				consumerSecret: waw.config.user.twitter.consumerSecret,
+				callbackURL: waw.config.user.twitter.callbackURL
 			},function(token, tokenSecret, profile, done) {
 				process.nextTick(function() {
 					User.findOne({
@@ -360,10 +360,10 @@ module.exports = function(sd) {
 			}));
 			router.get('/twitter', passport.authenticate('twitter'));
 			router.get('/twitter/callback', passport.authenticate('twitter', {
-				successRedirect: sd.config.user.twitter.successRedirect,
-				failureRedirect: sd.config.user.twitter.failureRedirect
+				successRedirect: waw.config.user.twitter.successRedirect,
+				failureRedirect: waw.config.user.twitter.failureRedirect
 			}),function(req, res) {
-				res.redirect(sd.config.user.twitter.successRedirect);
+				res.redirect(waw.config.user.twitter.successRedirect);
 			});
 		}
 	// End of Crud
