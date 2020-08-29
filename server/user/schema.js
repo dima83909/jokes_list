@@ -5,7 +5,7 @@ var schema = mongoose.Schema({
 	reg_email: {type: String, unique: true, sparse: true, trim: true},
 	is: {},
 	password: {type: String},
-	avatarUrl: {type: String, default: '/api/user/default.png'},
+	avatarUrl: {type: String, default: '/assets/user.png'},
 	name: {type: String},
 	generated: {type: Boolean, default: false},
 	data: {},
@@ -17,7 +17,7 @@ schema.methods.validPassword = function(password) {
 	return bcrypt.compareSync(password, this.password);
 };
 schema.methods.create = function(obj, user, sd) {
-	this.avatarUrl = obj.avatarUrl || '/api/user/default.png';
+	this.avatarUrl = obj.avatarUrl || '/assets/user.png';
 	this.generated = obj.generated;
 	this.reg_email = obj.email;
 	this.email = obj.email;
