@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { MetaModule, MetaGuard, MetaConfig } from 'ng2-meta';
 import { Authenticated, Guest, Admins } from '@services';
@@ -106,8 +105,7 @@ const routes: Routes = [{
 			scrollPositionRestoration: 'enabled',
 			preloadingStrategy: PreloadAllModules
 		}),
-		MetaModule.forRoot(metaConfig),
-		HttpClientModule
+		MetaModule.forRoot(metaConfig)
 	],
 	providers: [Authenticated, Guest, Admins],
 	bootstrap: [AppComponent]

@@ -3,12 +3,20 @@ var bcrypt = require('bcrypt-nodejs');
 var schema = mongoose.Schema({
 	email: {type: String, unique: true, sparse: true, trim: true},
 	reg_email: {type: String, unique: true, sparse: true, trim: true},
+	blocked: Boolean,
 	is: {},
 	password: {type: String},
 	avatarUrl: {type: String, default: '/assets/user.png'},
 	name: {type: String},
 	generated: {type: Boolean, default: false},
 	data: {},
+	fb_token: String,
+	fb: Boolean,
+	google_token: String,
+	google: Boolean,
+	resetPin: Number,
+	resetCounter: Number,
+	resetCreate: Number,
 }, {minimize: false});
 schema.methods.generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

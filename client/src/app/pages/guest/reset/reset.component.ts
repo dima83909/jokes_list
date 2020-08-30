@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { NgxIzitoastService } from 'ngx-izitoast';
 import { Router } from '@angular/router';
+import { HashService, HttpService } from 'wacom';
 
 @Component({
 	selector: 'app-reset',
@@ -10,33 +10,31 @@ import { Router } from '@angular/router';
 })
 export class ResetComponent {
 	constructor(private router: Router,
-		private http: HttpClient,
-		private alert: NgxIzitoastService) {}
-	public user:any = {
-		email: 'ceo@webart.work',
-		password: 'asdasdasdasd'
-	};
+		private hash: HashService,
+		private http: HttpService,
+		private alert: NgxIzitoastService) {
+		this.user.email = this.hash.get('email')||'ceo@webart.work';
+	}
+	public user:any = {};
 	reset() {
 		if(!this.user.email) {
-			this.alert.error({
+			return this.alert.error({
 				title: 'Enter your email',
-			})
-			return;
+			});
 		}
-		this.http.post('/api/user/status', this.user).subscribe((resp:any) => {
+		this.hash.set('email', this.user.email);
+		this.http.post('/api/user/status', this.user, (resp:any) => {
 			if(resp.email) {
 				localStorage.setItem('waw_reset_email', this.user.email);
 				this.router.navigate(['/save']);
-				this.http.post('/api/user/request', {
-					email: this.user.email
-				}).subscribe((resp:any) => {})
+				this.http.post('/api/user/request', this.user, (resp:any) => {});
 				this.alert.info({
 					title: "Mail will sent to your email"
-				})
+				});
 			} else {
 				this.alert.error({
 					title: "This email not used"
-				})
+				});
 			}
 		})
 	}

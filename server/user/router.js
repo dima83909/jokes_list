@@ -59,6 +59,13 @@ module.exports = function(waw) {
 				return '-password';
 			}
 		},
+		fetch: {
+			query: function(req){
+				return {
+					_id: req.user._id
+				}
+			}
+		},
 		update: [{
 			query: function(req, res, next) {
 				return {

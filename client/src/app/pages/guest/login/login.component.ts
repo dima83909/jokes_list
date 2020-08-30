@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { NgxIzitoastService } from 'ngx-izitoast';
 import { Router } from '@angular/router';
-import { HashService } from 'wacom';
+import { HashService, HttpService } from 'wacom';
 
 @Component({
 	selector: 'app-login',
@@ -12,7 +11,7 @@ import { HashService } from 'wacom';
 export class LoginComponent {
 	constructor(private router: Router,
 		private hash: HashService,
-		private http: HttpClient,
+		private http: HttpService,
 		private alert: NgxIzitoastService) {
 		this.user.email = this.hash.get('email')||'ceo@webart.work';
 		this.user.password = this.hash.get('password')||'asdasdasdasd';
@@ -31,13 +30,15 @@ export class LoginComponent {
 				title: 'Enter your password',
 			});
 		}
-		this.http.post('/api/user/status', this.user).subscribe((resp:any) => {
+		this.http.post('/api/user/status', this.user, (resp:any) => {
 			if(resp.email && resp.pass) {
-				this.http.post('/api/user/login-local', {
-					username: this.user.email,
-					password: this.user.password
-				}).subscribe((res:any) => {
-					localStorage.setItem('waw_user', JSON.stringify(res));
+				this.http.post('/api/user/login', this.user, (user:any) => {
+					if(!user){
+						return this.alert.error({
+							title: "Something went wrong",
+						});
+					}
+					localStorage.setItem('waw_user', JSON.stringify(user));
 					this.router.navigate(['/profile'])
 				})
 			} else {

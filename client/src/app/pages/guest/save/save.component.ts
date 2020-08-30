@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { NgxIzitoastService } from 'ngx-izitoast';
 import { Router } from '@angular/router';
+import { HttpService } from 'wacom';
 
 @Component({
 	selector: 'app-save',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SaveComponent {
 	constructor(private router: Router,
-		private http: HttpClient,
+		private http: HttpService,
 		private alert: NgxIzitoastService) {
 		if(localStorage.getItem('waw_reset_email')){
 			this.user.email = localStorage.getItem('waw_reset_email');
@@ -19,36 +19,29 @@ export class SaveComponent {
 			this.router.navigate(['/reset']);
 		}
 	}
-	public user:any = {
-		email: 'ceo@webart.work',
-		password: 'asdasdasdasd'
-	};
+	public user:any = {};
 	changePass() {
 		if(!this.user.code) {
-			this.alert.error({
+			return this.alert.error({
 				title: 'Enter your code'
-			})
-			return;
+			});
 		}
 		if(!this.user.password) {
-			this.alert.error({
+			return this.alert.error({
 				title: 'Enter your password',
-			})
-			return;
+			});
 		}
-		this.http.post('/api/user/change', {
-			password: this.user.password,
-			email: this.user.email,
-			pin: this.user.code
-		}).subscribe((resp:any) => {
+		this.http.post('/api/user/change', this.user, (resp:any) => {
 			this.alert.info({
 				title: resp
 			});
-			this.http.post('/api/user/login-local', {
-				password: this.user.password,
-				username: this.user.email
-			}).subscribe((res:any) => {
-				localStorage.setItem('waw_user', JSON.stringify(res));
+			this.http.post('/api/user/login', this.user, (user:any) => {
+				if(!user){
+					return this.alert.error({
+						title: "Something went wrong",
+					});
+				}
+				localStorage.setItem('waw_user', JSON.stringify(user));
 				this.router.navigate(['/profile']);
 			});			
 		});

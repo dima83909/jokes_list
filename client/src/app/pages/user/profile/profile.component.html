@@ -22,55 +22,16 @@
 			</div>
 			<div class="profile-right">
 				<div class="profile-right__img">
-					<img width="50" height="50" src="assets/avatar.png" alt="">
+					<img width="50" height="50" [src]="us.avatarUrl" alt="">
 					<label class="profile-right__img__upload">
 						<div><i class="material-icons">arrow_circle_up</i></div>
 						<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true" accept="image/*">
 					</label>
 				</div>
-
 				<div class="profile-logout">
 					<button class="waw-btn _danger" (click)="us.logout();">Logout</button>
 				</div>
-				<!-- [src]="us.avatarUrl" -->
 			</div>
 		</div>
 	</div>
-
 </div>
-
-
-
-<!-- <div class="col-12 profile-info">
-	<div class="jc-sb">
-		<label>
-			<img width="50" height="50" [src]="us.avatarUrl" alt="">
-			<input type="file" name="file" (change)="us.changeAvatar($event)" [hidden]="true" accept="image/*">
-		</label>
-		<div>
-			<button class="logout-btn" (click)="us.logout();">Logout</button>
-		</div>
-	</div>
-	<div>
-		<div class="row">
-			<div class="col-xs-12">
-				<label class="label-inp" for="project_name"><span>Name</span></label>
-				<input class="input" type="text" name="name" placeholder="Your name" [(ngModel)]="us.name" (ngModelChange)="us.update();" class="form-control form-field">
-			</div>
-			<div class="col-xs-12">
-				<label class="label-inp" for="project_name"><span>Phone number</span></label>
-				<input class="input" type="tel" name="number" placeholder="Phone number" [(ngModel)]="us.data.phone" (ngModelChange)="us.update();" class="form-control form-field">
-			</div>
-			<div class="col-xs-12">
-				<label class="label-inp" for="project_name"><span>Location</span></label>
-				<input class="input" type="text" name="location" placeholder="Your location" [(ngModel)]="us.data.location" (ngModelChange)="us.update();" class="form-control form-field">
-			</div>
-			<div class="col-xs-12">
-				<label class="label-inp" for="project_name"><span>Bio</span></label>
-				<textarea class="input" type="text" name="description" placeholder="Your bio" [(ngModel)]="us.data.description" (ngModelChange)="us.update();" rows="5" cols="45" class="form-control form-field">
-									</textarea>
-				<span>{{us.email}}</span>
-			</div>
-		</div>
-	</div>
-</div> -->

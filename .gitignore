@@ -11,3 +11,4 @@
 *.git
 *server.json
 *package-lock.json
+*cordova
