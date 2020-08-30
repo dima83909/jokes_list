@@ -31,7 +31,6 @@ export class LoginComponent {
 				title: 'Enter your password',
 			});
 		}
-		this.hash.set('password', this.user.password);
 		this.http.post('/api/user/status', this.user).subscribe((resp:any) => {
 			if(resp.email && resp.pass) {
 				this.http.post('/api/user/login-local', {
