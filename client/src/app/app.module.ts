@@ -23,78 +23,30 @@ const config: Config = {
 *	Routing Management
 */
 	const routes: Routes = [{
-		path: '', redirectTo: 'profile', pathMatch: 'full'
-	}, {
-		path: '',
-		canActivate: [Authenticated],
-		component: UserComponent,
-		children: [/* user */ {
-			path: 'profile',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'My Profile'
-				}
-			},
-			loadChildren: () => import('./pages/user/profile/profile.module').then(m => m.ProfileModule)
-		}]
-	}, {
-		path: '',
-		canActivate: [Admins],
-		component: UserComponent,
-		children: [/* admin */{
-			path: 'users',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'Users'
-				}
-			},
-			loadChildren: () => import('./pages/admin/users/users.module').then(m => m.UsersModule)
-		}]
+		path: '', redirectTo: 'jokes', pathMatch: 'full'
 	}, {
 		path: '',
 		canActivate: [Guest],
 		component: GuestComponent,
 		children: [/* guest */{
-			path: 'login',
+			path: 'jokes',
 			canActivate: [MetaGuard],
 			data: {
 				meta: {
-					title: 'Login'
+					title: 'Jokes'
 				}
 			},
 			loadChildren: () => import('./pages/guest/login/login.module').then(m => m.LoginModule)
 		}, {
-			path: 'sign',
+			path: 'joke/:id',
 			canActivate: [MetaGuard],
 			data: {
 				meta: {
-					title: 'Sign Up'
+					title: 'Joke'
 				}
 			},
 			loadChildren: () => import('./pages/guest/sign/sign.module').then(m => m.SignModule)
-		}, {
-			path: 'reset',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'Reset Password'
-				}
-			},
-			loadChildren: () => import('./pages/guest/reset/reset.module').then(m => m.ResetModule)
-		}, {
-			path: 'save',
-			canActivate: [MetaGuard],
-			data: {
-				meta: {
-					title: 'New Password'
-				}
-			},
-			loadChildren: () => import('./pages/guest/save/save.module').then(m => m.SaveModule)
 		}]
-	}, {
-		path: '**', redirectTo: 'profile', pathMatch: 'full'
 	}];
 /* Bootstrap */
 

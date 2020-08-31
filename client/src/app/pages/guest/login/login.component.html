@@ -1,21 +1,10 @@
-<div class="auth-wrapper">
-	<div class="auth">
-		<div class="auth-title">Log In</div>
-		<form class="auth-form" (ngSubmit)="login()">
-			<div class="waw-input mb15">
-				<span>Email:</span>
-				<input (keydown.enter)="login()" type="text" placeholder="Email" name="email" [(ngModel)]="user.email">
-			</div>
-			<div class="waw-input mb15">
-				<span>Password:</span>
-				<input (keydown.enter)="login()" type="password" placeholder="Password" name="password" [(ngModel)]="user.password">
-			</div>
-			<div class="auth-form__btn"><button class="waw-btn _primary" type="submit">Login</button></div>
-		</form>
-		
-		<div class="auth-link">
-			<a routerLink="/reset">Forgot password?</a>
-			<a routerLink="/sign">Don't have an account?</a>
-		</div>
+<div [class.dark]="us.mode" class="wrapper">
+	<input type="checkbox" name="mode" [(ngModel)]="us.mode"  (ngModelChange)="setMode()">
+	<input  placeholder="Type to search..." type="text" name="search" [(ngModel)]="search_w">
+	<div (click)="router.navigate(['/joke/'+joke.id])" *ngFor="let joke of jokes.slice(start, stop)|search:search_w:'joke'; let i = index">
+		<strong>{{joke.id+'. '}}</strong>
+		<span innerHtml="{{joke.joke}}"></span>
 	</div>
+	<button (click)="load_prev()"><</button>
+	<button (click)="load_next()">></button>
 </div>

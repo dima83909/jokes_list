@@ -16,7 +16,7 @@ export class UserService {
 		public is: any = {};
 		public data: any = {};
 		public avatarUrl: any;
-		public name: any;
+		public mode: any= localStorage.getItem("dark_mode");
 		public email: any;
 		constructor(private mongo: MongoService,
 			private router: Router,

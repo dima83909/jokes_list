@@ -16,3 +16,13 @@ textarea {
 a {
 	cursor: pointer;
 }
+
+body {
+	height: 100vh;
+	overflow-y: auto;
+	
+}
+.dark{
+	color: white;
+	background-color: black;
+}
