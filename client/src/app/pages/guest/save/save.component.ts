@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NgxIzitoastService } from 'ngx-izitoast';
 import { Router } from '@angular/router';
-import { HttpService } from 'wacom';
+import { HttpService, AlertService } from 'wacom';
 
 @Component({
 	selector: 'app-save',
@@ -11,7 +10,7 @@ import { HttpService } from 'wacom';
 export class SaveComponent {
 	constructor(private router: Router,
 		private http: HttpService,
-		private alert: NgxIzitoastService) {
+		private alert: AlertService) {
 		if(localStorage.getItem('waw_reset_email')){
 			this.user.email = localStorage.getItem('waw_reset_email');
 		}
@@ -22,23 +21,27 @@ export class SaveComponent {
 	public user:any = {};
 	changePass() {
 		if(!this.user.code) {
-			return this.alert.error({
-				title: 'Enter your code'
+			return this.alert.show({
+				type: "error",
+				text: 'Enter your code'
 			});
 		}
 		if(!this.user.password) {
-			return this.alert.error({
-				title: 'Enter your password',
+			return this.alert.show({
+				type: "error",
+				text: 'Enter your password',
 			});
 		}
 		this.http.post('/api/user/change', this.user, (resp:any) => {
-			this.alert.info({
-				title: resp
+			this.alert.show({
+				type: "info",
+				text: resp
 			});
 			this.http.post('/api/user/login', this.user, (user:any) => {
 				if(!user){
-					return this.alert.error({
-						title: "Something went wrong",
+					return this.alert.show({
+						type: "error",
+						text: "Something went wrong",
 					});
 				}
 				localStorage.setItem('waw_user', JSON.stringify(user));

@@ -20,11 +20,9 @@
     "@angular/platform-browser-dynamic": "~10.0.11",
     "@angular/router": "~10.0.11",
     "material-icons": "^0.3.1",
-    "ng2-meta": "^5.0.0",
-    "ngx-izitoast": "^1.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
-    "wacom": "^1.5.0",
+    "wacom": "^1.5.2",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
