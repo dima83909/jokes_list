@@ -18,6 +18,7 @@ export class LoginComponent {
 	public start=0;
 	public stop=10;
 	load_next(){
+		if(this.start+10>this.jokes.length) return;
 		this.start+=10;
 		this.stop+=10;
 	}
