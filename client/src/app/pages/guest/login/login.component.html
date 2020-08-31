@@ -1,7 +1,7 @@
 <div [class.dark]="us.mode" class="wrapper">
 	<input type="checkbox" name="mode" [(ngModel)]="us.mode"  (ngModelChange)="setMode()">
 	<input  placeholder="Type to search..." type="text" name="search" [(ngModel)]="search_w">
-	<div (click)="router.navigate(['/joke/'+joke.id])" *ngFor="let joke of jokes.slice(start, stop)|search:search_w:'joke'; let i = index">
+	<div (click)="router.navigate(['/joke/'+joke.id])" *ngFor="let joke of (jokes|search:search_w:'joke').slice(start, stop); let i = index">
 		<strong>{{joke.id+'. '}}</strong>
 		<span innerHtml="{{joke.joke}}"></span>
 	</div>
